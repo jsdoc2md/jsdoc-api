@@ -27,8 +27,14 @@ function getOutput (filepath) {
 test('explain', function(t){
   var result = jsdoc.explain(getSource('global/class-all.js'))
   var fixtureOutput = JSON.parse(getOutput('global/class-all.json'))
-  result.forEach(i => { delete i.meta; delete i.files })
-  fixtureOutput.forEach(i => { delete i.meta; delete i.files })
+  result.forEach(function (i) {
+    delete i.meta;
+    delete i.files
+  })
+  fixtureOutput.forEach(function (i) {
+    delete i.meta;
+    delete i.files
+  })
 
   t.ok(typeof result === 'object')
   t.deepEqual(result, fixtureOutput)
@@ -37,6 +43,8 @@ test('explain', function(t){
 
 test('render', function(t){
   jsdoc.render(getSource('global/class-all.js'), { destination: 'tmp' })
-  t.doesNotThrow(() => fs.statSync('./tmp/index.html'))
+  t.doesNotThrow(function () {
+    fs.statSync('./tmp/index.html')
+  })
   t.end()
 })
