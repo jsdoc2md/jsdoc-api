@@ -2,7 +2,7 @@
   "name": "jsdoc-api",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "0.0.0",
-  "description": "A programmatic interface for jsdoc, both sync and async.",
+  "description": "A programmatic interface for jsdoc",
   "repository": "https://github.com/75lb/jsdoc-api.git",
   "license": "MIT",
   "main": "./lib/jsdoc-api.js",
