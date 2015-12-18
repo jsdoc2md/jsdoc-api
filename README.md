@@ -13,11 +13,8 @@ const jsdoc = require('jsdoc-api')
 ```
 
 * [jsdoc-api](#module_jsdoc-api)
-    * _static_
-        * [.explain(source)](#module_jsdoc-api.explain) ⇒ <code>object</code>
-        * [.render(source, [options])](#module_jsdoc-api.render)
-    * _inner_
-        * [~TempFile](#module_jsdoc-api..TempFile)
+    * [.explain(source)](#module_jsdoc-api.explain) ⇒ <code>object</code>
+    * [.render(source, [options])](#module_jsdoc-api.render)
 
 <a name="module_jsdoc-api.explain"></a>
 ### jsdoc-api.explain(source) ⇒ <code>object</code>
@@ -38,9 +35,6 @@ const jsdoc = require('jsdoc-api')
 | [options] | <code>object</code> | options |
 | [options.destination] |  | destination path |
 
-<a name="module_jsdoc-api..TempFile"></a>
-### jsdoc-api~TempFile
-**Kind**: inner class of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 
 * * *
 
