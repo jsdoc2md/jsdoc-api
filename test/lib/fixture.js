@@ -14,7 +14,7 @@ function Fixture (name) {
   }
 
   this.getExpectedOutput = function () {
-    return fs.readFileSync(path.resolve(this.folder, '1-jsdoc.json'), 'utf-8')
+    return JSON.parse(fs.readFileSync(path.resolve(this.folder, '1-jsdoc.json'), 'utf-8'))
   }
 
 }

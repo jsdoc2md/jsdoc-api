@@ -6,14 +6,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var walkBack = require('walk-back');
 var spawnSync = require('child_process').spawnSync;
+var spawn = require('child_process').spawn;
 var path = require('path');
 var fs = require('fs');
 var getTempPath = require('temp-path');
 var toSpawnArgs = require('object-to-spawn-args');
 var defer = require('defer-promise');
 var arrayify = require('array-back');
+var collectJson = require('collect-json');
 
 exports.explainSync = explainSync;
+exports.explain = explain;
 exports.renderSync = renderSync;
 
 var jsdocPath = walkBack(path.join(__dirname, '..'), path.join('node_modules', 'jsdoc-75lb', 'jsdoc.js'));
@@ -31,6 +34,14 @@ explainSync.source = function explainSyncSource(source) {
   tempFile.delete();
   return JSON.parse(result.stdout);
 };
+
+function explain(files) {
+  return new Promise(function (resolve, reject) {
+    spawn(jsdocPath, ['-X'].concat(arrayify(files))).stdout.pipe(collectJson(function (data) {
+      resolve(data);
+    }));
+  });
+}
 
 function renderSync(files, options) {
   var args = toSpawnArgs(options).concat(arrayify(files));
