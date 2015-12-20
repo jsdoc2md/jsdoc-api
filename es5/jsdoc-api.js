@@ -32,7 +32,10 @@ explainSync.source = function explainSyncSource(source) {
   return JSON.parse(result.stdout);
 };
 
-function renderSync() {}
+function renderSync(files, options) {
+  var args = toSpawnArgs(options).concat(arrayify(files));
+  spawnSync(jsdocPath, args);
+}
 
 renderSync.source = function renderSyncSource(source, options) {
   var tempFile = new TempFile(source);

@@ -23,6 +23,7 @@ Fixture.createTmpFolder = function (folder) {
   try {
     fs.statSync(folder)
     rimraf.sync(folder)
+    fs.mkdirSync(folder)
   } catch (err) {
     fs.mkdirSync(folder)
   }
