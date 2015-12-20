@@ -43,6 +43,16 @@ function explain(files) {
   });
 }
 
+explain.source = function explainSource(source) {
+  var tempFile = new TempFile(source);
+  return new Promise(function (resolve, reject) {
+    spawn(jsdocPath, ['-X'].concat(tempFile.path)).stdout.pipe(collectJson(function (data) {
+      resolve(data);
+      tempFile.delete();
+    }));
+  });
+};
+
 function renderSync(files, options) {
   var args = toSpawnArgs(options).concat(arrayify(files));
   spawnSync(jsdocPath, args);
