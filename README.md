@@ -13,15 +13,15 @@ const jsdoc = require('jsdoc-api')
 ```
 
 * [jsdoc-api](#module_jsdoc-api)
-    * _static_
-        * [.explainSync(files)](#module_jsdoc-api.explainSync) ⇒ <code>object</code>
-            * [.source(source)](#module_jsdoc-api.explainSync.source) ⇒ <code>Array.&lt;object&gt;</code>
-    * _inner_
-        * [~explain(files)](#module_jsdoc-api..explain) ⇒ <code>Promise</code>
-            * [.source(source)](#module_jsdoc-api..explain.source) ⇒ <code>Promise</code>
+    * [.explainSync(files)](#module_jsdoc-api.explainSync) ⇒ <code>object</code>
+        * [.source(source)](#module_jsdoc-api.explainSync.source) ⇒ <code>Array.&lt;object&gt;</code>
+    * [.explain(files)](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
+        * [.source(source)](#module_jsdoc-api.explain.source) ⇒ <code>Promise</code>
+    * [.renderSync(files, [options])](#module_jsdoc-api.renderSync)
+        * [.source(source, [options])](#module_jsdoc-api.renderSync.source)
 
 <a name="module_jsdoc-api.explainSync"></a>
-### jsdoc-api.explainSync(files) ⇒ <code>object</code>
+### jsdoc.explainSync(files) ⇒ <code>object</code>
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 **Returns**: <code>object</code> - - jsdoc explain output  
 
@@ -38,23 +38,43 @@ const jsdoc = require('jsdoc-api')
 | --- | --- | --- |
 | source | <code>string</code> | source code |
 
-<a name="module_jsdoc-api..explain"></a>
-### jsdoc-api~explain(files) ⇒ <code>Promise</code>
-**Kind**: inner method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
+<a name="module_jsdoc-api.explain"></a>
+### jsdoc.explain(files) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 **Fulfil**: <code>object[]</code> - jsdoc explain output  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | files | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | input source files |
 
-<a name="module_jsdoc-api..explain.source"></a>
+<a name="module_jsdoc-api.explain.source"></a>
 #### explain.source(source) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[explain](#module_jsdoc-api..explain)</code>  
+**Kind**: static method of <code>[explain](#module_jsdoc-api.explain)</code>  
 **Fulfil**: <code>object[]</code> - jsdoc explain output  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | source | <code>string</code> | input source code |
+
+<a name="module_jsdoc-api.renderSync"></a>
+### jsdoc.renderSync(files, [options])
+**Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| files | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | input source files |
+| [options] | <code>object</code> | options |
+| [options.destination] |  | destination path |
+
+<a name="module_jsdoc-api.renderSync.source"></a>
+#### renderSync.source(source, [options])
+**Kind**: static method of <code>[renderSync](#module_jsdoc-api.renderSync)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| source | <code>string</code> | the source code |
+| [options] | <code>object</code> | options |
+| [options.destination] |  | destination path |
 
 
 * * *
