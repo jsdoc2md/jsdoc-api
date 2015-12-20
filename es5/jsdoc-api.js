@@ -10,13 +10,19 @@ var path = require('path');
 var fs = require('fs');
 var getTempPath = require('temp-path');
 var toSpawnArgs = require('object-to-spawn-args');
+var defer = require('defer-promise');
+var arrayify = require('array-back');
 
 exports.explainSync = explainSync;
 exports.renderSync = renderSync;
 
 var jsdocPath = walkBack(path.join(__dirname, '..'), path.join('node_modules', 'jsdoc-75lb', 'jsdoc.js'));
 
-function explainSync() {}
+function explainSync(files, options) {
+  var args = ['-X'].concat(arrayify(files));
+  var result = spawnSync(jsdocPath, args);
+  return JSON.parse(result.stdout);
+}
 
 explainSync.source = function explainSyncSource(source) {
   var tempFile = new TempFile(source);
