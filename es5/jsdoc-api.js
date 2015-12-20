@@ -14,9 +14,11 @@ var toSpawnArgs = require('object-to-spawn-args');
 var defer = require('defer-promise');
 var arrayify = require('array-back');
 var collectJson = require('collect-json');
+var Readable = require('stream').Readable;
 
 exports.explainSync = explainSync;
 exports.explain = explain;
+exports.createExplainStream = createExplainStream;
 exports.renderSync = renderSync;
 
 var jsdocPath = walkBack(path.join(__dirname, '..'), path.join('node_modules', 'jsdoc-75lb', 'jsdoc.js'));
@@ -52,6 +54,19 @@ explain.source = function explainSource(source) {
     }));
   });
 };
+
+function createExplainStream(files) {
+  var stream = new Readable();
+  stream._read = function () {
+    var _this = this;
+
+    explain(files).then(function (output) {
+      _this.push(JSON.stringify(output, null, '  '));
+      _this.push(null);
+    });
+  };
+  return stream;
+}
 
 function renderSync(files, options) {
   var args = toSpawnArgs(options).concat(arrayify(files));

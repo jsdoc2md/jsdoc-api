@@ -1,6 +1,7 @@
 var test = require('tape')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
+var collectJson = require('collect-json')
 
 test('.explainSync(files, options)', function (t) {
   var f = new Fixture('global/class-all')
@@ -40,11 +41,22 @@ test('.explain.source(source)', function (t) {
   var f = new Fixture('global/class-all')
   jsdoc.explain.source(f.getSource())
     .then(function (output) {
+      console.log(output)
       var expectedOutput = f.getExpectedOutput()
       Fixture.removeFileSpecificData(output, expectedOutput)
       t.deepEqual(output, expectedOutput)
     })
 })
 
-test('.createExplainStream(files, options)')
+test('.createExplainStream(files, options)', function (t) {
+  t.plan(1)
+  var f = new Fixture('global/class-all')
+  jsdoc.createExplainStream(f.sourcePath)
+    .pipe(collectJson(output => {
+      var expectedOutput = f.getExpectedOutput()
+      Fixture.removeFileSpecificData(output, expectedOutput)
+      t.deepEqual(output, expectedOutput)
+    }))
+})
+
 test('.createExplainStream.source(source, options)')
