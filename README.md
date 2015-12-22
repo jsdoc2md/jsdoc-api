@@ -15,15 +15,18 @@ const jsdoc = require('jsdoc-api')
 * [jsdoc-api](#module_jsdoc-api)
     * [.explainSync(files)](#module_jsdoc-api.explainSync) ⇒ <code>object</code>
         * [.source(source)](#module_jsdoc-api.explainSync.source) ⇒ <code>Array.&lt;object&gt;</code>
-    * [.explain(files)](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
+    * [.explain(files, [options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
         * [.source(source)](#module_jsdoc-api.explain.source) ⇒ <code>Promise</code>
+    * [.createExplainStream(files, [options])](#module_jsdoc-api.createExplainStream) ⇒ <code>Readable</code>
     * [.renderSync(files, [options])](#module_jsdoc-api.renderSync)
         * [.source(source, [options])](#module_jsdoc-api.renderSync.source)
 
 <a name="module_jsdoc-api.explainSync"></a>
 ### jsdoc.explainSync(files) ⇒ <code>object</code>
+Returns jsdoc explain output
+
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
-**Returns**: <code>object</code> - - jsdoc explain output  
+**Node**: Requires version 0.12 and above  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -31,21 +34,29 @@ const jsdoc = require('jsdoc-api')
 
 <a name="module_jsdoc-api.explainSync.source"></a>
 #### explainSync.source(source) ⇒ <code>Array.&lt;object&gt;</code>
+Returns jsdoc explain output, taking source code as input.
+
 **Kind**: static method of <code>[explainSync](#module_jsdoc-api.explainSync)</code>  
-**Returns**: <code>Array.&lt;object&gt;</code> - - jsdoc explain output  
+**Node**: Requires version 0.12 and above  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | source | <code>string</code> | source code |
 
 <a name="module_jsdoc-api.explain"></a>
-### jsdoc.explain(files) ⇒ <code>Promise</code>
+### jsdoc.explain(files, [options]) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
+**Throws**:
+
+- `INVALID_FILES` - One or more files was not valid source code
+
 **Fulfil**: <code>object[]</code> - jsdoc explain output  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | files | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | input source files |
+| [options] | <code>object</code> |  |
+| [options.configure] |  |  |
 
 <a name="module_jsdoc-api.explain.source"></a>
 #### explain.source(source) ⇒ <code>Promise</code>
@@ -55,6 +66,16 @@ const jsdoc = require('jsdoc-api')
 | Param | Type | Description |
 | --- | --- | --- |
 | source | <code>string</code> | input source code |
+
+<a name="module_jsdoc-api.createExplainStream"></a>
+### jsdoc.createExplainStream(files, [options]) ⇒ <code>Readable</code>
+**Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| files | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | input source files |
+| [options] | <code>object</code> |  |
+| [options.configure] |  |  |
 
 <a name="module_jsdoc-api.renderSync"></a>
 ### jsdoc.renderSync(files, [options])
