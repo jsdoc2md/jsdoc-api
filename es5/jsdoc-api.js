@@ -8,7 +8,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Readable = require('stream').Readable;
+var Duplex = require('stream').Duplex;
 var path = require('path');
 var fs = require('fs');
 var walkBack = require('walk-back');
@@ -48,6 +48,7 @@ function explain(files, options) {
       stdout: '',
       stderr: ''
     };
+
     var handle = spawn(jsdocPath, jsdocArgs);
     handle.on('error', function (err) {
       return reject(err);
@@ -55,7 +56,7 @@ function explain(files, options) {
       output.stdout = data;
     })).on('error', function (err) {
       if (/no input files/.test(err.message)) {
-        var invalidErr = new Error('Invalid input files');
+        var invalidErr = new Error('Invalid input files [' + files + ']');
         invalidErr.name = 'INVALID_FILES';
         reject(invalidErr);
       } else {
@@ -121,16 +122,33 @@ var TempFile = (function () {
   return TempFile;
 })();
 
-var ExplainStream = (function (_Readable) {
-  _inherits(ExplainStream, _Readable);
+var ExplainStream = (function (_Duplex) {
+  _inherits(ExplainStream, _Duplex);
 
-  function ExplainStream(files, options) {
+  function ExplainStream(options) {
     _classCallCheck(this, ExplainStream);
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ExplainStream).call(this));
 
-    _this.files = files;
+    options = options || {};
+    _this.files = arrayify(options.files);
+    delete options.files;
     _this.options = options;
+
+    _this.on('pipe', function (src) {
+      if (!_this.inProgress) {
+        src.pipe(collectAll(function (source) {
+          explain.source(source, _this.options).then(function (output) {
+            _this.push(JSON.stringify(output, null, '  '));
+            _this.push(null);
+            _this.inProgress = false;
+          }).catch(function (err) {
+            return _this.emit('error', err);
+          });
+          _this.inProgress = true;
+        }));
+      }
+    });
     return _this;
   }
 
@@ -139,23 +157,28 @@ var ExplainStream = (function (_Readable) {
     value: function start() {
       var _this2 = this;
 
-      if (!this.inProgress) {
-        explain(this.files, this.options).then(function (output) {
-          _this2.push(JSON.stringify(output, null, '  '));
-          _this2.push(null);
-          _this2.inProgress = false;
-        }).catch(function (err) {
-          return _this2.emit('error', err);
-        });
-        this.inProgress = true;
-      }
+      explain(this.files, this.options).then(function (output) {
+        _this2.push(JSON.stringify(output, null, '  '));
+        _this2.push(null);
+        _this2.inProgress = false;
+      }).catch(function (err) {
+        return _this2.emit('error', err);
+      });
+      this.inProgress = true;
     }
   }, {
     key: '_read',
     value: function _read() {
-      this.start();
+      if (!this.inProgress && this.files.length) {
+        this.start();
+      }
+    }
+  }, {
+    key: '_write',
+    value: function _write(chunk, encoding, done) {
+      done();
     }
   }]);
 
   return ExplainStream;
-})(Readable);
+})(Duplex);

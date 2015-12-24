@@ -46,16 +46,3 @@ test('.explain.source(source)', function (t) {
       t.deepEqual(output, expectedOutput)
     })
 })
-
-test('.createExplainStream(files, options)', function (t) {
-  t.plan(1)
-  var f = new Fixture('global/class-all')
-  jsdoc.createExplainStream(f.sourcePath)
-    .pipe(collectJson(function (output) {
-      var expectedOutput = f.getExpectedOutput()
-      Fixture.removeFileSpecificData(output, expectedOutput)
-      t.deepEqual(output, expectedOutput)
-    }))
-})
-
-test('.createExplainStream.source(source, options)')

@@ -17,6 +17,10 @@ function Fixture (name) {
     return JSON.parse(fs.readFileSync(path.resolve(this.folder, '1-jsdoc.json'), 'utf-8'))
   }
 
+  this.createReadStream = function () {
+    return fs.createReadStream(this.sourcePath)
+  }
+
 }
 
 Fixture.createTmpFolder = function (folder) {
