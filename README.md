@@ -14,13 +14,13 @@ const jsdoc = require('jsdoc-api')
 ```
 
 * [jsdoc-api](#module_jsdoc-api)
-    * [.explainSync()](#module_jsdoc-api.explainSync) ⇒ <code>object</code>
+    * [.explainSync([options])](#module_jsdoc-api.explainSync) ⇒ <code>object</code>
     * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
     * [.createExplainStream([options])](#module_jsdoc-api.createExplainStream) ⇒ <code>Duplex</code>
     * [.renderSync()](#module_jsdoc-api.renderSync)
 
 <a name="module_jsdoc-api.explainSync"></a>
-### jsdoc.explainSync() ⇒ <code>object</code>
+### jsdoc.explainSync([options]) ⇒ <code>object</code>
 Returns jsdoc explain output
 
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
@@ -28,6 +28,7 @@ Returns jsdoc explain output
 
 | Param | Type |
 | --- | --- |
+| [options] | <code>object</code> | 
 | [options.files] | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | 
 | [options.source] | <code>string</code> | 
 
