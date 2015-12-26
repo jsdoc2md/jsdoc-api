@@ -81,7 +81,9 @@ function explain(files, options) {
 explain.source = function explainSource(source) {
   var tempFile = new TempFile(source);
   return new Promise(function (resolve, reject) {
-    spawn(jsdocPath, ['-X'].concat(tempFile.path)).stdout.pipe(collectJson(function (data) {
+    spawn(jsdocPath, ['-X'].concat(tempFile.path)).on('error', function (err) {
+      return reject(err);
+    }).stdout.pipe(collectJson(function (data) {
       resolve(data);
       tempFile.delete();
     }));
@@ -136,7 +138,7 @@ var ExplainStream = (function (_Duplex) {
     _this.options = options;
 
     _this.on('pipe', function (src) {
-      if (!_this.inProgress) {
+      if (!(_this.inProgress || options.files || options.source)) {
         src.pipe(collectAll(function (source) {
           explain.source(source, _this.options).then(function (output) {
             _this.push(JSON.stringify(output, null, '  '));
