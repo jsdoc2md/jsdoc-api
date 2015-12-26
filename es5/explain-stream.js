@@ -10,6 +10,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var Duplex = require('stream').Duplex;
 var collectAll = require('collect-all');
+var arrayify = require('array-back');
 
 var ExplainStream = (function (_Duplex) {
   _inherits(ExplainStream, _Duplex);
@@ -20,10 +21,11 @@ var ExplainStream = (function (_Duplex) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ExplainStream).call(this));
 
     _this.explain = explain;
-    _this.options = Object.assign({ files: [] }, options);
+    _this.options = options || {};
+    _this.options.files = arrayify(_this.options.files);
 
     _this.on('pipe', function (src) {
-      if (!(_this.inProgress || options.files || options.source)) {
+      if (!(_this.inProgress || _this.options.files.length || _this.options.source)) {
         src.pipe(collectAll(function (source) {
           _this.options.source = source;
           _this.start();
@@ -39,7 +41,7 @@ var ExplainStream = (function (_Duplex) {
     value: function start() {
       var _this2 = this;
 
-      this.explain(this.files, this.options).then(function (output) {
+      this.explain(this.options).then(function (output) {
         _this2.push(JSON.stringify(output, null, '  '));
         _this2.push(null);
         _this2.inProgress = false;
@@ -51,7 +53,7 @@ var ExplainStream = (function (_Duplex) {
   }, {
     key: '_read',
     value: function _read() {
-      if (!this.inProgress && this.files.length) {
+      if (!this.inProgress && (this.options.files.length || this.options.source)) {
         this.start();
       }
     }

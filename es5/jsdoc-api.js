@@ -58,14 +58,21 @@ function explain(options) {
     handle.stdout.pipe(jsdocOutput.collectInto('stdout'));
 
     handle.on('close', function (code) {
+
       if (code) {
         var err = new Error(jsdocOutput.stderr.trim());
         err.name = 'INVALID_FILES';
         reject(err);
       } else {
-        if (tempFile) tempFile.delete();
-        resolve(JSON.parse(jsdocOutput.stdout));
+        if (code === 0 && /There are no input files to process/.test(jsdocOutput.stdout)) {
+          var err = new Error('There are no input files to process');
+          err.name = 'INVALID_FILES';
+          reject(err);
+        } else {
+          resolve(JSON.parse(jsdocOutput.stdout));
+        }
       }
+      if (tempFile) tempFile.delete();
     });
   });
 }
