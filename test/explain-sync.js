@@ -1,7 +1,7 @@
 var test = require('tape')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
-var spawnSync = require('child_process')
+var spawnSync = require('child_process').spawnSync
 
 /* only test on a node version with spawnSync */
 if (spawnSync) {
