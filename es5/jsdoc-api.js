@@ -93,7 +93,19 @@ function createExplainStream(options) {
   return new ExplainStream(explain, options);
 }
 
-function renderSync(files, options) {
-  var args = toSpawnArgs(options).concat(arrayify(files));
-  spawnSync(jsdocPath, args);
+function renderSync(options) {
+  options = Object.assign({ files: [] }, options);
+  options.files = arrayify(options.files);
+  assert.ok(options.files.length || options.source, 'Must set either .files or .source');
+
+  var tempFile = null;
+  if (options.source) tempFile = new TempFile(options.source);
+
+  var jsdocOptions = Object.assign({}, options);
+  delete jsdocOptions.files;
+  delete jsdocOptions.source;
+
+  var jsdocArgs = toSpawnArgs(jsdocOptions).concat(options.source ? tempFile.path : options.files);
+
+  spawnSync(jsdocPath, jsdocArgs);
 }
