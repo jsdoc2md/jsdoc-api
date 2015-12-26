@@ -13,8 +13,11 @@ function Fixture (name) {
     return fs.readFileSync(this.sourcePath, 'utf-8')
   }
 
-  this.getExpectedOutput = function () {
-    return JSON.parse(fs.readFileSync(path.resolve(this.folder, '1-jsdoc.json'), 'utf-8'))
+  this.getExpectedOutput = function (output) {
+    var expectedOutput = JSON.parse(fs.readFileSync(path.resolve(this.folder, '1-jsdoc.json'), 'utf-8'))
+    Fixture.removeFileSpecificData(expectedOutput)
+    if (output) Fixture.removeFileSpecificData(output)
+    return expectedOutput
   }
 
   this.createReadStream = function () {

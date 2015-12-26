@@ -9,15 +9,22 @@ test('.createExplainStream({ files: "" })', function (t) {
   jsdoc.createExplainStream({ files: f.sourcePath })
     .on('error', logError)
     .pipe(collectJson(function (output) {
-      var expectedOutput = f.getExpectedOutput()
-      Fixture.removeFileSpecificData(output, expectedOutput)
+      var expectedOutput = f.getExpectedOutput(output)
       t.deepEqual(output, expectedOutput)
     }))
 })
 
-test('.createExplainStream({ source: "" })')
+test('.createExplainStream({ source: "" })', function (t) {
+  t.plan(1)
+  var f = new Fixture('global/class-all')
+  jsdoc.createExplainStream({ source: f.getSource() })
+    .pipe(collectJson(function (output) {
+      var expectedOutput = f.getExpectedOutput(output)
+      t.deepEqual(output, expectedOutput)
+    }))
+})
 
-test('.createExplainStream() stdin input', function (t) {
+test('.createExplainStream() stream input', function (t) {
   t.plan(1)
   var f = new Fixture('global/class-all')
   f.createReadStream().pipe(jsdoc.createExplainStream())
