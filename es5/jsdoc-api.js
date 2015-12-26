@@ -19,16 +19,28 @@ exports.renderSync = renderSync;
 
 var jsdocPath = walkBack(path.join(__dirname, '..'), path.join('node_modules', 'jsdoc-75lb', 'jsdoc.js'));
 
-function explainSync(files, options) {
-  var args = ['-X'].concat(arrayify(files));
-  var result = spawnSync(jsdocPath, args);
+function explainSync(options) {
+  options = Object.assign({}, options);
+  options.files = arrayify(options.files);
+  assert.ok(options.files.length || options.source, 'Must set either .files or .source');
+
+  var tempFile = null;
+  if (options.source) tempFile = new TempFile(options.source);
+
+  var jsdocOptions = Object.assign({}, options);
+  delete jsdocOptions.files;
+  delete jsdocOptions.source;
+
+  var jsdocArgs = toSpawnArgs(jsdocOptions).concat(['-X']).concat(options.source ? tempFile.path : options.files);
+
+  var result = spawnSync(jsdocPath, jsdocArgs);
+  if (tempFile) tempFile.delete();
   return JSON.parse(result.stdout);
 }
 
 function explain(options) {
   options = Object.assign({ files: [] }, options);
   options.files = arrayify(options.files);
-
   assert.ok(options.files.length || options.source, 'Must set either .files or .source');
 
   var tempFile = null;
