@@ -20,7 +20,6 @@ function Fixture (name) {
   this.createReadStream = function () {
     return fs.createReadStream(this.sourcePath)
   }
-
 }
 
 Fixture.createTmpFolder = function (folder) {
@@ -37,7 +36,7 @@ Fixture.removeFileSpecificData = function () {
   arrayify(arguments).forEach(function (input) {
     if (input) {
       input.forEach(function (i) {
-        delete i.meta;
+        delete i.meta
         delete i.files
       })
     }

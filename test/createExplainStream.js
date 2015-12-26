@@ -41,5 +41,5 @@ test('.createExplainStream: no valid files', function (t) {
 })
 
 function logError (err) {
-  console.error(err.stack);
+  console.error(err.stack)
 }
