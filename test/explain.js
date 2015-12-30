@@ -3,7 +3,7 @@ var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 
 process.on('unhandledRejection', function (err) {
-  console.error(err.stack);
+  console.error(err.stack)
 })
 
 test('.explain({ files })', function (t) {
