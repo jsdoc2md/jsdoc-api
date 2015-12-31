@@ -11,6 +11,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Duplex = require('stream').Duplex;
 var collectAll = require('collect-all');
 var arrayify = require('array-back');
+var jsdoc = require('./jsdoc');
 
 var ExplainStream = (function (_Duplex) {
   _inherits(ExplainStream, _Duplex);
@@ -41,7 +42,8 @@ var ExplainStream = (function (_Duplex) {
     value: function start() {
       var _this2 = this;
 
-      this.explain(this.options).then(function (output) {
+      var explain = new jsdoc.Explain(this.options);
+      explain.execute().then(function (output) {
         _this2.push(JSON.stringify(output, null, '  '));
         _this2.push(null);
         _this2.inProgress = false;

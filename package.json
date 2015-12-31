@@ -41,6 +41,7 @@
     "file-set": "^0.2.8",
     "jsdoc-75lb": "^3.5",
     "object-to-spawn-args": "^1",
+    "promise.prototype.finally": "^1.0.1",
     "temp-path": "^1.0.0",
     "walk-back": "^1.0.1"
   },
