@@ -3,7 +3,7 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "0.4.0",
   "description": "A programmatic interface for jsdoc",
-  "repository": "https://github.com/75lb/jsdoc-api.git",
+  "repository": "https://github.com/jsdoc2md/jsdoc-api.git",
   "license": "MIT",
   "main": "index",
   "keywords": [
