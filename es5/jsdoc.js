@@ -29,8 +29,6 @@ var JsdocCommand = (function () {
     options = options || {};
     options.files = arrayify(options.files);
 
-    assert.ok(options.files.length || options.source, 'Must set either .files or .source');
-
     this.tempFile = null;
     if (options.source) this.tempFile = new TempFile(options.source);
 
@@ -45,35 +43,60 @@ var JsdocCommand = (function () {
   _createClass(JsdocCommand, [{
     key: 'execute',
     value: function execute() {
-      this.expandInputPaths();
-      var err = this.validateOptions();
+      var _this = this;
+
+      this.preExecute();
+      var err = this.validate();
       this.output = this.getOutput(err);
-      this.cleanup();
+      if (this.output instanceof Promise) {
+        this.output.finally(function () {
+          _this.postExecute();
+        });
+      } else {
+        this.postExecute();
+      }
       return this.output;
     }
   }, {
-    key: 'expandInputPaths',
-    value: function expandInputPaths() {
+    key: 'preExecute',
+    value: function preExecute() {
       this.inputFileSet = new FileSet(this.options.files);
     }
   }, {
-    key: 'validateOptions',
-    value: function validateOptions() {
+    key: 'validate',
+    value: function validate() {
+      assert.ok(this.options.files.length || this.options.source, 'Must set either .files or .source');
+
       if (this.inputFileSet.notExisting.length) {
         var err = new Error('These files do not exist: ' + this.inputFileSet.notExisting);
-        err.name = 'INVALID_FILES';
+        err.name = 'JSDOC_ERROR';
         return err;
       }
     }
   }, {
-    key: 'cleanup',
-    value: function cleanup() {
+    key: 'postExecute',
+    value: function postExecute() {
       if (this.tempFile) {
-        if (this.output instanceof Promise) {
-          this.output.finally(this.tempFile.delete.bind(this.tempFile));
-        } else {
-          this.tempFile.delete();
-        }
+        this.tempFile.delete();
+      }
+    }
+  }, {
+    key: 'verifyOutput',
+    value: function verifyOutput(code, output) {
+      var parseFailed = false;
+      var parsedOutput = undefined;
+      try {
+        parsedOutput = JSON.parse(output.stdout);
+      } catch (err) {
+        parseFailed = true;
+      }
+
+      if (code > 0 || parseFailed) {
+        var err = new Error(output.stderr.trim() || 'Jsdoc failed.');
+        err.name = 'JSDOC_ERROR';
+        throw err;
+      } else {
+        return parsedOutput;
       }
     }
   }]);
@@ -81,19 +104,19 @@ var JsdocCommand = (function () {
   return JsdocCommand;
 })();
 
-var JsdocExplain = (function (_JsdocCommand) {
-  _inherits(JsdocExplain, _JsdocCommand);
+var Explain = (function (_JsdocCommand) {
+  _inherits(Explain, _JsdocCommand);
 
-  function JsdocExplain() {
-    _classCallCheck(this, JsdocExplain);
+  function Explain() {
+    _classCallCheck(this, Explain);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(JsdocExplain).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Explain).apply(this, arguments));
   }
 
-  _createClass(JsdocExplain, [{
+  _createClass(Explain, [{
     key: 'getOutput',
     value: function getOutput(err) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (err) return Promise.reject(err);
 
@@ -102,63 +125,55 @@ var JsdocExplain = (function (_JsdocCommand) {
           stdout: '',
           stderr: '',
           collectInto: function collectInto(dest) {
-            var _this2 = this;
+            var _this3 = this;
 
             return collectAll(function (data) {
-              return _this2[dest] = data.toString();
+              return _this3[dest] = data.toString();
             });
           }
         };
 
-        var jsdocArgs = toSpawnArgs(_this3.jsdocOptions).concat(['-X']).concat(_this3.options.source ? _this3.tempFile.path : _this3.inputFileSet.files);
+        var jsdocArgs = toSpawnArgs(_this4.jsdocOptions).concat(['-X']).concat(_this4.options.source ? _this4.tempFile.path : _this4.inputFileSet.files);
 
         var handle = spawn(jsdocPath, jsdocArgs);
         handle.stderr.pipe(jsdocOutput.collectInto('stderr'));
         handle.stdout.pipe(jsdocOutput.collectInto('stdout'));
 
         handle.on('close', function (code) {
-          if (code) {
-            var _err = new Error(jsdocOutput.stderr.trim());
-            _err.name = 'INVALID_FILES';
-            reject(_err);
-          } else {
-            if (code === 0 && /There are no input files to process/.test(jsdocOutput.stdout)) {
-              var _err2 = new Error('There are no input files to process');
-              _err2.name = 'INVALID_FILES';
-              reject(_err2);
-            } else {
-              resolve(JSON.parse(jsdocOutput.stdout));
-            }
+          try {
+            resolve(_this4.verifyOutput(code, jsdocOutput));
+          } catch (err) {
+            reject(err);
           }
         });
       });
     }
   }]);
 
-  return JsdocExplain;
+  return Explain;
 })(JsdocCommand);
 
-var JsdocSync = (function (_JsdocCommand2) {
-  _inherits(JsdocSync, _JsdocCommand2);
+var ExplainSync = (function (_JsdocCommand2) {
+  _inherits(ExplainSync, _JsdocCommand2);
 
-  function JsdocSync() {
-    _classCallCheck(this, JsdocSync);
+  function ExplainSync() {
+    _classCallCheck(this, ExplainSync);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(JsdocSync).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(ExplainSync).apply(this, arguments));
   }
 
-  _createClass(JsdocSync, [{
+  _createClass(ExplainSync, [{
     key: 'getOutput',
     value: function getOutput(err) {
       if (err) throw err;
 
       var jsdocArgs = toSpawnArgs(this.jsdocOptions).concat(['-X']).concat(this.options.source ? this.tempFile.path : this.inputFileSet.files);
-      var result = spawnSync(jsdocPath, jsdocArgs);
-      return JSON.parse(result.stdout);
+      var result = spawnSync(jsdocPath, jsdocArgs, { encoding: 'utf-8' });
+      return this.verifyOutput(result.status, result);
     }
   }]);
 
-  return JsdocSync;
+  return ExplainSync;
 })(JsdocCommand);
 
 var RenderSync = (function (_JsdocCommand3) {
@@ -182,6 +197,6 @@ var RenderSync = (function (_JsdocCommand3) {
   return RenderSync;
 })(JsdocCommand);
 
-exports.Explain = JsdocExplain;
-exports.ExplainSync = JsdocSync;
+exports.Explain = Explain;
+exports.ExplainSync = ExplainSync;
 exports.RenderSync = RenderSync;

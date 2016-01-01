@@ -1,10 +1,7 @@
 var test = require('tape')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
-
-process.on('unhandledRejection', function (err) {
-  console.error(err.stack)
-})
+var path = require('path')
 
 test('.explain({ files })', function (t) {
   t.plan(1)
@@ -24,13 +21,25 @@ test('.explain({ source })', function (t) {
     })
 })
 
-test("file doesn't exist", function (t) {
+test(".explain: file doesn't exist", function (t) {
   t.plan(1)
   jsdoc.explain({ files: 'sdfafafirifrj' })
     .then(function () {
       t.fail('should not reach here')
     })
     .catch(function (err) {
-      t.strictEqual(err.name, 'INVALID_FILES')
+      t.strictEqual(err.name, 'JSDOC_ERROR')
+    })
+})
+
+test('.explain: invalid doclet syntax', function (t) {
+  t.plan(1)
+  var input = path.resolve(__dirname, '..', 'node_modules', 'jsdoc2md-testbed', 'build', 'input/buggy/bad-syntax.js')
+  jsdoc.explain({ files: input })
+    .then(function () {
+      t.fail('should not reach here')
+    })
+    .catch(function (err) {
+      t.strictEqual(err.name, 'JSDOC_ERROR')
     })
 })
