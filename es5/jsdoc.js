@@ -134,8 +134,9 @@ var Explain = (function (_JsdocCommand) {
         };
 
         var jsdocArgs = toSpawnArgs(_this4.jsdocOptions).concat(['-X']).concat(_this4.options.source ? _this4.tempFile.path : _this4.inputFileSet.files);
+        jsdocArgs.unshift(jsdocPath);
 
-        var handle = spawn(jsdocPath, jsdocArgs);
+        var handle = spawn('node', jsdocArgs);
         handle.stderr.pipe(jsdocOutput.collectInto('stderr'));
         handle.stdout.pipe(jsdocOutput.collectInto('stdout'));
 
@@ -168,7 +169,8 @@ var ExplainSync = (function (_JsdocCommand2) {
       if (err) throw err;
 
       var jsdocArgs = toSpawnArgs(this.jsdocOptions).concat(['-X']).concat(this.options.source ? this.tempFile.path : this.inputFileSet.files);
-      var result = spawnSync(jsdocPath, jsdocArgs, { encoding: 'utf-8' });
+      jsdocArgs.unshift(jsdocPath);
+      var result = spawnSync('node', jsdocArgs, { encoding: 'utf-8' });
       return this.verifyOutput(result.status, result);
     }
   }]);
@@ -190,7 +192,8 @@ var RenderSync = (function (_JsdocCommand3) {
     value: function getOutput(err) {
       if (err) throw err;
       var jsdocArgs = toSpawnArgs(this.jsdocOptions).concat(this.options.source ? this.tempFile.path : this.options.files);
-      spawnSync(jsdocPath, jsdocArgs);
+      jsdocArgs.unshift(jsdocPath);
+      spawnSync('node', jsdocArgs);
     }
   }]);
 
