@@ -42,7 +42,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc). It provi
         * [.explainSync([options])](#module_jsdoc-api.explainSync) ⇒ <code>Array.&lt;object&gt;</code>
         * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
         * [.createExplainStream([options])](#module_jsdoc-api.createExplainStream) ⇒ <code>Duplex</code>
-        * [.renderSync()](#module_jsdoc-api.renderSync)
+        * [.renderSync([options])](#module_jsdoc-api.renderSync)
     * _inner_
         * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
             * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> &#124; <code>Array.&lt;string&gt;</code>
@@ -62,7 +62,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc). It provi
 
 <a name="module_jsdoc-api.explainSync"></a>
 ### jsdoc.explainSync([options]) ⇒ <code>Array.&lt;object&gt;</code>
-Returns jsdoc explain output
+Returns jsdoc explain output.
 
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 **Prerequisite**: Requires node v0.12 or above  
@@ -73,6 +73,8 @@ Returns jsdoc explain output
 
 <a name="module_jsdoc-api.explain"></a>
 ### jsdoc.explain([options]) ⇒ <code>Promise</code>
+Returns a promise for the jsdoc explain output.
+
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 **Fulfil**: <code>object[]</code> - jsdoc explain output  
 
@@ -82,30 +84,34 @@ Returns jsdoc explain output
 
 <a name="module_jsdoc-api.createExplainStream"></a>
 ### jsdoc.createExplainStream([options]) ⇒ <code>Duplex</code>
+Returns a duplex stream, into which you can pipe source code and receive explain output at the other end.
+
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>object</code> | 
-| [options.files] | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | 
-| [options.source] | <code>string</code> | 
-| [options.configure] |  | 
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
+**Example**  
+```js
+fs.createReadStream('source-code.js')
+  .pipe(jsdoc.createExplainStream())
+  .pipe(process.stdout)
+```
 <a name="module_jsdoc-api.renderSync"></a>
-### jsdoc.renderSync()
+### jsdoc.renderSync([options])
+Render jsdoc documentation.
+
 **Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 **Prerequisite**: Requires node v0.12 or above  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| [options.files] | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> |  |
-| [options.source] | <code>string</code> |  |
-| [options.configure] |  |  |
-| [options.destination] |  | destination path |
+| Param | Type |
+| --- | --- |
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
 <a name="module_jsdoc-api..JsdocOptions"></a>
 ### jsdoc~JsdocOptions
-The common jsdoc options
+The jsdoc options, common for all operations.
 
 **Kind**: inner class of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 
