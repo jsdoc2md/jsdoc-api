@@ -8,7 +8,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require('promise.prototype.finally');
 var path = require('path');
 var assert = require('assert');
 var walkBack = require('walk-back');
@@ -25,6 +24,8 @@ var jsdocPath = walkBack(path.join(__dirname, '..'), path.join('node_modules', '
 var JsdocCommand = (function () {
   function JsdocCommand(options) {
     _classCallCheck(this, JsdocCommand);
+
+    require('promise.prototype.finally');
 
     options = options || {};
     options.files = arrayify(options.files);
