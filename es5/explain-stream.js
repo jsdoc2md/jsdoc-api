@@ -24,15 +24,15 @@ var ExplainStream = (function (_Duplex) {
     _this.explain = explain;
     _this.options = options || {};
     _this.options.files = arrayify(_this.options.files);
-
-    _this.on('pipe', function (src) {
+    _this._writeCollector = collectAll(function (source) {
       if (!(_this.inProgress || _this.options.files.length || _this.options.source)) {
-        src.pipe(collectAll(function (source) {
-          _this.options.source = source;
-          _this.start();
-          _this.inProgress = true;
-        }));
+        _this.options.source = source;
+        _this.start();
+        _this.inProgress = true;
       }
+    });
+    _this.on('finish', function () {
+      _this._writeCollector.end();
     });
     return _this;
   }
@@ -62,6 +62,7 @@ var ExplainStream = (function (_Duplex) {
   }, {
     key: '_write',
     value: function _write(chunk, encoding, done) {
+      this._writeCollector.write(chunk);
       done();
     }
   }]);

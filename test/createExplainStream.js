@@ -24,7 +24,7 @@ test('.createExplainStream({ source })', function (t) {
     }))
 })
 
-test('.createExplainStream() stream input', function (t) {
+test('.createExplainStream() stream input - pipe', function (t) {
   t.plan(1)
   var f = new Fixture('global/class-all')
   f.createReadStream().pipe(jsdoc.createExplainStream())
@@ -33,6 +33,19 @@ test('.createExplainStream() stream input', function (t) {
       Fixture.removeFileSpecificData(output, expectedOutput)
       t.deepEqual(output, expectedOutput)
     }))
+})
+
+test('.createExplainStream() stream input - write', function (t) {
+  t.plan(1)
+  var f = new Fixture('global/class-all')
+  var explainStream = jsdoc.createExplainStream()
+  explainStream.pipe(collectJson(function (output) {
+    if (output) {
+      var expectedOutput = f.getExpectedOutput(output)
+      t.deepEqual(output, expectedOutput)
+    }
+  }))
+  explainStream.end(f.getSource())
 })
 
 test('.createExplainStream: no valid files', function (t) {
