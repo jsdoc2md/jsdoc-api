@@ -48,7 +48,9 @@ var ExplainStream = (function (_Duplex) {
         _this2.push(null);
         _this2.inProgress = false;
       }).catch(function (err) {
-        return _this2.emit('error', err);
+        process.nextTick(function () {
+          _this2.emit('error', err);
+        });
       });
       this.inProgress = true;
     }
