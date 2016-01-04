@@ -72,8 +72,20 @@ test('.createExplainStream: missing files', function (t) {
 
 test('.createExplainStream: invalid doclet syntax', function (t) {
   t.plan(1)
-  var input = path.resolve(__dirname, '..', 'node_modules', 'jsdoc2md-testbed', 'build', 'input/buggy/bad-syntax.js')
-  jsdoc.createExplainStream({ files: input })
+  var f = new Fixture('input/buggy', 'bad-syntax.js')
+  jsdoc.createExplainStream({ files: f.sourcePath })
+    .on('error', function (err) {
+      t.strictEqual(err.name, 'JSDOC_ERROR')
+    })
+    .pipe(collectJson(function (output) {
+      t.fail('should not reach here')
+    }))
+})
+
+test('.createExplainStream: handles jsdoc crash', function (t) {
+  t.plan(1)
+  var f = new Fixture('input/buggy', 'broken-javascript.js')
+  jsdoc.createExplainStream({ files: f.sourcePath })
     .on('error', function (err) {
       t.strictEqual(err.name, 'JSDOC_ERROR')
     })
