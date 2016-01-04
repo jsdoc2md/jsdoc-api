@@ -8,7 +8,7 @@
 
 <a name="module_jsdoc-api"></a>
 ## jsdoc-api
-A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc). It provides sync, async (Promise) and streaming interfaces for the two main jsdoc operations ('explain' and 'render documentation').
+A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc). It provides sync, async (Promise) and streaming interfaces for the two main jsdoc operations ('explain' and 'render documentation'). You can input source code via a string, a set of file names or a stream.
 
 **Example**  
 ```js

@@ -16,7 +16,7 @@ if (spawnSync) {
     t.end()
   })
 
-  test('.renderSync.source(source, options)', function (t) {
+  test('.renderSync({ source, destination })', function (t) {
     Fixture.createTmpFolder('tmp')
     var f = new Fixture('global/class-all')
     jsdoc.renderSync({ source: f.getSource(), destination: 'tmp' })
