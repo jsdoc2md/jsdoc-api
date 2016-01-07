@@ -109,6 +109,10 @@ Render jsdoc documentation.
 | --- | --- |
 | [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
+**Example**  
+```js
+jsdoc.renderSync({ files: 'lib/*', destination: 'api-docs' })
+```
 <a name="module_jsdoc-api..JsdocOptions"></a>
 ### jsdoc~JsdocOptions
 The jsdoc options, common for all operations.
