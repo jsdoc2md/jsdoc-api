@@ -4,6 +4,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ExplainStream = require('./explain-stream');
 var jsdoc = require('./jsdoc');
+var path = require('path');
 
 exports.explainSync = explainSync;
 exports.explain = explain;
@@ -11,20 +12,24 @@ exports.createExplainStream = createExplainStream;
 exports.renderSync = renderSync;
 
 function explainSync(options) {
+  options = new JsdocOptions(options);
   var jsdocExplainSync = new jsdoc.ExplainSync(options);
   return jsdocExplainSync.execute();
 }
 
 function explain(options) {
+  options = new JsdocOptions(options);
   var jsdocExplain = new jsdoc.Explain(options);
   return jsdocExplain.execute();
 }
 
 function createExplainStream(options) {
+  options = new JsdocOptions(options);
   return new ExplainStream(explain, options);
 }
 
 function renderSync(options) {
+  options = new JsdocOptions(options);
   var render = new jsdoc.RenderSync(options);
   return render.execute();
 }
@@ -34,29 +39,37 @@ var JsdocOptions = function JsdocOptions(options) {
 
   this.files = [];
 
-  this.source = '';
+  this.source = undefined;
 
-  this.access = '';
+  this.access = undefined;
 
-  this.configure = '';
+  this.configure = undefined;
 
-  this.destination = '';
+  this.destination = undefined;
 
-  this.encoding = '';
+  this.encoding = undefined;
 
-  this.private = false;
+  this.private = undefined;
 
-  this.package = '';
+  this.package = undefined;
 
-  this.pedantic = false;
+  this.pedantic = undefined;
 
-  this.query = '';
+  this.query = undefined;
 
-  this.recurse = false;
+  this.recurse = undefined;
 
-  this.readme = '';
+  this.readme = undefined;
 
-  this.template = '';
+  this.template = undefined;
 
-  this.tutorials = '';
+  this.tutorials = undefined;
+
+  this.html = undefined;
+
+  Object.assign(this, options);
+  if (this.html) {
+    this.configure = path.resolve(__dirname, 'html-conf.json');
+    delete this.html;
+  }
 };

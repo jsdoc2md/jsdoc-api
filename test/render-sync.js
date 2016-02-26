@@ -8,7 +8,7 @@ var spawnSync = require('child_process').spawnSync
 if (spawnSync) {
   test('.renderSync({ files })', function (t) {
     Fixture.createTmpFolder('tmp')
-    var f = new Fixture('global/class-all')
+    var f = new Fixture('class-all')
     jsdoc.renderSync({ files: f.sourcePath, destination: 'tmp' })
     t.doesNotThrow(function () {
       fs.statSync('./tmp/index.html')
@@ -18,7 +18,7 @@ if (spawnSync) {
 
   test('.renderSync({ source, destination })', function (t) {
     Fixture.createTmpFolder('tmp')
-    var f = new Fixture('global/class-all')
+    var f = new Fixture('class-all')
     jsdoc.renderSync({ source: f.getSource(), destination: 'tmp' })
     t.doesNotThrow(function () {
       fs.statSync('./tmp/index.html')

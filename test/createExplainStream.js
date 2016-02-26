@@ -2,11 +2,10 @@ var test = require('tape')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 var collectJson = require('collect-json')
-var path = require('path')
 
 test('.createExplainStream({ files })', function (t) {
   t.plan(1)
-  var f = new Fixture('global/class-all')
+  var f = new Fixture('class-all')
   jsdoc.createExplainStream({ files: f.sourcePath })
     .pipe(collectJson(function (output) {
       var expectedOutput = f.getExpectedOutput(output)
@@ -16,7 +15,7 @@ test('.createExplainStream({ files })', function (t) {
 
 test('.createExplainStream({ source })', function (t) {
   t.plan(1)
-  var f = new Fixture('global/class-all')
+  var f = new Fixture('class-all')
   jsdoc.createExplainStream({ source: f.getSource() })
     .pipe(collectJson(function (output) {
       var expectedOutput = f.getExpectedOutput(output)
@@ -26,7 +25,7 @@ test('.createExplainStream({ source })', function (t) {
 
 test('.createExplainStream() stream input - pipe', function (t) {
   t.plan(1)
-  var f = new Fixture('global/class-all')
+  var f = new Fixture('class-all')
   f.createReadStream().pipe(jsdoc.createExplainStream())
     .pipe(collectJson(function (output) {
       var expectedOutput = f.getExpectedOutput()
@@ -37,7 +36,7 @@ test('.createExplainStream() stream input - pipe', function (t) {
 
 test('.createExplainStream() stream input - write', function (t) {
   t.plan(1)
-  var f = new Fixture('global/class-all')
+  var f = new Fixture('class-all')
   var explainStream = jsdoc.createExplainStream()
   explainStream.pipe(collectJson(function (output) {
     if (output) {
@@ -70,9 +69,10 @@ test('.createExplainStream: missing files', function (t) {
     }))
 })
 
+/* bad-doclet-syntax.js no exist */
 test('.createExplainStream: invalid doclet syntax', function (t) {
   t.plan(1)
-  var f = new Fixture('input/buggy', 'bad-syntax.js')
+  var f = new Fixture('buggy', 'bad-doclet-syntax.js')
   jsdoc.createExplainStream({ files: f.sourcePath })
     .on('error', function (err) {
       t.strictEqual(err.name, 'JSDOC_ERROR')
@@ -84,7 +84,7 @@ test('.createExplainStream: invalid doclet syntax', function (t) {
 
 test('.createExplainStream: handles jsdoc crash', function (t) {
   t.plan(1)
-  var f = new Fixture('input/buggy', 'broken-javascript.js')
+  var f = new Fixture('buggy', 'broken-javascript.js')
   jsdoc.createExplainStream({ files: f.sourcePath })
     .on('error', function (err) {
       t.strictEqual(err.name, 'JSDOC_ERROR')

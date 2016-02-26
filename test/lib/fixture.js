@@ -6,7 +6,7 @@ var arrayify = require('array-back')
 module.exports = Fixture
 
 function Fixture (name, filePath) {
-  this.folder = path.resolve(__dirname, '..', '..', 'node_modules', 'jsdoc2md-testbed', 'build', name)
+  this.folder = path.resolve(__dirname, '..', 'fixture', name)
   this.sourcePath = path.resolve(this.folder, filePath || '0-src.js')
 
   this.getSource = function () {

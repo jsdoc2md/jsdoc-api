@@ -59,6 +59,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc). It provi
             * [.readme](#module_jsdoc-api..JsdocOptions.JsdocOptions+readme) : <code>string</code>
             * [.template](#module_jsdoc-api..JsdocOptions.JsdocOptions+template) : <code>string</code>
             * [.tutorials](#module_jsdoc-api..JsdocOptions.JsdocOptions+tutorials) : <code>string</code>
+            * [.html](#module_jsdoc-api..JsdocOptions.JsdocOptions+html) : <code>boolean</code>
 
 <a name="module_jsdoc-api.explainSync"></a>
 ### jsdoc.explainSync([options]) ⇒ <code>Array.&lt;object&gt;</code>
@@ -134,6 +135,7 @@ The jsdoc options, common for all operations.
     * [.readme](#module_jsdoc-api..JsdocOptions.JsdocOptions+readme) : <code>string</code>
     * [.template](#module_jsdoc-api..JsdocOptions.JsdocOptions+template) : <code>string</code>
     * [.tutorials](#module_jsdoc-api..JsdocOptions.JsdocOptions+tutorials) : <code>string</code>
+    * [.html](#module_jsdoc-api..JsdocOptions.JsdocOptions+html) : <code>boolean</code>
 
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+files"></a>
 #### options.files : <code>string</code> &#124; <code>Array.&lt;string&gt;</code>
@@ -203,6 +205,11 @@ The path to the template to use. Default: path/to/jsdoc/templates/default.
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+tutorials"></a>
 #### options.tutorials : <code>string</code>
 Directory in which JSDoc should search for tutorials.
+
+**Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
+<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+html"></a>
+#### options.html : <code>boolean</code>
+Enable experimental parsing of `.html` files.
 
 **Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
 

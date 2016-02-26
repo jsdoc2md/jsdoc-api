@@ -1,6 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -21,7 +21,7 @@ var FileSet = require('file-set');
 
 var jsdocPath = walkBack(path.join(__dirname, '..'), path.join('node_modules', 'jsdoc-75lb', 'jsdoc.js'));
 
-var JsdocCommand = (function () {
+var JsdocCommand = function () {
   function JsdocCommand(options) {
     _classCallCheck(this, JsdocCommand);
 
@@ -103,9 +103,9 @@ var JsdocCommand = (function () {
   }]);
 
   return JsdocCommand;
-})();
+}();
 
-var Explain = (function (_JsdocCommand) {
+var Explain = function (_JsdocCommand) {
   _inherits(Explain, _JsdocCommand);
 
   function Explain() {
@@ -129,7 +129,7 @@ var Explain = (function (_JsdocCommand) {
             var _this3 = this;
 
             return collectAll(function (data) {
-              return _this3[dest] = data.toString();
+              _this3[dest] = data.toString();
             });
           }
         };
@@ -153,9 +153,9 @@ var Explain = (function (_JsdocCommand) {
   }]);
 
   return Explain;
-})(JsdocCommand);
+}(JsdocCommand);
 
-var ExplainSync = (function (_JsdocCommand2) {
+var ExplainSync = function (_JsdocCommand2) {
   _inherits(ExplainSync, _JsdocCommand2);
 
   function ExplainSync() {
@@ -177,9 +177,9 @@ var ExplainSync = (function (_JsdocCommand2) {
   }]);
 
   return ExplainSync;
-})(JsdocCommand);
+}(JsdocCommand);
 
-var RenderSync = (function (_JsdocCommand3) {
+var RenderSync = function (_JsdocCommand3) {
   _inherits(RenderSync, _JsdocCommand3);
 
   function RenderSync() {
@@ -199,7 +199,7 @@ var RenderSync = (function (_JsdocCommand3) {
   }]);
 
   return RenderSync;
-})(JsdocCommand);
+}(JsdocCommand);
 
 exports.Explain = Explain;
 exports.ExplainSync = ExplainSync;

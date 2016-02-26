@@ -24,26 +24,25 @@
     "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-es2015": "^6.5.0",
     "coveralls": "^2.11.6",
-    "collect-json": "^1.0.6",
-    "jsdoc-to-markdown": "^1.3.1",
-    "jsdoc2md-testbed": "0.0.8",
-    "rimraf": "^2.5.1",
-    "tape": "^4.2.2"
+    "collect-json": "^1.0.7",
+    "jsdoc-to-markdown": "^1.3.3",
+    "rimraf": "^2.5.2",
+    "tape": "^4.4.0"
   },
   "dependencies": {
     "array-back": "^1.0.2",
-    "collect-all": "^1.0.0",
-    "command-line-args": "^2.1.3",
-    "core-js": "^2.0.0",
+    "collect-all": "^1.0.1",
+    "command-line-args": "^2.1.6",
+    "core-js": "^2.1.1",
     "feature-detect-es6": "^1.2.0",
     "file-set": "^0.2.8",
     "jsdoc-75lb": "^3.5",
     "object-to-spawn-args": "^1",
     "promise.prototype.finally": "^1.0.1",
     "temp-path": "^1.0.0",
-    "walk-back": "^1.0.1"
+    "walk-back": "^1.1.0"
   },
   "standard": {
     "ignore": [
