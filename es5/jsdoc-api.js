@@ -5,11 +5,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var ExplainStream = require('./explain-stream');
 var jsdoc = require('./jsdoc');
 var path = require('path');
+var homePath = require('home-path');
+var fs = require('then-fs');
+
+var CACHE_DIR = path.resolve(homePath(), '.jsdoc-api');
+
+try {
+  fs.mkdirSync(CACHE_DIR);
+} catch (err) {}
 
 exports.explainSync = explainSync;
 exports.explain = explain;
 exports.createExplainStream = createExplainStream;
 exports.renderSync = renderSync;
+exports.clean = clean;
+exports.CACHE_DIR = CACHE_DIR;
 
 function explainSync(options) {
   options = new JsdocOptions(options);
@@ -32,6 +42,15 @@ function renderSync(options) {
   options = new JsdocOptions(options);
   var render = new jsdoc.RenderSync(options);
   return render.execute();
+}
+
+function clean() {
+  return fs.readdir(CACHE_DIR).then(function (files) {
+    var promises = files.map(function (file) {
+      return fs.unlink(path.resolve(CACHE_DIR, file));
+    });
+    return Promise.all(promises);
+  });
 }
 
 var JsdocOptions = function JsdocOptions(options) {
