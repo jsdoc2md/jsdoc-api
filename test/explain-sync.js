@@ -9,6 +9,7 @@ if (spawnSync) {
   test('.explainSync({ files })', function (t) {
     var f = new Fixture('class-all')
     var output = jsdoc.explainSync({ files: f.sourcePath })
+    // console.error(output)
     var expectedOutput = f.getExpectedOutput(output)
 
     t.ok(typeof output === 'object')
