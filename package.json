@@ -29,7 +29,7 @@
     "collect-json": "^1.0.7",
     "jsdoc-to-markdown": "^1.3.3",
     "rimraf": "^2.5.2",
-    "tape": "^4.4.0"
+    "tape": "^4.5.0"
   },
   "dependencies": {
     "array-back": "^1.0.2",
@@ -37,7 +37,7 @@
     "command-line-args": "^2.1.6",
     "core-js": "^2.1.3",
     "feature-detect-es6": "^1.2.0",
-    "file-set": "^0.2.8",
+    "file-set": "^1.0.0",
     "home-path": "^1.0.3",
     "jsdoc-75lb": "^3.5",
     "object-to-spawn-args": "^1",
