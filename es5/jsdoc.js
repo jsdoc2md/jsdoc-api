@@ -90,7 +90,7 @@ var JsdocCommand = function () {
     key: 'verifyOutput',
     value: function verifyOutput(code, output) {
       var parseFailed = false;
-      var parsedOutput = undefined;
+      var parsedOutput = void 0;
       try {
         parsedOutput = JSON.parse(output.stdout);
       } catch (err) {
@@ -98,7 +98,8 @@ var JsdocCommand = function () {
       }
 
       if (code > 0 || parseFailed) {
-        var err = new Error(output.stderr.trim() || 'Jsdoc failed.');
+        var firstLineOfStdout = output.stdout.split(/\r?\n/)[0];
+        var err = new Error(output.stderr.trim() || firstLineOfStdout || 'Jsdoc failed.');
         err.name = 'JSDOC_ERROR';
         throw err;
       } else {
