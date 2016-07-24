@@ -9,9 +9,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Duplex = require('stream').Duplex;
-var collectAll = require('collect-all');
 var arrayify = require('array-back');
-var jsdoc = require('./jsdoc');
 
 var ExplainStream = function (_Duplex) {
   _inherits(ExplainStream, _Duplex);
@@ -24,6 +22,7 @@ var ExplainStream = function (_Duplex) {
     _this.explain = explain;
     _this.options = options || {};
     _this.options.files = arrayify(_this.options.files);
+    var collectAll = require('collect-all');
     _this._writeCollector = collectAll(function (source) {
       if (!(_this.inProgress || _this.options.files.length || _this.options.source)) {
         _this.options.source = source;
@@ -42,7 +41,8 @@ var ExplainStream = function (_Duplex) {
     value: function start() {
       var _this2 = this;
 
-      var explain = new jsdoc.Explain(this.options);
+      var Explain = require('./explain');
+      var explain = new Explain(this.options);
       explain.execute().then(function (output) {
         _this2.push(JSON.stringify(output, null, '  '));
         _this2.push(null);

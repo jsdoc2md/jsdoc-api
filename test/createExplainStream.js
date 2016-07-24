@@ -1,3 +1,4 @@
+'use strict'
 var test = require('tape')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')

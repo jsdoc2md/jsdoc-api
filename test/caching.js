@@ -4,7 +4,7 @@ var Fixture = require('./lib/fixture')
 var path = require('path')
 var fs = require('then-fs')
 
-test('.clean()', function (t) {
+test.skip('.clean()', function (t) {
   t.plan(1)
   jsdoc.clean()
     .then(function () {
@@ -14,7 +14,7 @@ test('.clean()', function (t) {
     .catch(function (err) { console.error(err.stack) })
 })
 
-test('.explain({ files })', function (t) {
+test.skip('.explain({ files })', function (t) {
   t.plan(3)
   var f = new Fixture('class-all')
   jsdoc.explain({ files: f.sourcePath, cache: true })

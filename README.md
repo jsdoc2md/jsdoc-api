@@ -49,7 +49,6 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
         * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
         * [.createExplainStream([options])](#module_jsdoc-api.createExplainStream) ⇒ <code>Duplex</code>
         * [.renderSync([options])](#module_jsdoc-api.renderSync)
-        * [.clean()](#module_jsdoc-api.clean) ⇒ <code>Promise</code>
     * _inner_
         * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
             * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> &#124; <code>Array.&lt;string&gt;</code>
@@ -125,12 +124,6 @@ Render jsdoc documentation.
 ```js
 jsdoc.renderSync({ files: 'lib/*', destination: 'api-docs' })
 ```
-<a name="module_jsdoc-api.clean"></a>
-
-### jsdoc.clean() ⇒ <code>Promise</code>
-Clean the cache.
-
-**Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 <a name="module_jsdoc-api..JsdocOptions"></a>
 
 ### jsdoc~JsdocOptions
