@@ -73,12 +73,11 @@ var Explain = function (_JsdocCommand) {
 
       var fs = require('then-fs');
       var promises = this.inputFileSet.files.map(function (file) {
-        return fs.readFile(file);
+        return fs.readFile(file, 'utf8');
       });
-
       return Promise.all(promises).then(function (contents) {
-        _this4.cacheKey = contents;
-        return _this4.cache.read(contents);
+        _this4.cacheKey = contents.concat(_this4.inputFileSet.files);
+        return _this4.cache.read(_this4.cacheKey);
       }).catch(function () {
         return null;
       });
