@@ -12,12 +12,13 @@ var JsdocCommand = function () {
     _classCallCheck(this, JsdocCommand);
 
     require('promise.prototype.finally');
-    var Cache = require('cache-point');
-    this.cache = new Cache();
-
     options = options || {};
     options.files = arrayify(options.files);
 
+    if (options.cache) {
+      var Cache = require('cache-point');
+      this.cache = new Cache({ cacheDir: options.cacheDir });
+    }
     this.tempFile = null;
     var TempFile = require('./temp-file');
     if (options.source) this.tempFile = new TempFile(options.source);

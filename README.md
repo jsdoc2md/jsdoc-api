@@ -53,6 +53,8 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
         * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
             * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> &#124; <code>Array.&lt;string&gt;</code>
             * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code>
+            * [.cache](#module_jsdoc-api..JsdocOptions.JsdocOptions+cache) : <code>boolean</code>
+            * [.cacheDir](#module_jsdoc-api..JsdocOptions.JsdocOptions+cacheDir) : <code>string</code>
             * [.access](#module_jsdoc-api..JsdocOptions.JsdocOptions+access) : <code>string</code>
             * [.configure](#module_jsdoc-api..JsdocOptions.JsdocOptions+configure) : <code>string</code>
             * [.destination](#module_jsdoc-api..JsdocOptions.JsdocOptions+destination) : <code>string</code>
@@ -134,6 +136,8 @@ The jsdoc options, common for all operations.
 * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
     * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> &#124; <code>Array.&lt;string&gt;</code>
     * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code>
+    * [.cache](#module_jsdoc-api..JsdocOptions.JsdocOptions+cache) : <code>boolean</code>
+    * [.cacheDir](#module_jsdoc-api..JsdocOptions.JsdocOptions+cacheDir) : <code>string</code>
     * [.access](#module_jsdoc-api..JsdocOptions.JsdocOptions+access) : <code>string</code>
     * [.configure](#module_jsdoc-api..JsdocOptions.JsdocOptions+configure) : <code>string</code>
     * [.destination](#module_jsdoc-api..JsdocOptions.JsdocOptions+destination) : <code>string</code>
@@ -159,6 +163,15 @@ One or more filenames to process. Either this or `source` must be supplied.
 #### options.source : <code>string</code>
 A string containing source code to process. Either this or `source` must be supplied.
 
+**Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
+<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+cache"></a>
+
+#### options.cache : <code>boolean</code>
+**Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
+**Default**: <code>false</code>  
+<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+cacheDir"></a>
+
+#### options.cacheDir : <code>string</code>
 **Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+access"></a>
 

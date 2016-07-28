@@ -41,6 +41,10 @@ var JsdocOptions = function JsdocOptions(options) {
 
   this.source = undefined;
 
+  this.cache = false;
+
+  this.cacheDir = undefined;
+
   this.access = undefined;
 
   this.configure = undefined;

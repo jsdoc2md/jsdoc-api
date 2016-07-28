@@ -1,5 +1,7 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,61 +28,65 @@ var Explain = function (_JsdocCommand) {
 
       if (err) return Promise.reject(err);
 
-      return this.checkCache().then(function (cachedOutput) {
-        if (cachedOutput) {
-          return cachedOutput;
-        } else {
-          return new Promise(function (resolve, reject) {
-            var collectAll = require('collect-all');
-            var jsdocOutput = {
-              stdout: '',
-              stderr: '',
-              collectInto: function collectInto(dest) {
-                var _this2 = this;
+      return this.readCache().catch(function () {
+        return new Promise(function (resolve, reject) {
+          var collectAll = require('collect-all');
+          var jsdocOutput = {
+            stdout: '',
+            stderr: '',
+            collectInto: function collectInto(dest) {
+              var _this2 = this;
 
-                return collectAll(function (data) {
-                  _this2[dest] = data.toString();
-                });
-              }
-            };
+              return collectAll(function (data) {
+                _this2[dest] = data.toString();
+              });
+            }
+          };
 
-            var toSpawnArgs = require('object-to-spawn-args');
-            var jsdocArgs = toSpawnArgs(_this3.jsdocOptions).concat(['-X']).concat(_this3.options.source ? _this3.tempFile.path : _this3.inputFileSet.files);
-            jsdocArgs.unshift(_this3.jsdocPath);
+          var toSpawnArgs = require('object-to-spawn-args');
+          var jsdocArgs = toSpawnArgs(_this3.jsdocOptions).concat(['-X']).concat(_this3.options.source ? _this3.tempFile.path : _this3.inputFileSet.files);
+          jsdocArgs.unshift(_this3.jsdocPath);
 
-            var spawn = require('child_process').spawn;
-            var handle = spawn('node', jsdocArgs);
-            handle.stderr.pipe(jsdocOutput.collectInto('stderr'));
-            handle.stdout.pipe(jsdocOutput.collectInto('stdout'));
+          var spawn = require('child_process').spawn;
+          var handle = spawn('node', jsdocArgs);
+          handle.stderr.pipe(jsdocOutput.collectInto('stderr'));
+          handle.stdout.pipe(jsdocOutput.collectInto('stdout'));
 
-            handle.on('close', function (code) {
-              try {
-                var explainOutput = _this3.verifyOutput(code, jsdocOutput);
-                _this3.cache.write(_this3.cacheKey, explainOutput);
-                resolve(explainOutput);
-              } catch (err) {
-                reject(err);
-              }
-            });
+          handle.on('close', function (code) {
+            try {
+              var explainOutput = _this3.verifyOutput(code, jsdocOutput);
+              if (_this3.cache) _this3.cache.write(_this3.cacheKey, explainOutput);
+              resolve(explainOutput);
+            } catch (err) {
+              reject(err);
+            }
           });
-        }
+        });
       });
     }
   }, {
-    key: 'checkCache',
-    value: function checkCache() {
+    key: 'readCache',
+    value: function readCache() {
       var _this4 = this;
 
-      var fs = require('then-fs');
-      var promises = this.inputFileSet.files.map(function (file) {
-        return fs.readFile(file, 'utf8');
-      });
-      return Promise.all(promises).then(function (contents) {
-        _this4.cacheKey = contents.concat(_this4.inputFileSet.files);
-        return _this4.cache.read(_this4.cacheKey);
-      }).catch(function () {
-        return null;
-      });
+      if (this.cache) {
+        var _ret = function () {
+          var fs = require('then-fs');
+          var promises = _this4.inputFileSet.files.map(function (file) {
+            return fs.readFile(file, 'utf8');
+          });
+          return {
+            v: Promise.all(promises).then(function (contents) {
+              _this4.cacheKey = contents.concat(_this4.inputFileSet.files);
+              return _this4.cache.read(_this4.cacheKey);
+            })
+          };
+        }();
+
+        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+      } else {
+        return Promise.reject();
+      }
     }
   }]);
 

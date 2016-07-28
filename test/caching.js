@@ -4,16 +4,6 @@ var Fixture = require('./lib/fixture')
 var path = require('path')
 var fs = require('then-fs')
 
-test.skip('.clean()', function (t) {
-  t.plan(1)
-  jsdoc.clean()
-    .then(function () {
-      var cachedFiles = fs.readdirSync(jsdoc.CACHE_DIR)
-      t.strictEqual(cachedFiles.length, 0)
-    })
-    .catch(function (err) { console.error(err.stack) })
-})
-
 test.skip('.explain({ files })', function (t) {
   t.plan(3)
   var f = new Fixture('class-all')
