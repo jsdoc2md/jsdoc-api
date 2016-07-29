@@ -9,9 +9,9 @@ if (spawnSync) {
   test('.renderSync({ files })', function (t) {
     Fixture.createTmpFolder('tmp')
     var f = new Fixture('class-all')
-    jsdoc.renderSync({ files: f.sourcePath, destination: 'tmp' })
+    jsdoc.renderSync({ files: f.sourcePath, destination: 'tmp/out' })
     t.doesNotThrow(function () {
-      fs.statSync('./tmp/index.html')
+      fs.statSync('./tmp/out/index.html')
     })
     t.end()
   })
@@ -19,9 +19,9 @@ if (spawnSync) {
   test('.renderSync({ source, destination })', function (t) {
     Fixture.createTmpFolder('tmp')
     var f = new Fixture('class-all')
-    jsdoc.renderSync({ source: f.getSource(), destination: 'tmp' })
+    jsdoc.renderSync({ source: f.getSource(), destination: 'tmp/out' })
     t.doesNotThrow(function () {
-      fs.statSync('./tmp/index.html')
+      fs.statSync('./tmp/out/index.html')
     })
     t.end()
   })

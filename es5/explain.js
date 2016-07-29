@@ -24,43 +24,57 @@ var Explain = function (_JsdocCommand) {
   _createClass(Explain, [{
     key: 'getOutput',
     value: function getOutput(err) {
-      var _this3 = this;
-
       if (err) return Promise.reject(err);
 
-      return this.readCache().catch(function () {
-        return new Promise(function (resolve, reject) {
-          var collectAll = require('collect-all');
-          var jsdocOutput = {
-            stdout: '',
-            stderr: '',
-            collectInto: function collectInto(dest) {
-              var _this2 = this;
+      if (this.options.cache) {
+        return this.readCache().catch(this._runJsdoc.bind(this));
+      } else {
+        return this._runJsdoc();
+      }
+    }
+  }, {
+    key: '_runJsdoc',
+    value: function _runJsdoc() {
+      var _this3 = this;
 
-              return collectAll(function (data) {
-                _this2[dest] = data.toString();
-              });
-            }
-          };
+      return new Promise(function (resolve, reject) {
+        var collectAll = require('collect-all');
+        var jsdocOutput = {
+          stdout: '',
+          stderr: '',
+          collectInto: function collectInto(dest) {
+            var _this2 = this;
 
-          var toSpawnArgs = require('object-to-spawn-args');
-          var jsdocArgs = toSpawnArgs(_this3.jsdocOptions).concat(['-X']).concat(_this3.options.source ? _this3.tempFile.path : _this3.inputFileSet.files);
-          jsdocArgs.unshift(_this3.jsdocPath);
+            return collectAll(function (data) {
+              _this2[dest] = data.toString();
+            });
+          }
+        };
 
-          var spawn = require('child_process').spawn;
-          var handle = spawn('node', jsdocArgs);
-          handle.stderr.pipe(jsdocOutput.collectInto('stderr'));
-          handle.stdout.pipe(jsdocOutput.collectInto('stdout'));
+        var toSpawnArgs = require('object-to-spawn-args');
+        var jsdocArgs = toSpawnArgs(_this3.jsdocOptions).concat(['-X']).concat(_this3.options.source ? _this3.tempFile.path : _this3.inputFileSet.files);
+        jsdocArgs.unshift(_this3.jsdocPath);
 
-          handle.on('close', function (code) {
-            try {
+        var spawn = require('child_process').spawn;
+        var handle = spawn('node', jsdocArgs);
+        handle.stderr.pipe(jsdocOutput.collectInto('stderr'));
+        handle.stdout.pipe(jsdocOutput.collectInto('stdout'));
+
+        handle.on('close', function (code) {
+          try {
+            (function () {
               var explainOutput = _this3.verifyOutput(code, jsdocOutput);
-              if (_this3.cache) _this3.cache.write(_this3.cacheKey, explainOutput);
-              resolve(explainOutput);
-            } catch (err) {
-              reject(err);
-            }
-          });
+              if (_this3.options.cache) {
+                _this3.cache.write(_this3.cacheKey, explainOutput).then(function () {
+                  return resolve(explainOutput);
+                });
+              } else {
+                resolve(explainOutput);
+              }
+            })();
+          } catch (err) {
+            reject(err);
+          }
         });
       });
     }
@@ -70,7 +84,7 @@ var Explain = function (_JsdocCommand) {
       var _this4 = this;
 
       if (this.cache) {
-        var _ret = function () {
+        var _ret2 = function () {
           var fs = require('then-fs');
           var promises = _this4.inputFileSet.files.map(function (file) {
             return fs.readFile(file, 'utf8');
@@ -83,7 +97,7 @@ var Explain = function (_JsdocCommand) {
           };
         }();
 
-        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
       } else {
         return Promise.reject();
       }

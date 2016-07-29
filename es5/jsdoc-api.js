@@ -7,6 +7,9 @@ exports.explain = explain;
 exports.createExplainStream = createExplainStream;
 exports.renderSync = renderSync;
 
+var Cache = require('cache-point');
+exports.cache = new Cache();
+
 function explainSync(options) {
   options = new JsdocOptions(options);
   var ExplainSync = require('./explain-sync');
@@ -17,7 +20,7 @@ function explainSync(options) {
 function explain(options) {
   options = new JsdocOptions(options);
   var Explain = require('./explain');
-  var command = new Explain(options);
+  var command = new Explain(options, exports.cache);
   return command.execute();
 }
 
@@ -42,8 +45,6 @@ var JsdocOptions = function JsdocOptions(options) {
   this.source = undefined;
 
   this.cache = false;
-
-  this.cacheDir = undefined;
 
   this.access = undefined;
 

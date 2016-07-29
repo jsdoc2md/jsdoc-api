@@ -8,17 +8,14 @@ var arrayify = require('array-back');
 var path = require('path');
 
 var JsdocCommand = function () {
-  function JsdocCommand(options) {
+  function JsdocCommand(options, cache) {
     _classCallCheck(this, JsdocCommand);
 
     require('promise.prototype.finally');
     options = options || {};
     options.files = arrayify(options.files);
 
-    if (options.cache) {
-      var Cache = require('cache-point');
-      this.cache = new Cache({ cacheDir: options.cacheDir });
-    }
+    this.cache = cache;
     this.tempFile = null;
     var TempFile = require('./temp-file');
     if (options.source) this.tempFile = new TempFile(options.source);
