@@ -8,6 +8,7 @@ exports.createExplainStream = createExplainStream;
 exports.renderSync = renderSync;
 
 var Cache = require('cache-point');
+
 exports.cache = new Cache();
 
 function explainSync(options) {
