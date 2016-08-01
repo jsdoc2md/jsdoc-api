@@ -9,12 +9,12 @@
 <a name="module_jsdoc-api"></a>
 
 ## jsdoc-api
-A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a few extra features.
+A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a few features:
 
-- Provides sync, async (Promise) and streaming interfaces for the two main jsdoc operations ('explain' and 'render documentation').
-- Supply source code via a string, a set of file names or a stream.
-- Optional caching, dramatically boosting subsequent run performance on the same input.
-- Supports `.html` input files documenting the contained javascript.
+- Sync, async (Promise) and streaming interfaces on the two main jsdoc operations ('explain' and 'render documentation').
+- Takes source code input as a string, a set of file names/globs or a stream.
+- Optional caching, dramatically boosting run performance on unchanged input.
+- Supports html input
 
 **Example**  
 ```js
@@ -45,7 +45,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
 
 * [jsdoc-api](#module_jsdoc-api)
     * _static_
-        * [.cache](#module_jsdoc-api.cache) : <code>cache-point</code>
+        * [.cache](#module_jsdoc-api.cache) : <code>[cache-point](https://github.com/75lb/cache-point)</code>
         * [.explainSync([options])](#module_jsdoc-api.explainSync) ⇒ <code>Array.&lt;object&gt;</code>
         * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
         * [.createExplainStream([options])](#module_jsdoc-api.createExplainStream) ⇒ <code>Duplex</code>
@@ -71,8 +71,8 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
 
 <a name="module_jsdoc-api.cache"></a>
 
-### jsdoc.cache : <code>cache-point</code>
-The cache-point instance to be used where `cache: true` option is specified.
+### jsdoc.cache : <code>[cache-point](https://github.com/75lb/cache-point)</code>
+The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()`, `.explainSync()` or `.createExplainStream()`.
 
 **Kind**: static property of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 <a name="module_jsdoc-api.explainSync"></a>
@@ -172,6 +172,8 @@ A string containing source code to process. Either this or `source` must be supp
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+cache"></a>
 
 #### options.cache : <code>boolean</code>
+Set to `true` to cache the output - future invocations with the same input will return immediately.
+
 **Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
 **Default**: <code>false</code>  
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+access"></a>
