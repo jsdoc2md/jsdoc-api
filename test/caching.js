@@ -6,9 +6,23 @@ var path = require('path')
 var fs = require('then-fs')
 var a = require('core-assert')
 
-test('.explain({ files } with cache)', function () {
+if (require('child_process').spawnSync) {
+  test('.explainSync({ files, cache: true })', function () {
+    var f = new Fixture('class-all')
+    jsdoc.cache.dir = 'tmp/cache-sync'
+    jsdoc.cache.clear()
+    var output = jsdoc.explainSync({ files: f.sourcePath, cache: true })
+    var expectedOutput = f.getExpectedOutput(output)
+
+    a.ok(typeof output === 'object')
+    a.deepEqual(output, expectedOutput)
+  })
+}
+
+test('.explain({ files, cache: true  })', function () {
   var f = new Fixture('class-all')
   jsdoc.cache.dir = 'tmp/cache'
+  jsdoc.cache.clear()
   return jsdoc.explain({ files: f.sourcePath, cache: true })
     .then(function (output) {
       var cachedFiles = fs.readdirSync(jsdoc.cache.dir)
@@ -23,19 +37,6 @@ test('.explain({ files } with cache)', function () {
         cachedData,
         f.getExpectedOutput(output)
       )
-      // return jsdoc.cache.remove()
     })
     .catch(function (err) { console.error(err.stack) })
 })
-
-if (require('child_process').spawnSync) {
-  test('.explainSync({ files }) with cache', function () {
-    var f = new Fixture('class-all')
-    jsdoc.cache.dir = 'tmp/cache-sync'
-    var output = jsdoc.explainSync({ files: f.sourcePath, cache: true })
-    var expectedOutput = f.getExpectedOutput(output)
-
-    a.ok(typeof output === 'object')
-    a.deepEqual(output, expectedOutput)
-  })
-}
