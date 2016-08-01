@@ -1,7 +1,7 @@
 {
   "name": "jsdoc-api",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A programmatic interface for jsdoc",
   "repository": "https://github.com/jsdoc2md/jsdoc-api.git",
   "license": "MIT",
@@ -18,36 +18,39 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "tape test/*.js",
+    "test": "test-runner test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo",
     "es5": "babel --presets babel-preset-es2015 --no-comments lib --out-dir es5",
-    "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
+    "cover": "istanbul cover ./node_modules/.bin/test-runner test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.5.0",
-    "coveralls": "^2.11.6",
-    "collect-json": "^1.0.7",
-    "jsdoc-to-markdown": "^1.3.3",
-    "rimraf": "^2.5.2",
-    "tape": "^4.4.0"
+    "babel-preset-es2015": "^6.9.0",
+    "collect-json": "^1.0.8",
+    "core-assert": "~0.2.0",
+    "coveralls": "^2.11.12",
+    "jsdoc-to-markdown": "^1.3.6",
+    "rimraf": "^2.5.4",
+    "test-runner": "~0.1.9"
   },
   "dependencies": {
-    "array-back": "^1.0.2",
-    "collect-all": "^1.0.1",
-    "command-line-args": "^2.1.6",
-    "core-js": "^2.1.1",
-    "feature-detect-es6": "^1.2.0",
-    "file-set": "^0.2.8",
-    "jsdoc-75lb": "^3.5",
-    "object-to-spawn-args": "^1",
+    "array-back": "^1.0.3",
+    "cache-point": "~0.3.0",
+    "collect-all": "^1.0.2",
+    "core-js": "^2.4.1",
+    "feature-detect-es6": "^1.3.1",
+    "file-set": "^1.0.1",
+    "jsdoc-75lb": "^3.5.5",
+    "object-to-spawn-args": "^1.1.0",
     "promise.prototype.finally": "^1.0.1",
     "temp-path": "^1.0.0",
-    "walk-back": "^1.1.0"
+    "then-fs": "^2.0.0",
+    "walk-back": "^2.0.1"
   },
   "standard": {
     "ignore": [
       "es5",
-      "tmp"
+      "tmp",
+      "test/fixture"
     ]
   }
 }

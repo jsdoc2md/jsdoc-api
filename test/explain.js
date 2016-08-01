@@ -1,45 +1,43 @@
-var test = require('tape')
+'use strict'
+var test = require('test-runner')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 var path = require('path')
+var a = require('core-assert')
 
-test('.explain({ files })', function (t) {
-  t.plan(1)
+test('.explain({ files })', function () {
   var f = new Fixture('class-all')
-  jsdoc.explain({ files: f.sourcePath })
+  return jsdoc.explain({ files: f.sourcePath })
     .then(function (output) {
-      t.deepEqual(output, f.getExpectedOutput(output))
+      a.deepEqual(output, f.getExpectedOutput(output))
     })
 })
 
-test('.explain({ source })', function (t) {
-  t.plan(1)
+test('.explain({ source })', function () {
   var f = new Fixture('class-all')
-  jsdoc.explain({ source: f.getSource() })
+  return jsdoc.explain({ source: f.getSource() })
     .then(function (output) {
-      t.deepEqual(output, f.getExpectedOutput(output))
+      a.deepEqual(output, f.getExpectedOutput(output))
     })
 })
 
-test(".explain: file doesn't exist", function (t) {
-  t.plan(1)
-  jsdoc.explain({ files: 'sdfafafirifrj' })
+test(".explain: file doesn't exist", function () {
+  return jsdoc.explain({ files: 'sdfafafirifrj' })
     .then(function () {
-      t.fail('should not reach here')
+      a.fail('should not reach here')
     })
     .catch(function (err) {
-      t.strictEqual(err.name, 'JSDOC_ERROR')
+      a.strictEqual(err.name, 'JSDOC_ERROR')
     })
 })
 
-test('.explain: invalid doclet syntax', function (t) {
-  t.plan(1)
+test('.explain: invalid doclet syntax', function () {
   var input = path.resolve(__dirname, 'fixture', 'buggy', 'bad-doclet-syntax.js')
-  jsdoc.explain({ files: input })
+  return jsdoc.explain({ files: input })
     .then(function () {
-      t.fail('should not reach here')
+      a.fail('should not reach here')
     })
     .catch(function (err) {
-      t.strictEqual(err.name, 'JSDOC_ERROR')
+      a.strictEqual(err.name, 'JSDOC_ERROR')
     })
 })
