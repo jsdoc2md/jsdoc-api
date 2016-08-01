@@ -7,7 +7,7 @@ var a = require('core-assert')
 
 test('.createExplainStream({ files })', function () {
   var f = new Fixture('class-all')
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     jsdoc.createExplainStream({ files: f.sourcePath })
       .pipe(collectJson(function (output) {
         var expectedOutput = f.getExpectedOutput(output)
@@ -24,7 +24,7 @@ test('.createExplainStream({ files })', function () {
 
 test('.createExplainStream({ source })', function () {
   var f = new Fixture('class-all')
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     jsdoc.createExplainStream({ source: f.getSource() })
       .pipe(collectJson(function (output) {
         var expectedOutput = f.getExpectedOutput(output)
@@ -41,7 +41,7 @@ test('.createExplainStream({ source })', function () {
 
 test('.createExplainStream() stream input - pipe', function () {
   var f = new Fixture('class-all')
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     f.createReadStream().pipe(jsdoc.createExplainStream())
       .pipe(collectJson(function (output) {
         var expectedOutput = f.getExpectedOutput()
@@ -60,7 +60,7 @@ test('.createExplainStream() stream input - pipe', function () {
 test('.createExplainStream() stream input - write', function () {
   var f = new Fixture('class-all')
   var explainStream = jsdoc.createExplainStream()
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     explainStream.pipe(collectJson(function (output) {
       if (output) {
         var expectedOutput = f.getExpectedOutput(output)
@@ -78,7 +78,7 @@ test('.createExplainStream() stream input - write', function () {
 })
 
 test('.createExplainStream: no valid files', function () {
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     jsdoc.createExplainStream({ files: 'package.json' })
       .on('error', function (err) {
         if (err.name === 'JSDOC_ERROR') resolve()
@@ -91,7 +91,7 @@ test('.createExplainStream: no valid files', function () {
 })
 
 test('.createExplainStream: missing files', function () {
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     jsdoc.createExplainStream({ files: 'asljkdhfkljads' })
       .on('error', function (err) {
         try {
@@ -110,7 +110,7 @@ test('.createExplainStream: missing files', function () {
 /* bad-doclet-syntax.js no exist */
 test('.createExplainStream: invalid doclet syntax', function () {
   var f = new Fixture('buggy', 'bad-doclet-syntax.js')
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     jsdoc.createExplainStream({ files: f.sourcePath })
       .on('error', function (err) {
         try {
@@ -128,7 +128,7 @@ test('.createExplainStream: invalid doclet syntax', function () {
 
 test('.createExplainStream: handles jsdoc crash', function () {
   var f = new Fixture('buggy', 'broken-javascript.js')
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     jsdoc.createExplainStream({ files: f.sourcePath })
       .on('error', function (err) {
         try {

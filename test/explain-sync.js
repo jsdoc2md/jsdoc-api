@@ -2,12 +2,11 @@
 var test = require('test-runner')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
-var spawnSync = require('child_process').spawnSync
 var path = require('path')
 var a = require('core-assert')
 
 /* only test on a node version with spawnSync */
-if (spawnSync) {
+if (require('child_process').spawnSync) {
   test('.explainSync({ files })', function () {
     var f = new Fixture('class-all')
     var output = jsdoc.explainSync({ files: f.sourcePath })

@@ -14,7 +14,7 @@ exports.cache = new Cache();
 function explainSync(options) {
   options = new JsdocOptions(options);
   var ExplainSync = require('./explain-sync');
-  var command = new ExplainSync(options);
+  var command = new ExplainSync(options, exports.cache);
   return command.execute();
 }
 

@@ -22,8 +22,21 @@ var ExplainSync = function (_JsdocCommand) {
   _createClass(ExplainSync, [{
     key: 'getOutput',
     value: function getOutput(err) {
-      if (err) throw err;
-
+      if (err) return Promise.reject(err);
+      if (this.options.cache) {
+        var cached = this.readCacheSync();
+        if (cached === null) {
+          return this._runJsdoc();
+        } else {
+          return cached;
+        }
+      } else {
+        return this._runJsdoc();
+      }
+    }
+  }, {
+    key: '_runJsdoc',
+    value: function _runJsdoc() {
       var toSpawnArgs = require('object-to-spawn-args');
       var jsdocArgs = toSpawnArgs(this.jsdocOptions).concat(['-X']).concat(this.options.source ? this.tempFile.path : this.inputFileSet.files);
 
@@ -32,7 +45,9 @@ var ExplainSync = function (_JsdocCommand) {
       var spawnSync = require('child_process').spawnSync;
       var result = spawnSync('node', jsdocArgs, { encoding: 'utf-8' });
       var explainOutput = this.verifyOutput(result.status, result);
-
+      if (this.options.cache) {
+        this.cache.writeSync(this.cacheKey, explainOutput);
+      }
       return explainOutput;
     }
   }]);

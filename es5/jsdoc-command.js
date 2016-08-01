@@ -1,5 +1,7 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -92,6 +94,50 @@ var JsdocCommand = function () {
         throw err;
       } else {
         return parsedOutput;
+      }
+    }
+  }, {
+    key: 'readCache',
+    value: function readCache() {
+      var _this2 = this;
+
+      if (this.cache) {
+        var _ret = function () {
+          var fs = require('then-fs');
+          var promises = _this2.inputFileSet.files.map(function (file) {
+            return fs.readFile(file, 'utf8');
+          });
+          return {
+            v: Promise.all(promises).then(function (contents) {
+              _this2.cacheKey = contents.concat(_this2.inputFileSet.files);
+              return _this2.cache.read(_this2.cacheKey);
+            })
+          };
+        }();
+
+        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+      } else {
+        return Promise.reject();
+      }
+    }
+  }, {
+    key: 'readCacheSync',
+    value: function readCacheSync() {
+      var _this3 = this;
+
+      if (this.cache) {
+        var _ret2 = function () {
+          var fs = require('fs');
+          var contents = _this3.inputFileSet.files.map(function (file) {
+            return fs.readFileSync(file, 'utf8');
+          });
+          _this3.cacheKey = contents.concat(_this3.inputFileSet.files);
+          return {
+            v: _this3.cache.readSync(_this3.cacheKey)
+          };
+        }();
+
+        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
       }
     }
   }]);

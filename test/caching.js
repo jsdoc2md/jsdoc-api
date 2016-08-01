@@ -17,13 +17,25 @@ test('.explain({ files } with cache)', function () {
         })
       a.strictEqual(cachedFiles.length, 1)
       a.deepEqual(output, f.getExpectedOutput(output))
-      const cachedData = JSON.parse(fs.readFileSync(cachedFiles[0], 'utf8'))
+      var cachedData = JSON.parse(fs.readFileSync(cachedFiles[0], 'utf8'))
       Fixture.removeFileSpecificData(cachedData)
       a.deepEqual(
         cachedData,
         f.getExpectedOutput(output)
       )
-      jsdoc.cache.remove()
+      // return jsdoc.cache.remove()
     })
     .catch(function (err) { console.error(err.stack) })
 })
+
+if (require('child_process').spawnSync) {
+  test('.explainSync({ files }) with cache', function () {
+    var f = new Fixture('class-all')
+    jsdoc.cache.dir = 'tmp/cache-sync'
+    var output = jsdoc.explainSync({ files: f.sourcePath, cache: true })
+    var expectedOutput = f.getExpectedOutput(output)
+
+    a.ok(typeof output === 'object')
+    a.deepEqual(output, expectedOutput)
+  })
+}
