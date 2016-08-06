@@ -7,9 +7,10 @@ exports.explain = explain;
 exports.createExplainStream = createExplainStream;
 exports.renderSync = renderSync;
 
+var path = require('path');
 var Cache = require('cache-point');
 
-exports.cache = new Cache();
+exports.cache = new Cache({ dir: path.join(require('os').tmpdir(), 'jsdoc-api') });
 
 function explainSync(options) {
   options = new JsdocOptions(options);
@@ -75,8 +76,8 @@ var JsdocOptions = function JsdocOptions(options) {
 
   Object.assign(this, options);
   if (this.html) {
-    var path = require('path');
-    this.configure = path.resolve(__dirname, 'html-conf.json');
+    var _path = require('path');
+    this.configure = _path.resolve(__dirname, 'html-conf.json');
     delete this.html;
   }
 };
