@@ -175,7 +175,6 @@ A string containing source code to process. Either this or `source` must be supp
 Set to `true` to cache the output - future invocations with the same input will return immediately.
 
 **Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
-**Default**: <code>false</code>  
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+access"></a>
 
 #### options.access : <code>string</code>

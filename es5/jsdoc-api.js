@@ -42,39 +42,41 @@ function renderSync(options) {
 var JsdocOptions = function JsdocOptions(options) {
   _classCallCheck(this, JsdocOptions);
 
-  this.files = [];
+  options = options || {};
+  var arrayify = require('array-back');
 
-  this.source = undefined;
+  this.files = arrayify(options.files);
 
-  this.cache = false;
+  this.source = options.source;
 
-  this.access = undefined;
+  this.cache = options.cache;
 
-  this.configure = undefined;
+  this.access = options.access;
 
-  this.destination = undefined;
+  this.configure = options.configure;
 
-  this.encoding = undefined;
+  this.destination = options.destination;
 
-  this.private = undefined;
+  this.encoding = options.encoding;
 
-  this.package = undefined;
+  this.private = options.private;
 
-  this.pedantic = undefined;
+  this.package = options.package;
 
-  this.query = undefined;
+  this.pedantic = options.pedantic;
 
-  this.recurse = undefined;
+  this.query = options.query;
 
-  this.readme = undefined;
+  this.recurse = options.recurse;
 
-  this.template = undefined;
+  this.readme = options.readme;
 
-  this.tutorials = undefined;
+  this.template = options.template;
 
-  this.html = undefined;
+  this.tutorials = options.tutorials;
 
-  Object.assign(this, options);
+  this.html = options.html;
+
   if (this.html) {
     var _path = require('path');
     this.configure = _path.resolve(__dirname, 'html-conf.json');

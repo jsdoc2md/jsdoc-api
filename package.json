@@ -30,7 +30,7 @@
     "coveralls": "^2.11.12",
     "jsdoc-to-markdown": "^1.3.6",
     "rimraf": "^2.5.4",
-    "test-runner": "~0.1.9"
+    "test-runner": "~0.1.10"
   },
   "dependencies": {
     "array-back": "^1.0.3",
