@@ -6,6 +6,8 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![Join the chat at https://gitter.im/jsdoc2md/jsdoc2md](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jsdoc2md/jsdoc2md?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+***[Try the jsdoc2md v2 pre-release](https://github.com/jsdoc2md/jsdoc-to-markdown/releases)***
+
 <a name="module_jsdoc-api"></a>
 
 ## jsdoc-api
@@ -85,7 +87,7 @@ Returns jsdoc explain output.
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
 
 <a name="module_jsdoc-api.explain"></a>
 
@@ -97,7 +99,7 @@ Returns a promise for the jsdoc explain output.
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
 
 <a name="module_jsdoc-api.createExplainStream"></a>
 
@@ -108,7 +110,7 @@ Returns a duplex stream, into which you can pipe source code and receive explain
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
 
 **Example**  
 ```js
@@ -126,7 +128,7 @@ Render jsdoc documentation.
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
 
 **Example**  
 ```js
