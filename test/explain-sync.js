@@ -26,27 +26,36 @@ if (require('child_process').spawnSync) {
   })
 
   test('.explainSync: no valid files', function () {
-    try {
-      jsdoc.explainSync({ files: 'package.json' })
-    } catch (err) {
-      a.strictEqual(err.name, 'JSDOC_ERROR')
-    }
+    a.throws(
+      function () {
+        jsdoc.explainSync({ files: 'package.json' })
+      },
+      function (err) {
+        return err.name === 'JSDOC_ERROR'
+      }
+    )
   })
 
   test('.explainSync: missing files', function () {
-    try {
-      jsdoc.explainSync({ files: 'oyutigbl' })
-    } catch (err) {
-      a.strictEqual(err.name, 'JSDOC_ERROR')
-    }
+    a.throws(
+      function () {
+        jsdoc.explainSync({ files: 'oyutigbl' })
+      },
+      function (err) {
+        return err.name === 'JSDOC_ERROR'
+      }
+    )
   })
 
   test('.explainSync: invalid doclet syntax', function () {
-    try {
-      var input = path.resolve(__dirname, 'fixture', 'buggy', 'bad-doclet-syntax.js')
-      jsdoc.explainSync({ files: input })
-    } catch (err) {
-      a.strictEqual(err.name, 'JSDOC_ERROR')
-    }
+    a.throws(
+      function () {
+        var input = path.resolve(__dirname, 'fixture', 'buggy', 'bad-doclet-syntax.js')
+        jsdoc.explainSync({ files: input })
+      },
+      function (err) {
+        return err.name === 'JSDOC_ERROR'
+      }
+    )
   })
 }

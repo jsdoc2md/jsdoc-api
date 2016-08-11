@@ -22,7 +22,7 @@ var ExplainSync = function (_JsdocCommand) {
   _createClass(ExplainSync, [{
     key: 'getOutput',
     value: function getOutput(err) {
-      if (err) return Promise.reject(err);
+      if (err) throw err;
       if (this.options.cache) {
         var cached = this.readCacheSync();
         if (cached === null) {

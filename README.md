@@ -87,7 +87,7 @@ Returns jsdoc explain output.
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
 <a name="module_jsdoc-api.explain"></a>
 
@@ -99,7 +99,7 @@ Returns a promise for the jsdoc explain output.
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
 <a name="module_jsdoc-api.createExplainStream"></a>
 
@@ -110,7 +110,7 @@ Returns a duplex stream, into which you can pipe source code and receive explain
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
 **Example**  
 ```js
@@ -128,7 +128,7 @@ Render jsdoc documentation.
 
 | Param | Type |
 | --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> |
+| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
 **Example**  
 ```js
