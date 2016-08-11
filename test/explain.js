@@ -41,3 +41,7 @@ test('.explain: invalid doclet syntax', function () {
       a.strictEqual(err.name, 'JSDOC_ERROR')
     })
 })
+
+test('.explain({ files }): generate a warning', function () {
+  return jsdoc.explain({ files: 'test/fixture/buggy/ignore-with-value.js' })
+})
