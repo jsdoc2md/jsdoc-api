@@ -4,7 +4,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 exports.explainSync = explainSync;
 exports.explain = explain;
-exports.createExplainStream = createExplainStream;
 exports.renderSync = renderSync;
 
 var path = require('path');
@@ -24,12 +23,6 @@ function explain(options) {
   var Explain = require('./explain');
   var command = new Explain(options, exports.cache);
   return command.execute();
-}
-
-function createExplainStream(options) {
-  options = new JsdocOptions(options);
-  var ExplainStream = require('./explain-stream');
-  return new ExplainStream(explain, options);
 }
 
 function renderSync(options) {

@@ -13,8 +13,8 @@
 ## jsdoc-api
 A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a few features:
 
-- Sync, async (Promise) and streaming interfaces on the two main jsdoc operations ('explain' and 'render documentation').
-- Input (source code) can supplied as a string, set of file names/globs or a stream.
+- Sync and async (Promise) interfaces on the two main jsdoc operations ('explain' and 'render documentation').
+- Input (source code) can supplied as a string or set of file names/globs.
 - Optional caching, dramatically speeding up future invocations with the same input.
 - Supports html input
 
@@ -50,7 +50,6 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
         * [.cache](#module_jsdoc-api.cache) : <code>[cache-point](https://github.com/75lb/cache-point)</code>
         * [.explainSync([options])](#module_jsdoc-api.explainSync) ⇒ <code>Array.&lt;object&gt;</code>
         * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
-        * [.createExplainStream([options])](#module_jsdoc-api.createExplainStream) ⇒ <code>Duplex</code>
         * [.renderSync([options])](#module_jsdoc-api.renderSync)
     * _inner_
         * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
@@ -101,23 +100,6 @@ Returns a promise for the jsdoc explain output.
 | --- | --- |
 | [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
 
-<a name="module_jsdoc-api.createExplainStream"></a>
-
-### jsdoc.createExplainStream([options]) ⇒ <code>Duplex</code>
-Returns a duplex stream, into which you can pipe source code and receive explain output at the other end.
-
-**Kind**: static method of <code>[jsdoc-api](#module_jsdoc-api)</code>  
-
-| Param | Type |
-| --- | --- |
-| [options] | <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code> | 
-
-**Example**  
-```js
-fs.createReadStream('source-code.js')
-  .pipe(jsdoc.createExplainStream())
-  .pipe(process.stdout)
-```
 <a name="module_jsdoc-api.renderSync"></a>
 
 ### jsdoc.renderSync([options])
