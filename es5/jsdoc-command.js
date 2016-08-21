@@ -13,7 +13,6 @@ var JsdocCommand = function () {
   function JsdocCommand(options, cache) {
     _classCallCheck(this, JsdocCommand);
 
-    require('promise.prototype.finally');
     options = options || {};
     options.files = arrayify(options.files);
 
@@ -43,7 +42,8 @@ var JsdocCommand = function () {
       var err = this.validate();
       this.output = this.getOutput(err);
       if (this.output instanceof Promise) {
-        this.output.finally(function () {
+        var promiseFinally = require('promise.prototype.finally');
+        promiseFinally(this.output).then(function () {
           _this.postExecute();
         });
       } else {
