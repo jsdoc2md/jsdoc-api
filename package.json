@@ -24,13 +24,13 @@
     "cover": "istanbul cover ./node_modules/.bin/test-runner test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-es2015": "^6.14.0",
     "collect-json": "^1.0.8",
     "core-assert": "~0.2.0",
-    "coveralls": "^2.11.12",
+    "coveralls": "^2.11.14",
     "jsdoc-to-markdown": "^2.0.0-alpha.8",
     "rimraf": "^2.5.4",
-    "test-runner": "~0.1.13"
+    "test-runner": "~0.2.3"
   },
   "dependencies": {
     "array-back": "^1.0.3",

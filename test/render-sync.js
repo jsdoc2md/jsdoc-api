@@ -1,14 +1,16 @@
 'use strict'
-var test = require('test-runner')
+var TestRunner = require('test-runner')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 var fs = require('fs')
 var spawnSync = require('child_process').spawnSync
 var a = require('core-assert')
 
+var runner = new TestRunner()
+
 /* only test on a node version with spawnSync */
 if (spawnSync) {
-  test('.renderSync({ files })', function () {
+  runner.test('.renderSync({ files })', function () {
     Fixture.createTmpFolder('tmp')
     var f = new Fixture('class-all')
     jsdoc.renderSync({ files: f.sourcePath, destination: 'tmp/out' })
@@ -17,7 +19,7 @@ if (spawnSync) {
     })
   })
 
-  test('.renderSync({ source, destination })', function () {
+  runner.test('.renderSync({ source, destination })', function () {
     Fixture.createTmpFolder('tmp')
     var f = new Fixture('class-all')
     jsdoc.renderSync({ source: f.getSource(), destination: 'tmp/out' })

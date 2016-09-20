@@ -16,7 +16,7 @@ var Explain = function (_JsdocCommand) {
   function Explain() {
     _classCallCheck(this, Explain);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Explain).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Explain.__proto__ || Object.getPrototypeOf(Explain)).apply(this, arguments));
   }
 
   _createClass(Explain, [{

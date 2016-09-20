@@ -1,13 +1,15 @@
 'use strict'
-var test = require('test-runner')
+var TestRunner = require('test-runner')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 var path = require('path')
 var fs = require('then-fs')
 var a = require('core-assert')
 
+var runner = new TestRunner()
+
 if (require('child_process').spawnSync) {
-  test('.explainSync({ files, cache: true })', function () {
+  runner.test('.explainSync({ files, cache: true })', function () {
     var f = new Fixture('class-all')
     jsdoc.cache.dir = 'tmp/cache-sync'
     jsdoc.cache.clear()
@@ -19,7 +21,7 @@ if (require('child_process').spawnSync) {
   })
 }
 
-test('.explain({ files, cache: true  })', function () {
+runner.test('.explain({ files, cache: true  })', function () {
   var f = new Fixture('class-all')
   jsdoc.cache.dir = 'tmp/cache'
   jsdoc.cache.clear()

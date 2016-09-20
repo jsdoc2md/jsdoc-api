@@ -16,7 +16,7 @@ var ExplainSync = function (_JsdocCommand) {
   function ExplainSync() {
     _classCallCheck(this, ExplainSync);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(ExplainSync).apply(this, arguments));
+    return _possibleConstructorReturn(this, (ExplainSync.__proto__ || Object.getPrototypeOf(ExplainSync)).apply(this, arguments));
   }
 
   _createClass(ExplainSync, [{

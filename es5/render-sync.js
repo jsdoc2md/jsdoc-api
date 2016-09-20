@@ -16,7 +16,7 @@ var RenderSync = function (_JsdocCommand) {
   function RenderSync() {
     _classCallCheck(this, RenderSync);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderSync).apply(this, arguments));
+    return _possibleConstructorReturn(this, (RenderSync.__proto__ || Object.getPrototypeOf(RenderSync)).apply(this, arguments));
   }
 
   _createClass(RenderSync, [{
