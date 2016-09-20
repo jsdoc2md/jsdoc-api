@@ -18,7 +18,9 @@ var TempFile = function () {
   _createClass(TempFile, [{
     key: 'delete',
     value: function _delete() {
-      fs.unlinkSync(this.path);
+      try {
+        fs.unlinkSync(this.path);
+      } catch (err) {}
     }
   }]);
 

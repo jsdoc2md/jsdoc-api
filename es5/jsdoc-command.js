@@ -8,6 +8,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var arrayify = require('array-back');
 var path = require('path');
+var promiseFinally = require('promise.prototype.finally');
+promiseFinally.shim();
 
 var JsdocCommand = function () {
   function JsdocCommand(options, cache) {
@@ -42,14 +44,17 @@ var JsdocCommand = function () {
       var err = this.validate();
       this.output = this.getOutput(err);
       if (this.output instanceof Promise) {
-        var promiseFinally = require('promise.prototype.finally');
-        promiseFinally(this.output).then(function () {
-          _this.postExecute();
+        return this.output.then(function (result) {
+          return result;
+        }).catch(function (err) {
+          throw err;
+        }).finally(function () {
+          return _this.postExecute();
         });
       } else {
         this.postExecute();
+        return this.output;
       }
-      return this.output;
     }
   }, {
     key: 'preExecute',
