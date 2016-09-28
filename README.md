@@ -8,9 +8,8 @@
 
 ***[Try the jsdoc2md v2 pre-release](https://github.com/jsdoc2md/jsdoc-to-markdown/releases)***
 
-<a name="module_jsdoc-api"></a>
+# jsdoc-api
 
-## jsdoc-api
 A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a few features:
 
 - Sync and async (Promise) interfaces on the two main jsdoc operations ('explain' and 'render documentation').
@@ -18,32 +17,35 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
 - Optional caching, dramatically speeding up future invocations with the same input.
 - Supports html input
 
-**Example**  
+## Synopsis
+
 ```js
 > const jsdoc = require('jsdoc-api')
 
-> jsdoc.explainSync({ source: '/** example doclet *∕ \n var example = true' })
-
+> jsdoc.explainSync({ source: '/** example doclet */ \n var example = true' })
 [ { comment: '/** example doclet *∕',
-    meta:
-     { range: [ 28, 42 ],
-       filename: 'nkrf18zlymohia4i29a0zkyt84obt9.js',
-       lineno: 2,
-       path: '/var/folders/74/tqh7thm11tq72d7sjty9qvdh0000gn/T',
-       code:
-        { id: 'astnode100000002',
-          name: 'example',
-          type: 'Literal',
-          value: true } },
-    description: 'example doclet',
-    name: 'example',
-    longname: 'example',
-    kind: 'member',
-    scope: 'global' },
-  { kind: 'package',
-    longname: 'package:undefined',
-    files: [ '/var/folders/74/tqh7thm11tq72d7sjty9qvdh0000gn/T/nkrf18zlymohia4i29a0zkyt84obt9.js' ] } ]
+   meta:
+    { range: [ 28, 42 ],
+      filename: 'nkrf18zlymohia4i29a0zkyt84obt9.js',
+      lineno: 2,
+      path: '/var/folders/74/tqh7thm11tq72d7sjty9qvdh0000gn/T',
+      code:
+       { id: 'astnode100000002',
+         name: 'example',
+         type: 'Literal',
+         value: true } },
+   description: 'example doclet',
+   name: 'example',
+   longname: 'example',
+   kind: 'member',
+   scope: 'global' },
+ { kind: 'package',
+   longname: 'package:undefined',
+   files: [ '/var/folders/74/tqh7thm11tq72d7sjty9qvdh0000gn/T/nkrf18zlymohia4i29a0zkyt84obt9.js' ] } ]
 ```
+
+# API Reference
+
 
 * [jsdoc-api](#module_jsdoc-api)
     * _static_
@@ -73,7 +75,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
 <a name="module_jsdoc-api.cache"></a>
 
 ### jsdoc.cache : <code>[cache-point](https://github.com/75lb/cache-point)</code>
-The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()`, `.explainSync()` or `.createExplainStream()`.
+The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()` or `.explainSync()`.
 
 **Kind**: static property of <code>[jsdoc-api](#module_jsdoc-api)</code>  
 <a name="module_jsdoc-api.explainSync"></a>
@@ -237,7 +239,6 @@ Directory in which JSDoc should search for tutorials.
 Enable experimental parsing of `.html` files.
 
 **Kind**: instance property of <code>[JsdocOptions](#module_jsdoc-api..JsdocOptions)</code>  
-
 
 * * *
 

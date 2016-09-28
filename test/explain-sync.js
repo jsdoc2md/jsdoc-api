@@ -27,6 +27,11 @@ if (require('child_process').spawnSync) {
     a.deepEqual(output, expectedOutput)
   })
 
+  runner.test('.explainSync({ source }), defaults', function () {
+    var output = jsdoc.explainSync({ source: '/** example doclet */ \n var example = true' })
+    a.strictEqual(output[0].description, 'example doclet')
+  })
+
   runner.test('.explainSync: no valid files', function () {
     a.throws(
       function () {

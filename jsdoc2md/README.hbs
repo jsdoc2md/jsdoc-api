@@ -8,7 +8,49 @@
 
 ***[Try the jsdoc2md v2 pre-release](https://github.com/jsdoc2md/jsdoc-to-markdown/releases)***
 
-{{#module name="jsdoc-api"}}{{>docs}}{{/module}}
+# jsdoc-api
+
+A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a few features:
+
+- Sync and async (Promise) interfaces on the two main jsdoc operations ('explain' and 'render documentation').
+- Input (source code) can supplied as a string or set of file names/globs.
+- Optional caching, dramatically speeding up future invocations with the same input.
+- Supports html input
+
+## Synopsis
+
+```js
+> const jsdoc = require('jsdoc-api')
+
+> jsdoc.explainSync({ source: '/** example doclet */ \n var example = true' })
+[ { comment: '/** example doclet *∕',
+   meta:
+    { range: [ 28, 42 ],
+      filename: 'nkrf18zlymohia4i29a0zkyt84obt9.js',
+      lineno: 2,
+      path: '/var/folders/74/tqh7thm11tq72d7sjty9qvdh0000gn/T',
+      code:
+       { id: 'astnode100000002',
+         name: 'example',
+         type: 'Literal',
+         value: true } },
+   description: 'example doclet',
+   name: 'example',
+   longname: 'example',
+   kind: 'member',
+   scope: 'global' },
+ { kind: 'package',
+   longname: 'package:undefined',
+   files: [ '/var/folders/74/tqh7thm11tq72d7sjty9qvdh0000gn/T/nkrf18zlymohia4i29a0zkyt84obt9.js' ] } ]
+```
+
+# API Reference
+
+{{#module name="jsdoc-api"}}
+{{>body~}}
+{{>member-index~}}
+{{>members~}}
+{{/module}}
 
 * * *
 

@@ -30,7 +30,7 @@
     "coveralls": "^2.11.14",
     "jsdoc-to-markdown": "^2.0.0-alpha.8",
     "rimraf": "^2.5.4",
-    "test-runner": "~0.2.3"
+    "test-runner": "~0.2.4"
   },
   "dependencies": {
     "array-back": "^1.0.3",
@@ -41,7 +41,7 @@
     "file-set": "^1.0.2",
     "jsdoc-75lb": "^3.5.6",
     "object-to-spawn-args": "^1.1.0",
-    "promise.prototype.finally": "^2.0.0",
+    "promise.prototype.finally": "^2.0.1",
     "temp-path": "^1.0.0",
     "then-fs": "^2.0.0",
     "walk-back": "^2.0.1"
