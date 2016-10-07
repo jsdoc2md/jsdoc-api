@@ -1,6 +1,6 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8,8 +8,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var arrayify = require('array-back');
 var path = require('path');
-var promiseFinally = require('promise.prototype.finally');
-promiseFinally.shim();
 
 var JsdocCommand = function () {
   function JsdocCommand(options, cache) {
@@ -45,11 +43,11 @@ var JsdocCommand = function () {
       this.output = this.getOutput(err);
       if (this.output instanceof Promise) {
         return this.output.then(function (result) {
+          _this.postExecute();
           return result;
         }).catch(function (err) {
+          _this.postExecute();
           throw err;
-        }).finally(function () {
-          return _this.postExecute();
         });
       } else {
         this.postExecute();
@@ -108,7 +106,7 @@ var JsdocCommand = function () {
 
       if (this.cache) {
         var _ret = function () {
-          var fs = require('then-fs');
+          var fs = require('fs-then-native');
           var promises = _this2.inputFileSet.files.map(function (file) {
             return fs.readFile(file, 'utf8');
           });

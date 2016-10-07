@@ -19,7 +19,7 @@ var collectAll = require('collect-all');
 var TempFile = require('./temp-file');
 var FileSet = require('file-set');
 var homePath = require('home-path');
-var fs = require('then-fs');
+var fs = require('fs-then-native');
 
 var CACHE_DIR = path.resolve(homePath(), '.jsdoc-api');
 
