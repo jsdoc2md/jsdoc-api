@@ -3,7 +3,7 @@ var TestRunner = require('test-runner')
 var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 var path = require('path')
-var a = require('core-assert')
+var a = require('assert')
 
 var runner = new TestRunner()
 

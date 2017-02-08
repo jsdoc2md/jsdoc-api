@@ -4,7 +4,7 @@ var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 var path = require('path')
 var fs = require('fs-then-native')
-var a = require('core-assert')
+var a = require('assert')
 
 var runner = new TestRunner()
 

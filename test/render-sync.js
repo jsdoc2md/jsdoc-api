@@ -4,7 +4,7 @@ var jsdoc = require('../')
 var Fixture = require('./lib/fixture')
 var fs = require('fs')
 var spawnSync = require('child_process').spawnSync
-var a = require('core-assert')
+var a = require('assert')
 
 var runner = new TestRunner()
 
