@@ -24,21 +24,21 @@
   },
   "devDependencies": {
     "collect-json": "^1.0.8",
-    "coveralls": "^2.11.16",
-    "jsdoc-to-markdown": "^2.0.1",
-    "rimraf": "^2.5.4",
-    "test-runner": "~0.3.0"
+    "coveralls": "^2.13.1",
+    "jsdoc-to-markdown": "^3.0.0",
+    "rimraf": "^2.6.1",
+    "test-runner": "~0.4.0"
   },
   "dependencies": {
-    "array-back": "^1.0.4",
-    "cache-point": "~0.4.0",
-    "collect-all": "^1.0.2",
+    "array-back": "^2.0.0",
+    "cache-point": "^0.4.1",
+    "collect-all": "^1.0.3",
     "file-set": "^1.1.1",
     "fs-then-native": "^2.0.0",
-    "jsdoc-75lb": "^3.6.0",
-    "object-to-spawn-args": "^1.1.0",
+    "jsdoc": "^3.5.3",
+    "object-to-spawn-args": "^1.1.1",
     "temp-path": "^1.0.0",
-    "walk-back": "^2.0.1"
+    "walk-back": "^3.0.0"
   },
   "standard": {
     "ignore": [

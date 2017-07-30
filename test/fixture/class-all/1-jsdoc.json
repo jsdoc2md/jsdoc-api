@@ -8,9 +8,10 @@
       ],
       "filename": "0-src.js",
       "lineno": 16,
-      "path": "/Users/lloyd/Documents/jsdoc2md/testbed/build/jsdoc/class-all",
+      "columnno": 0,
+      "path": "/Users/lloydb/Documents/jsdoc2md/jsdoc-api/test/fixture/class-all",
       "code": {
-        "id": "astnode100000001",
+        "id": "astnode100000002",
         "name": "All",
         "type": "FunctionDeclaration",
         "paramnames": [
@@ -71,9 +72,10 @@
       ],
       "filename": "0-src.js",
       "lineno": 23,
-      "path": "/Users/lloyd/Documents/jsdoc2md/testbed/build/jsdoc/class-all",
+      "columnno": 2,
+      "path": "/Users/lloydb/Documents/jsdoc2md/jsdoc-api/test/fixture/class-all",
       "code": {
-        "id": "astnode100000007",
+        "id": "astnode100000008",
         "name": "this.topping",
         "type": "Literal",
         "value": "mud, lettuce",
@@ -103,9 +105,10 @@
       ],
       "filename": "0-src.js",
       "lineno": 28,
-      "path": "/Users/lloyd/Documents/jsdoc2md/testbed/build/jsdoc/class-all",
+      "columnno": 2,
+      "path": "/Users/lloydb/Documents/jsdoc2md/jsdoc-api/test/fixture/class-all",
       "code": {
-        "id": "astnode100000013",
+        "id": "astnode100000014",
         "name": "this.size",
         "type": "Literal",
         "value": "medium",
@@ -128,9 +131,10 @@
       ],
       "filename": "0-src.js",
       "lineno": 44,
-      "path": "/Users/lloyd/Documents/jsdoc2md/testbed/build/jsdoc/class-all",
+      "columnno": 0,
+      "path": "/Users/lloydb/Documents/jsdoc2md/jsdoc-api/test/fixture/class-all",
       "code": {
-        "id": "astnode100000019",
+        "id": "astnode100000020",
         "name": "All.prototype.allThings",
         "type": "FunctionExpression",
         "paramnames": [
@@ -197,9 +201,10 @@
       ],
       "filename": "0-src.js",
       "lineno": 48,
-      "path": "/Users/lloyd/Documents/jsdoc2md/testbed/build/jsdoc/class-all",
+      "columnno": 6,
+      "path": "/Users/lloydb/Documents/jsdoc2md/jsdoc-api/test/fixture/class-all",
       "code": {
-        "id": "astnode100000030",
+        "id": "astnode100000031",
         "name": "some",
         "type": "Literal",
         "value": "bs code"
@@ -210,13 +215,14 @@
     "longname": "All#allThings~some",
     "kind": "member",
     "memberof": "All#allThings",
-    "scope": "inner"
+    "scope": "inner",
+    "params": []
   },
   {
     "kind": "package",
     "longname": "package:undefined",
     "files": [
-      "/Users/lloyd/Documents/jsdoc2md/testbed/build/jsdoc/class-all/0-src.js"
+      "/Users/lloydb/Documents/jsdoc2md/jsdoc-api/test/fixture/class-all/0-src.js"
     ]
   }
 ]
