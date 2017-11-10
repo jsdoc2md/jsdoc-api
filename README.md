@@ -53,7 +53,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
     * _inner_
         * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
             * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-            * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code>
+            * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
             * [.cache](#module_jsdoc-api..JsdocOptions.JsdocOptions+cache) : <code>boolean</code>
             * [.access](#module_jsdoc-api..JsdocOptions.JsdocOptions+access) : <code>string</code>
             * [.configure](#module_jsdoc-api..JsdocOptions.JsdocOptions+configure) : <code>string</code>
@@ -123,7 +123,7 @@ The jsdoc options, common for all operations.
 
 * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
     * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-    * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code>
+    * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
     * [.cache](#module_jsdoc-api..JsdocOptions.JsdocOptions+cache) : <code>boolean</code>
     * [.access](#module_jsdoc-api..JsdocOptions.JsdocOptions+access) : <code>string</code>
     * [.configure](#module_jsdoc-api..JsdocOptions.JsdocOptions+configure) : <code>string</code>
@@ -146,8 +146,8 @@ One or more filenames to process. Either this or `source` must be supplied.
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+source"></a>
 
-#### options.source : <code>string</code>
-A string containing source code to process. Either this or `source` must be supplied.
+#### options.source : <code>string</code> \| <code>Array.&lt;string&gt;</code>
+A string or array of strings containing source code to process. Either this or `files` must be supplied.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
 <a name="module_jsdoc-api..JsdocOptions.JsdocOptions+cache"></a>
