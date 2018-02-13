@@ -49,9 +49,9 @@ runner.test('.renderSync({ source[], destination })', function () {
     function FooSecond() {}
     export default FooSecond
   `]
-  jsdoc.renderSync({ source: sources, destination: 'tmp/out' })
+  jsdoc.renderSync({ source: sources, destination: 'tmp/renderSync/out' })
   a.doesNotThrow(function () {
-    fs.statSync('./tmp/out/FooPrime.html')
-    fs.statSync('./tmp/out/FooSecond.html')
+    fs.statSync('./tmp/renderSync/out/FooPrime.html')
+    fs.statSync('./tmp/renderSync/out/FooSecond.html')
   })
 })
