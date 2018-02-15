@@ -5,7 +5,6 @@
   "description": "A programmatic interface for jsdoc",
   "repository": "https://github.com/jsdoc2md/jsdoc-api.git",
   "license": "MIT",
-  "main": "lib/jsdoc-api",
   "keywords": [
     "jsdoc",
     "api",
