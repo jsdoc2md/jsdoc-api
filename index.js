@@ -26,7 +26,7 @@ exports.cache = new Cache({ dir: path.join(require('os').tmpdir(), 'jsdoc-api') 
  */
 function explainSync (options) {
   options = new JsdocOptions(options)
-  const ExplainSync = require('./explain-sync')
+  const ExplainSync = require('./lib/explain-sync')
   const command = new ExplainSync(options, exports.cache)
   return command.execute()
 }
@@ -41,7 +41,7 @@ function explainSync (options) {
  */
 function explain (options) {
   options = new JsdocOptions(options)
-  const Explain = require('./explain')
+  const Explain = require('./lib/explain')
   const command = new Explain(options, exports.cache)
   return command.execute()
 }
@@ -57,7 +57,7 @@ function explain (options) {
  */
 function renderSync (options) {
   options = new JsdocOptions(options)
-  const RenderSync = require('./render-sync')
+  const RenderSync = require('./lib/render-sync')
   const command = new RenderSync(options)
   return command.execute()
 }

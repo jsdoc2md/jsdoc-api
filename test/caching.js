@@ -42,3 +42,26 @@ runner.test('caching: .explain({ files, cache: true  })', function () {
         })
     })
 })
+
+runner.test('caching: .explain({ source, cache: true  }) - Ensure correct output (#147)', function () {
+  return jsdoc.cache.clear().then(() => {
+    let one = jsdoc.explain({ source: '/**\n * Function one\n */\nfunction one () {}\n', cache: true })
+    let two = jsdoc.explain({ source: '/**\n * Function two\n */\nfunction two () {}\n', cache: true })
+    let three = jsdoc.explain({ source: '/**\n * Function three\n */\nfunction three () {}\n', cache: true })
+    Promise.all([ one, two, three ]).then(output => {
+      a.strictEqual(output[0][0].description, 'Function one')
+      a.strictEqual(output[1][0].description, 'Function two')
+      a.strictEqual(output[2][0].description, 'Function three')
+    })
+
+    /* ensure it works correctly the second time */
+    one = jsdoc.explain({ source: '/**\n * Function one\n */\nfunction one () {}\n', cache: true })
+    two = jsdoc.explain({ source: '/**\n * Function two\n */\nfunction two () {}\n', cache: true })
+    three = jsdoc.explain({ source: '/**\n * Function three\n */\nfunction three () {}\n', cache: true })
+    Promise.all([ one, two, three ]).then(output => {
+      a.strictEqual(output[0][0].description, 'Function one')
+      a.strictEqual(output[1][0].description, 'Function two')
+      a.strictEqual(output[2][0].description, 'Function three')
+    })
+  })
+})
