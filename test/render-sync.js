@@ -27,7 +27,7 @@ runner.test('.renderSync({ source, destination })', function () {
 })
 
 runner.test('.renderSync({ source[], destination })', function () {
-  Fixture.createTmpFolder('tmp')
+  Fixture.createTmpFolder('tmp/renderSync')
   const sources = [
     `import Foo from "foo"
      /**
