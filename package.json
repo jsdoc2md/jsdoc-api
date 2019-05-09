@@ -44,5 +44,9 @@
       "tmp",
       "test/fixture"
     ]
-  }
+  },
+  "files": [
+    "index.js",
+    "lib/*.js"
+  ]
 }
