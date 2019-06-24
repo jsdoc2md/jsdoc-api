@@ -25,3 +25,33 @@ runner.test('.renderSync({ source, destination })', function () {
     fs.statSync('./tmp/renderSync/out/index.html')
   })
 })
+
+runner.test('.renderSync({ source[], destination })', function () {
+  Fixture.createTmpFolder('tmp/renderSync')
+  const sources = [
+    `import Foo from "foo"
+     /**
+      * FooPrime is some child class
+      * @class
+      * @param {Object} - an input
+      * @extends Foo
+      */
+     function FooPrime() {}
+     export default FooPrime
+  `,
+    `import Foo from "foo"
+    /**
+     * FooSecond is some other child class
+     * @class
+     * @param {Object} - an input
+     * @extends Foo
+     */
+    function FooSecond() {}
+    export default FooSecond
+  `]
+  jsdoc.renderSync({ source: sources, destination: 'tmp/renderSync/out' })
+  a.doesNotThrow(function () {
+    fs.statSync('./tmp/renderSync/out/FooPrime.html')
+    fs.statSync('./tmp/renderSync/out/FooSecond.html')
+  })
+})
