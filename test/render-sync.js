@@ -7,6 +7,7 @@ const a = require('assert')
 const tom = module.exports = new Tom('render-sync')
 
 tom.test('.renderSync({ files })', function () {
+  Fixture.createTmpFolder('tmp')
   Fixture.createTmpFolder('tmp/renderSync')
   const f = new Fixture('class-all')
   jsdoc.renderSync({ files: f.sourcePath, destination: 'tmp/renderSync/out' })
@@ -16,6 +17,7 @@ tom.test('.renderSync({ files })', function () {
 })
 
 tom.test('.renderSync({ source, destination })', function () {
+  Fixture.createTmpFolder('tmp')
   Fixture.createTmpFolder('tmp/renderSync')
   const f = new Fixture('class-all')
   jsdoc.renderSync({ source: f.getSource(), destination: 'tmp/renderSync/out' })
