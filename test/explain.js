@@ -1,29 +1,28 @@
-'use strict'
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const jsdoc = require('../')
 const Fixture = require('./lib/fixture')
 const path = require('path')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('explain')
 
-runner.test('.explain({ files })', function () {
+tom.test('.explain({ files })', function () {
   const f = new Fixture('class-all')
   return jsdoc.explain({ files: f.sourcePath })
     .then(function (output) {
-      a.deepEqual(output, f.getExpectedOutput(output))
+      a.deepStrictEqual(output, f.getExpectedOutput(output))
     })
 })
 
-runner.test('.explain({ source })', function () {
+tom.test('.explain({ source })', function () {
   const f = new Fixture('class-all')
   return jsdoc.explain({ source: f.getSource() })
     .then(function (output) {
-      a.deepEqual(output, f.getExpectedOutput(output))
+      a.deepStrictEqual(output, f.getExpectedOutput(output))
     })
 })
 
-runner.test(".explain: file doesn't exist", function () {
+tom.test(".explain: file doesn't exist", function () {
   return jsdoc.explain({ files: 'sdfafafirifrj' })
     .then(function () {
       a.fail('should not reach here')
@@ -33,7 +32,7 @@ runner.test(".explain: file doesn't exist", function () {
     })
 })
 
-runner.test('.explain: invalid doclet syntax', function () {
+tom.test('.explain: invalid doclet syntax', function () {
   const input = path.resolve(__dirname, 'fixture', 'buggy', 'bad-doclet-syntax.js')
   return jsdoc.explain({ files: input })
     .then(function () {
@@ -44,6 +43,6 @@ runner.test('.explain: invalid doclet syntax', function () {
     })
 })
 
-runner.test('.explain({ files }): generate a warning', function () {
+tom.test('.explain({ files }): generate a warning', function () {
   return jsdoc.explain({ files: 'test/fixture/buggy/ignore-with-value.js' })
 })

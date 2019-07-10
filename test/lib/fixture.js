@@ -1,7 +1,7 @@
-var path = require('path')
-var fs = require('fs')
-var rimraf = require('rimraf')
-var arrayify = require('array-back')
+const path = require('path')
+const fs = require('fs')
+const rimraf = require('rimraf')
+const arrayify = require('array-back')
 
 module.exports = Fixture
 
@@ -14,7 +14,7 @@ function Fixture (name, filePath) {
   }
 
   this.getExpectedOutput = function (output) {
-    var expectedOutput = JSON.parse(fs.readFileSync(path.resolve(this.folder, '1-jsdoc.json'), 'utf-8'))
+    const expectedOutput = JSON.parse(fs.readFileSync(path.resolve(this.folder, '1-jsdoc.json'), 'utf-8'))
     Fixture.removeFileSpecificData(expectedOutput)
     if (output) Fixture.removeFileSpecificData(output)
     return expectedOutput

@@ -52,21 +52,21 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
         * [.renderSync([options])](#module_jsdoc-api.renderSync)
     * _inner_
         * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
-            * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-            * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code>
-            * [.cache](#module_jsdoc-api..JsdocOptions.JsdocOptions+cache) : <code>boolean</code>
-            * [.access](#module_jsdoc-api..JsdocOptions.JsdocOptions+access) : <code>string</code>
-            * [.configure](#module_jsdoc-api..JsdocOptions.JsdocOptions+configure) : <code>string</code>
-            * [.destination](#module_jsdoc-api..JsdocOptions.JsdocOptions+destination) : <code>string</code>
-            * [.encoding](#module_jsdoc-api..JsdocOptions.JsdocOptions+encoding) : <code>string</code>
-            * [.private](#module_jsdoc-api..JsdocOptions.JsdocOptions+private) : <code>boolean</code>
-            * [.package](#module_jsdoc-api..JsdocOptions.JsdocOptions+package) : <code>string</code>
-            * [.pedantic](#module_jsdoc-api..JsdocOptions.JsdocOptions+pedantic) : <code>boolean</code>
-            * [.query](#module_jsdoc-api..JsdocOptions.JsdocOptions+query) : <code>string</code>
-            * [.recurse](#module_jsdoc-api..JsdocOptions.JsdocOptions+recurse) : <code>boolean</code>
-            * [.readme](#module_jsdoc-api..JsdocOptions.JsdocOptions+readme) : <code>string</code>
-            * [.template](#module_jsdoc-api..JsdocOptions.JsdocOptions+template) : <code>string</code>
-            * [.tutorials](#module_jsdoc-api..JsdocOptions.JsdocOptions+tutorials) : <code>string</code>
+            * [.files](#module_jsdoc-api..JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
+            * [.source](#module_jsdoc-api..JsdocOptions+source) : <code>string</code>
+            * [.cache](#module_jsdoc-api..JsdocOptions+cache) : <code>boolean</code>
+            * [.access](#module_jsdoc-api..JsdocOptions+access) : <code>string</code>
+            * [.configure](#module_jsdoc-api..JsdocOptions+configure) : <code>string</code>
+            * [.destination](#module_jsdoc-api..JsdocOptions+destination) : <code>string</code>
+            * [.encoding](#module_jsdoc-api..JsdocOptions+encoding) : <code>string</code>
+            * [.private](#module_jsdoc-api..JsdocOptions+private) : <code>boolean</code>
+            * [.package](#module_jsdoc-api..JsdocOptions+package) : <code>string</code>
+            * [.pedantic](#module_jsdoc-api..JsdocOptions+pedantic) : <code>boolean</code>
+            * [.query](#module_jsdoc-api..JsdocOptions+query) : <code>string</code>
+            * [.recurse](#module_jsdoc-api..JsdocOptions+recurse) : <code>boolean</code>
+            * [.readme](#module_jsdoc-api..JsdocOptions+readme) : <code>string</code>
+            * [.template](#module_jsdoc-api..JsdocOptions+template) : <code>string</code>
+            * [.tutorials](#module_jsdoc-api..JsdocOptions+tutorials) : <code>string</code>
 
 <a name="module_jsdoc-api.cache"></a>
 
@@ -122,107 +122,107 @@ The jsdoc options, common for all operations.
 **Kind**: inner class of [<code>jsdoc-api</code>](#module_jsdoc-api)  
 
 * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
-    * [.files](#module_jsdoc-api..JsdocOptions.JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-    * [.source](#module_jsdoc-api..JsdocOptions.JsdocOptions+source) : <code>string</code>
-    * [.cache](#module_jsdoc-api..JsdocOptions.JsdocOptions+cache) : <code>boolean</code>
-    * [.access](#module_jsdoc-api..JsdocOptions.JsdocOptions+access) : <code>string</code>
-    * [.configure](#module_jsdoc-api..JsdocOptions.JsdocOptions+configure) : <code>string</code>
-    * [.destination](#module_jsdoc-api..JsdocOptions.JsdocOptions+destination) : <code>string</code>
-    * [.encoding](#module_jsdoc-api..JsdocOptions.JsdocOptions+encoding) : <code>string</code>
-    * [.private](#module_jsdoc-api..JsdocOptions.JsdocOptions+private) : <code>boolean</code>
-    * [.package](#module_jsdoc-api..JsdocOptions.JsdocOptions+package) : <code>string</code>
-    * [.pedantic](#module_jsdoc-api..JsdocOptions.JsdocOptions+pedantic) : <code>boolean</code>
-    * [.query](#module_jsdoc-api..JsdocOptions.JsdocOptions+query) : <code>string</code>
-    * [.recurse](#module_jsdoc-api..JsdocOptions.JsdocOptions+recurse) : <code>boolean</code>
-    * [.readme](#module_jsdoc-api..JsdocOptions.JsdocOptions+readme) : <code>string</code>
-    * [.template](#module_jsdoc-api..JsdocOptions.JsdocOptions+template) : <code>string</code>
-    * [.tutorials](#module_jsdoc-api..JsdocOptions.JsdocOptions+tutorials) : <code>string</code>
+    * [.files](#module_jsdoc-api..JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
+    * [.source](#module_jsdoc-api..JsdocOptions+source) : <code>string</code>
+    * [.cache](#module_jsdoc-api..JsdocOptions+cache) : <code>boolean</code>
+    * [.access](#module_jsdoc-api..JsdocOptions+access) : <code>string</code>
+    * [.configure](#module_jsdoc-api..JsdocOptions+configure) : <code>string</code>
+    * [.destination](#module_jsdoc-api..JsdocOptions+destination) : <code>string</code>
+    * [.encoding](#module_jsdoc-api..JsdocOptions+encoding) : <code>string</code>
+    * [.private](#module_jsdoc-api..JsdocOptions+private) : <code>boolean</code>
+    * [.package](#module_jsdoc-api..JsdocOptions+package) : <code>string</code>
+    * [.pedantic](#module_jsdoc-api..JsdocOptions+pedantic) : <code>boolean</code>
+    * [.query](#module_jsdoc-api..JsdocOptions+query) : <code>string</code>
+    * [.recurse](#module_jsdoc-api..JsdocOptions+recurse) : <code>boolean</code>
+    * [.readme](#module_jsdoc-api..JsdocOptions+readme) : <code>string</code>
+    * [.template](#module_jsdoc-api..JsdocOptions+template) : <code>string</code>
+    * [.tutorials](#module_jsdoc-api..JsdocOptions+tutorials) : <code>string</code>
 
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+files"></a>
+<a name="module_jsdoc-api..JsdocOptions+files"></a>
 
 #### options.files : <code>string</code> \| <code>Array.&lt;string&gt;</code>
 One or more filenames to process. Either this or `source` must be supplied.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+source"></a>
+<a name="module_jsdoc-api..JsdocOptions+source"></a>
 
 #### options.source : <code>string</code>
 A string containing source code to process. Either this or `source` must be supplied.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+cache"></a>
+<a name="module_jsdoc-api..JsdocOptions+cache"></a>
 
 #### options.cache : <code>boolean</code>
 Set to `true` to cache the output - future invocations with the same input will return immediately.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+access"></a>
+<a name="module_jsdoc-api..JsdocOptions+access"></a>
 
 #### options.access : <code>string</code>
 Only display symbols with the given access: "public", "protected", "private" or "undefined", or "all" for all access levels. Default: all except "private".
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+configure"></a>
+<a name="module_jsdoc-api..JsdocOptions+configure"></a>
 
 #### options.configure : <code>string</code>
 The path to the configuration file. Default: path/to/jsdoc/conf.json.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+destination"></a>
+<a name="module_jsdoc-api..JsdocOptions+destination"></a>
 
 #### options.destination : <code>string</code>
 The path to the output folder. Use "console" to dump data to the console. Default: ./out/.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+encoding"></a>
+<a name="module_jsdoc-api..JsdocOptions+encoding"></a>
 
 #### options.encoding : <code>string</code>
 Assume this encoding when reading all source files. Default: utf8.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+private"></a>
+<a name="module_jsdoc-api..JsdocOptions+private"></a>
 
 #### options.private : <code>boolean</code>
 Display symbols marked with the @private tag. Equivalent to "--access all". Default: false.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+package"></a>
+<a name="module_jsdoc-api..JsdocOptions+package"></a>
 
 #### options.package : <code>string</code>
 The path to the project's package file. Default: path/to/sourcefiles/package.json
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+pedantic"></a>
+<a name="module_jsdoc-api..JsdocOptions+pedantic"></a>
 
 #### options.pedantic : <code>boolean</code>
 Treat errors as fatal errors, and treat warnings as errors. Default: false.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+query"></a>
+<a name="module_jsdoc-api..JsdocOptions+query"></a>
 
 #### options.query : <code>string</code>
 A query string to parse and store in jsdoc.env.opts.query. Example: foo=bar&baz=true.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+recurse"></a>
+<a name="module_jsdoc-api..JsdocOptions+recurse"></a>
 
 #### options.recurse : <code>boolean</code>
 Recurse into subdirectories when scanning for source files and tutorials.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+readme"></a>
+<a name="module_jsdoc-api..JsdocOptions+readme"></a>
 
 #### options.readme : <code>string</code>
 The path to the project's README file. Default: path/to/sourcefiles/README.md.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+template"></a>
+<a name="module_jsdoc-api..JsdocOptions+template"></a>
 
 #### options.template : <code>string</code>
 The path to the template to use. Default: path/to/jsdoc/templates/default.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions.JsdocOptions+tutorials"></a>
+<a name="module_jsdoc-api..JsdocOptions+tutorials"></a>
 
 #### options.tutorials : <code>string</code>
 Directory in which JSDoc should search for tutorials.

@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * @module jsdoc-api
  * @typicalname jsdoc
