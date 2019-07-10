@@ -5,62 +5,54 @@ const path = require('path')
 const fs = require('fs-then-native')
 const a = require('assert')
 
-/* needs to be sequence as `jsdoc.cache` is shared between tests */
+/* tests need to run sequentially as `jsdoc.cache` is shared between tests */
 const tom = module.exports = new Tom('caching', { concurrency: 1 })
 
-tom.test('caching: .explainSync({ files, cache: true })', function () {
+tom.test('caching: .explainSync({ files, cache: true })', async function () {
   const f = new Fixture('class-all')
-  jsdoc.cache.dir = 'tmp/cache-sync'
-  return jsdoc.cache.clear()
-    .then(() => {
-      const output = jsdoc.explainSync({ files: f.sourcePath, cache: true })
-      const expectedOutput = f.getExpectedOutput(output)
+  jsdoc.cache.dir = 'tmp/test/cache-sync'
+  await jsdoc.cache.clear()
+  const output = jsdoc.explainSync({ files: f.sourcePath, cache: true })
+  const expectedOutput = f.getExpectedOutput(output)
 
-      a.ok(typeof output === 'object')
-      a.deepStrictEqual(output, expectedOutput)
-    })
+  a.ok(typeof output === 'object')
+  a.deepEqual(output, expectedOutput)
 })
 
-tom.test('caching: .explain({ files, cache: true  })', function () {
+tom.test('caching: .explain({ files, cache: true  })', async function () {
   const f = new Fixture('class-all')
-  jsdoc.cache.dir = 'tmp/cache'
-  return jsdoc.cache.clear()
-    .then(() => {
-      return jsdoc.explain({ files: f.sourcePath, cache: true })
-        .then(output => {
-          const cachedFiles = fs.readdirSync(jsdoc.cache.dir)
-            .map(file => path.resolve(jsdoc.cache.dir, file))
-          a.strictEqual(cachedFiles.length, 1)
-          a.deepStrictEqual(output, f.getExpectedOutput(output))
-          const cachedData = JSON.parse(fs.readFileSync(cachedFiles[0], 'utf8'))
-          Fixture.removeFileSpecificData(cachedData)
-          a.deepStrictEqual(
-            cachedData,
-            f.getExpectedOutput(output)
-          )
-        })
-    })
+  jsdoc.cache.dir = 'tmp/test/cache' + this.index
+  await jsdoc.cache.clear()
+  const output = await jsdoc.explain({ files: f.sourcePath, cache: true })
+  const cachedFiles = fs.readdirSync(jsdoc.cache.dir)
+    .map(file => path.resolve(jsdoc.cache.dir, file))
+  a.strictEqual(cachedFiles.length, 1)
+  a.deepEqual(output, f.getExpectedOutput(output))
+  const cachedData = JSON.parse(fs.readFileSync(cachedFiles[0], 'utf8'))
+  Fixture.removeFileSpecificData(cachedData)
+  a.deepEqual(
+    cachedData,
+    f.getExpectedOutput(output)
+  )
 })
 
-tom.test('caching: .explain({ source, cache: true  }) - Ensure correct output (#147)', function () {
-  return jsdoc.cache.clear().then(() => {
-    let one = jsdoc.explain({ source: '/**\n * Function one\n */\nfunction one () {}\n', cache: true })
-    let two = jsdoc.explain({ source: '/**\n * Function two\n */\nfunction two () {}\n', cache: true })
-    let three = jsdoc.explain({ source: '/**\n * Function three\n */\nfunction three () {}\n', cache: true })
-    Promise.all([ one, two, three ]).then(output => {
-      a.strictEqual(output[0][0].description, 'Function one')
-      a.strictEqual(output[1][0].description, 'Function two')
-      a.strictEqual(output[2][0].description, 'Function three')
-    })
+tom.test('caching: .explain({ source, cache: true  }) - Ensure correct output (#147)', async function () {
+  await jsdoc.cache.clear()
+  jsdoc.cache.dir = 'tmp/test/cache' + this.index
+  let one = jsdoc.explain({ source: '/**\n * Function one\n */\nfunction one () {}\n', cache: true })
+  let two = jsdoc.explain({ source: '/**\n * Function two\n */\nfunction two () {}\n', cache: true })
+  let three = jsdoc.explain({ source: '/**\n * Function three\n */\nfunction three () {}\n', cache: true })
+  const output = await Promise.all([ one, two, three ])
+  a.strictEqual(output[0][0].description, 'Function one')
+  a.strictEqual(output[1][0].description, 'Function two')
+  a.strictEqual(output[2][0].description, 'Function three')
 
-    /* ensure it works correctly the second time */
-    one = jsdoc.explain({ source: '/**\n * Function one\n */\nfunction one () {}\n', cache: true })
-    two = jsdoc.explain({ source: '/**\n * Function two\n */\nfunction two () {}\n', cache: true })
-    three = jsdoc.explain({ source: '/**\n * Function three\n */\nfunction three () {}\n', cache: true })
-    Promise.all([ one, two, three ]).then(output => {
-      a.strictEqual(output[0][0].description, 'Function one')
-      a.strictEqual(output[1][0].description, 'Function two')
-      a.strictEqual(output[2][0].description, 'Function three')
-    })
-  })
+  /* ensure it works correctly the second time */
+  one = jsdoc.explain({ source: '/**\n * Function one\n */\nfunction one () {}\n', cache: true })
+  two = jsdoc.explain({ source: '/**\n * Function two\n */\nfunction two () {}\n', cache: true })
+  three = jsdoc.explain({ source: '/**\n * Function three\n */\nfunction three () {}\n', cache: true })
+  const output2 = await Promise.all([ one, two, three ])
+  a.strictEqual(output2[0][0].description, 'Function one')
+  a.strictEqual(output2[1][0].description, 'Function two')
+  a.strictEqual(output2[2][0].description, 'Function three')
 })
