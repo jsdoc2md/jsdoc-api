@@ -19,12 +19,13 @@
   "scripts": {
     "test": "test-runner test/explain.js test/explain-sync.js test/render-sync.js && test-runner test/caching.js",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo",
-    "cover": "istanbul cover ./node_modules/.bin/test-runner test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
+    "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
     "collect-json": "^1.0.8",
     "coveralls": "^3.0.4",
     "jsdoc-to-markdown": "^5.0.0",
+    "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
     "test-runner": "~0.6.0"
   },
