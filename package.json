@@ -23,19 +23,19 @@
   },
   "devDependencies": {
     "collect-json": "^1.0.8",
-    "coveralls": "^3.0.4",
+    "coveralls": "^3.0.6",
     "jsdoc-to-markdown": "^5.0.0",
     "nyc": "^14.1.1",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.0",
     "test-runner": "~0.6.0"
   },
   "dependencies": {
-    "array-back": "^3.1.0",
+    "array-back": "^4.0.0",
     "cache-point": "^0.4.1",
     "collect-all": "^1.0.3",
     "file-set": "^2.0.1",
     "fs-then-native": "^2.0.0",
-    "jsdoc": "^3.6.2",
+    "jsdoc": "^3.6.3",
     "object-to-spawn-args": "^1.1.1",
     "temp-path": "^1.0.0",
     "walk-back": "^3.0.1"
