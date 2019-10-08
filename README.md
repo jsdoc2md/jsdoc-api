@@ -147,7 +147,7 @@ One or more filenames to process. Either this or `source` must be supplied.
 <a name="module_jsdoc-api..JsdocOptions+source"></a>
 
 #### options.source : <code>string</code>
-A string containing source code to process. Either this or `source` must be supplied.
+A string containing source code to process. Either this or `files` must be supplied.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
 <a name="module_jsdoc-api..JsdocOptions+cache"></a>

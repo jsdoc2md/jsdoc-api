@@ -76,7 +76,7 @@ class JsdocOptions {
     this.files = arrayify(options.files)
 
     /**
-     * A string containing source code to process. Either this or `source` must be supplied.
+     * A string containing source code to process. Either this or `files` must be supplied.
      * @type {string}
      */
     this.source = options.source
