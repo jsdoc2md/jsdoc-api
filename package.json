@@ -23,15 +23,15 @@
   },
   "devDependencies": {
     "collect-json": "^1.0.8",
-    "coveralls": "^3.0.6",
-    "jsdoc-to-markdown": "^5.0.1",
+    "coveralls": "^3.0.7",
+    "jsdoc-to-markdown": "^5.0.2",
     "nyc": "^14.1.1",
     "rimraf": "^3.0.0",
     "test-runner": "~0.6.0"
   },
   "dependencies": {
     "array-back": "^4.0.0",
-    "cache-point": "^0.4.1",
+    "cache-point": "^1.0.0",
     "collect-all": "^1.0.3",
     "file-set": "^2.0.1",
     "fs-then-native": "^2.0.0",
