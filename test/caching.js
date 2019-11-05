@@ -8,7 +8,7 @@ const a = require('assert')
 /* tests need to run sequentially as `jsdoc.cache` is shared between tests */
 const tom = module.exports = new Tom('caching', { concurrency: 1 })
 
-tom.test('caching: .explainSync({ files, cache: true })', async function () {
+tom.test('.explainSync({ files, cache: true })', async function () {
   const f = new Fixture('class-all')
   jsdoc.cache.dir = 'tmp/test/cache-sync'
   await jsdoc.cache.clear()
@@ -19,7 +19,7 @@ tom.test('caching: .explainSync({ files, cache: true })', async function () {
   a.deepEqual(output, expectedOutput)
 })
 
-tom.test('caching: .explain({ files, cache: true  })', async function () {
+tom.test('.explain({ files, cache: true  })', async function () {
   const f = new Fixture('class-all')
   jsdoc.cache.dir = 'tmp/test/cache' + this.index
   await jsdoc.cache.clear()
@@ -36,7 +36,7 @@ tom.test('caching: .explain({ files, cache: true  })', async function () {
   )
 })
 
-tom.test('caching: .explain({ source, cache: true  }) - Ensure correct output (#147)', async function () {
+tom.test('.explain({ source, cache: true  }) - Ensure correct output (#147)', async function () {
   await jsdoc.cache.clear()
   jsdoc.cache.dir = 'tmp/test/cache' + this.index
   let one = jsdoc.explain({ source: '/**\n * Function one\n */\nfunction one () {}\n', cache: true })
