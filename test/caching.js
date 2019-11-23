@@ -6,7 +6,7 @@ const fs = require('fs-then-native')
 const a = require('assert')
 
 /* tests need to run sequentially as `jsdoc.cache` is shared between tests */
-const tom = module.exports = new Tom('caching', { concurrency: 1 })
+const tom = module.exports = new Tom('caching', { maxConcurrency: 1 })
 
 tom.test('.explainSync({ files, cache: true })', async function () {
   const f = new Fixture('class-all')

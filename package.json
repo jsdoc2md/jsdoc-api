@@ -14,23 +14,23 @@
     "documentation"
   ],
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10"
   },
   "scripts": {
-    "test": "test-runner test/explain.js test/explain-sync.js test/render-sync.js && test-runner test/caching.js",
+    "test": "test-runner --max-file-concurrency 1 test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
     "collect-json": "^1.0.8",
-    "coveralls": "^3.0.7",
-    "jsdoc-to-markdown": "^5.0.2",
+    "coveralls": "^3.0.8",
+    "jsdoc-to-markdown": "^5.0.3",
     "nyc": "^14.1.1",
     "rimraf": "^3.0.0",
-    "test-runner": "~0.6.3"
+    "test-runner": "~0.8.2"
   },
   "dependencies": {
-    "array-back": "^4.0.0",
+    "array-back": "^4.0.1",
     "cache-point": "^1.0.0",
     "collect-all": "^1.0.3",
     "file-set": "^3.0.0",
@@ -38,7 +38,7 @@
     "jsdoc": "^3.6.3",
     "object-to-spawn-args": "^2.0.0",
     "temp-path": "^1.0.0",
-    "walk-back": "^3.0.1"
+    "walk-back": "^4.0.0"
   },
   "standard": {
     "ignore": [
