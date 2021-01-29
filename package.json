@@ -35,7 +35,7 @@
     "collect-all": "^1.0.3",
     "file-set": "^4.0.1",
     "fs-then-native": "^2.0.0",
-    "jsdoc": "^3.6.4",
+    "jsdoc": "^3.6.6",
     "object-to-spawn-args": "^2.0.0",
     "temp-path": "^1.0.0",
     "walk-back": "^4.0.0"
