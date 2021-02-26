@@ -14,7 +14,7 @@
     "documentation"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "test": "test-runner --max-file-concurrency 1 test/*.js",
@@ -24,21 +24,21 @@
   "devDependencies": {
     "collect-json": "^1.0.8",
     "coveralls": "^3.1.0",
-    "jsdoc-to-markdown": "^5.0.3",
-    "nyc": "^15.0.1",
+    "jsdoc-to-markdown": "^6.0.1",
+    "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
     "test-runner": "^0.8.13"
   },
   "dependencies": {
-    "array-back": "^4.0.1",
+    "array-back": "^5.0.0",
     "cache-point": "^2.0.0",
-    "collect-all": "^1.0.3",
+    "collect-all": "^1.0.4",
     "file-set": "^4.0.1",
     "fs-then-native": "^2.0.0",
-    "jsdoc": "^3.6.4",
+    "jsdoc": "^3.6.6",
     "object-to-spawn-args": "^2.0.0",
     "temp-path": "^1.0.0",
-    "walk-back": "^4.0.0"
+    "walk-back": "^5.0.0"
   },
   "standard": {
     "ignore": [
