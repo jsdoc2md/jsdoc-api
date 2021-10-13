@@ -18,6 +18,7 @@
   },
   "scripts": {
     "test": "test-runner --max-file-concurrency 1 test/*.js",
+    "test:ci": "npm test",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo"
   },
   "devDependencies": {
