@@ -3,7 +3,7 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "7.0.1",
   "description": "A programmatic interface for jsdoc",
-  "repository": "https://github.com/jsdoc2md/jsdoc-api.git",
+  "repository": "https://github.com/jsdoc2md/jsdoc-api",
   "license": "MIT",
   "keywords": [
     "jsdoc",
@@ -14,23 +14,21 @@
     "documentation"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=12.17"
   },
   "scripts": {
     "test": "test-runner --max-file-concurrency 1 test/*.js",
-    "docs": "jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo",
-    "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "docs": "jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo"
   },
   "devDependencies": {
-    "collect-json": "^1.0.8",
-    "coveralls": "^3.1.0",
+    "collect-json": "^1.0.9",
+    "coveralls": "^3.1.1",
     "jsdoc-to-markdown": "^7.0.1",
-    "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
-    "test-runner": "^0.8.14"
+    "test-runner": "^0.10.0"
   },
   "dependencies": {
-    "array-back": "^5.0.0",
+    "array-back": "^6.2.0",
     "cache-point": "^2.0.0",
     "collect-all": "^1.0.4",
     "file-set": "^4.0.2",
@@ -38,7 +36,7 @@
     "jsdoc": "^3.6.7",
     "object-to-spawn-args": "^2.0.1",
     "temp-path": "^1.0.0",
-    "walk-back": "^5.0.0"
+    "walk-back": "^5.1.0"
   },
   "standard": {
     "ignore": [
