@@ -231,6 +231,6 @@ Directory in which JSDoc should search for tutorials.
 
 * * *
 
-&copy; 2015-21 [Lloyd Brookes](https://github.com/75lb) \<75pound@gmail.com\>.
+&copy; 2015-22 [Lloyd Brookes](https://github.com/75lb) \<75pound@gmail.com\>.
 
 Tested by [test-runner](https://github.com/test-runner-js/test-runner). Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
