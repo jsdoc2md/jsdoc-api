@@ -1,6 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-const rimraf = require('rimraf')
 const arrayify = require('array-back')
 
 class Fixture {
@@ -27,7 +26,7 @@ class Fixture {
   static createTmpFolder (folder) {
     try {
       fs.statSync(folder)
-      rimraf.sync(folder)
+      fs.rmdirSync(folder, { recursive: true })
       fs.mkdirSync(folder)
     } catch (err) {
       fs.mkdirSync(folder)

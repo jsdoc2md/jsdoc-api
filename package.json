@@ -3,7 +3,10 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "8.0.0",
   "description": "A programmatic interface for jsdoc",
-  "repository": "https://github.com/jsdoc2md/jsdoc-api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsdoc2md/jsdoc-api.git"
+  },
   "license": "MIT",
   "keywords": [
     "jsdoc",
@@ -23,17 +26,15 @@
   "devDependencies": {
     "collect-json": "^1.0.9",
     "coveralls": "^3.1.1",
-    "jsdoc-to-markdown": "^7.1.1",
-    "rimraf": "^3.0.2",
+    "jsdoc-to-markdown": "^8.0.1",
     "test-runner": "^0.10.1"
   },
   "dependencies": {
     "array-back": "^6.2.2",
     "cache-point": "^2.0.0",
     "collect-all": "^1.0.4",
-    "file-set": "^4.0.2",
     "fs-then-native": "^2.0.0",
-    "jsdoc": "^4.0.0",
+    "jsdoc": "^4.0.3",
     "object-to-spawn-args": "^2.0.1",
     "temp-path": "^1.0.0",
     "walk-back": "^5.1.0"
@@ -46,6 +47,6 @@
   },
   "files": [
     "index.js",
-    "lib/*.js"
+    "lib"
   ]
 }
