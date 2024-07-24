@@ -33,6 +33,7 @@
     "array-back": "^6.2.2",
     "cache-point": "^2.0.0",
     "collect-all": "^1.0.4",
+    "file-set": "^4.0.2",
     "fs-then-native": "^2.0.0",
     "jsdoc": "^4.0.3",
     "object-to-spawn-args": "^2.0.1",
