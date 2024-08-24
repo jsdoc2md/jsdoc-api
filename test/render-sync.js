@@ -1,27 +1,28 @@
-const Tom = require('test-runner').Tom
-const jsdoc = require('../')
-const Fixture = require('./lib/fixture')
-const fs = require('fs')
-const a = require('assert')
+import * as jsdoc from 'jsdoc-api'
+import Fixture from './lib/fixture.js'
+import { statSync } from 'fs'
+import { strict as a } from 'assert'
 
-const tom = module.exports = new Tom('render-sync')
+const [test, only, skip] = [new Map(), new Map(), new Map()]
 
-tom.test('.renderSync({ files })', function () {
+test.set('.renderSync({ files })', function () {
   Fixture.createTmpFolder('tmp')
   Fixture.createTmpFolder('tmp/renderSync')
   const f = new Fixture('class-all')
   jsdoc.renderSync({ files: f.sourcePath, destination: 'tmp/renderSync/out' })
   a.doesNotThrow(function () {
-    fs.statSync('./tmp/renderSync/out/index.html')
+    statSync('./tmp/renderSync/out/index.html')
   })
 })
 
-tom.test('.renderSync({ source, destination })', function () {
+test.set('.renderSync({ source, destination })', function () {
   Fixture.createTmpFolder('tmp')
   Fixture.createTmpFolder('tmp/renderSync')
   const f = new Fixture('class-all')
   jsdoc.renderSync({ source: f.getSource(), destination: 'tmp/renderSync/out' })
   a.doesNotThrow(function () {
-    fs.statSync('./tmp/renderSync/out/index.html')
+    statSync('./tmp/renderSync/out/index.html')
   })
 })
+
+export { test, only, skip }

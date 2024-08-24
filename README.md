@@ -45,8 +45,6 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
 
 * [jsdoc-api](#module_jsdoc-api)
     * _static_
-        * [.cache](#module_jsdoc-api.cache) : [<code>cache-point</code>](https://github.com/75lb/cache-point)
-        * [.explainSync([options])](#module_jsdoc-api.explainSync) ⇒ <code>Array.&lt;object&gt;</code>
         * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
         * [.renderSync([options])](#module_jsdoc-api.renderSync)
     * _inner_
@@ -66,24 +64,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
             * [.readme](#module_jsdoc-api..JsdocOptions+readme) : <code>string</code>
             * [.template](#module_jsdoc-api..JsdocOptions+template) : <code>string</code>
             * [.tutorials](#module_jsdoc-api..JsdocOptions+tutorials) : <code>string</code>
-
-<a name="module_jsdoc-api.cache"></a>
-
-### jsdoc.cache : [<code>cache-point</code>](https://github.com/75lb/cache-point)
-The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()` or `.explainSync()`.
-
-**Kind**: static property of [<code>jsdoc-api</code>](#module_jsdoc-api)  
-<a name="module_jsdoc-api.explainSync"></a>
-
-### jsdoc.explainSync([options]) ⇒ <code>Array.&lt;object&gt;</code>
-Returns jsdoc explain output.
-
-**Kind**: static method of [<code>jsdoc-api</code>](#module_jsdoc-api)  
-**Prerequisite**: Requires node v0.12 or above  
-
-| Param | Type |
-| --- | --- |
-| [options] | [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions) | 
+        * [~cache](#module_jsdoc-api..cache) : [<code>cache-point</code>](https://github.com/75lb/cache-point)
 
 <a name="module_jsdoc-api.explain"></a>
 
@@ -227,6 +208,12 @@ The path to the template to use. Default: path/to/jsdoc/templates/default.
 Directory in which JSDoc should search for tutorials.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
+<a name="module_jsdoc-api..cache"></a>
+
+### jsdoc-api~cache : [<code>cache-point</code>](https://github.com/75lb/cache-point)
+The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()` or `.explainSync()`.
+
+**Kind**: inner constant of [<code>jsdoc-api</code>](#module_jsdoc-api)  
 
 * * *
 

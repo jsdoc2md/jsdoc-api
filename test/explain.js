@@ -1,48 +1,44 @@
-const Tom = require('test-runner').Tom
-const jsdoc = require('../')
-const Fixture = require('./lib/fixture')
-const path = require('path')
-const a = require('assert')
+import * as jsdoc from 'jsdoc-api'
+import Fixture from './lib/fixture.js'
+import { statSync } from 'fs'
+import { strict as a } from 'assert'
+import path from 'path'
 
-const tom = module.exports = new Tom('explain')
+const [test, only, skip] = [new Map(), new Map(), new Map()]
 
-tom.test('.explain({ files })', function () {
+test.set('.explain({ files })', async function () {
   const f = new Fixture('class-all')
-  return jsdoc.explain({ files: f.sourcePath })
-    .then(function (output) {
-      a.deepStrictEqual(output, f.getExpectedOutput(output))
-    })
+  const output = await jsdoc.explain({ files: f.sourcePath })
+  a.deepEqual(output, f.getExpectedOutput(output))
 })
 
-tom.test('.explain({ source })', function () {
+test.set('.explain({ source })', async function () {
   const f = new Fixture('class-all')
-  return jsdoc.explain({ source: f.getSource() })
-    .then(function (output) {
-      a.deepStrictEqual(output, f.getExpectedOutput(output))
-    })
+  const output = await jsdoc.explain({ source: f.getSource() })
+  a.deepEqual(output, f.getExpectedOutput(output))
 })
 
-tom.test(".explain: file doesn't exist", function () {
-  return jsdoc.explain({ files: 'sdfafafirifrj' })
-    .then(function () {
-      a.fail('should not reach here')
-    })
-    .catch(function (err) {
-      a.strictEqual(err.name, 'JSDOC_ERROR')
-    })
+test.set(".explain: file doesn't exist", async function () {
+  try {
+    await jsdoc.explain({ files: 'sdfafafirifrj' })
+    a.fail('should not reach here')
+  } catch (err) {
+    a.equal(err.name, 'JSDOC_ERROR')
+  }
 })
 
-tom.test('.explain: invalid doclet syntax', function () {
-  const input = path.resolve(__dirname, 'fixture', 'buggy', 'bad-doclet-syntax.js')
-  return jsdoc.explain({ files: input })
-    .then(function () {
-      a.fail('should not reach here')
-    })
-    .catch(function (err) {
-      a.strictEqual(err.name, 'JSDOC_ERROR')
-    })
+test.set('.explain: invalid doclet syntax', async function () {
+  const input = path.resolve('test', 'fixture', 'buggy', 'bad-doclet-syntax.js')
+  try {
+    await jsdoc.explain({ files: input })
+    a.fail('should not reach here')
+  } catch (err) {
+    a.equal(err.name, 'JSDOC_ERROR')
+  }
 })
 
-tom.test('.explain({ files }): generate a warning', function () {
+test.set('.explain({ files }): generate a warning', async function () {
   return jsdoc.explain({ files: 'test/fixture/buggy/ignore-with-value.js' })
 })
+
+export { test, only, skip }

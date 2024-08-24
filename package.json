@@ -7,6 +7,11 @@
     "type": "git",
     "url": "git+https://github.com/jsdoc2md/jsdoc-api.git"
   },
+  "type": "module",
+  "exports": {
+    "import": "./index.js",
+    "require": "./dist/index.cjs"
+  },
   "license": "MIT",
   "keywords": [
     "jsdoc",
@@ -20,22 +25,26 @@
     "node": ">=12.17"
   },
   "scripts": {
-    "test": "test-runner --max-file-concurrency 1 test/*.js",
-    "docs": "jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo"
-  },
-  "devDependencies": {
-    "collect-json": "^1.0.9",
-    "jsdoc-to-markdown": "^8.0.3",
-    "test-runner": "^0.10.1"
+    "test": "75lb-nature test test/*.js",
+    "docs": "75lb-nature jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo"
   },
   "dependencies": {
     "array-back": "^6.2.2",
     "cache-point": "^3.0.0",
-    "collect-all": "^1.0.4",
+    "current-module-paths": "^1.1.2",
     "file-set": "^4.0.2",
     "jsdoc": "^4.0.3",
     "object-to-spawn-args": "^2.0.1",
+    "stream-read-all": "^4.0.0",
     "walk-back": "^5.1.1"
+  },
+  "peerDependencies": {
+    "@75lb/nature": "^0.1.1"
+  },
+  "peerDependenciesMeta": {
+    "@75lb/nature": {
+      "optional": true
+    }
   },
   "standard": {
     "ignore": [

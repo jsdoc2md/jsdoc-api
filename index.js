@@ -2,23 +2,23 @@
  * @module jsdoc-api
  * @typicalname jsdoc
  */
-const path = require('path')
-const Cache = require('cache-point')
+import path from 'path'
+import Cache from 'cache-point'
+import Explain from './lib/explain.js'
+import RenderSync from './lib/render-sync.js'
+import arrayify from 'array-back'
+import os from 'node:os'
 
 /**
- * Returns jsdoc explain output.
- *
- * @param [options] {module:jsdoc-api~JsdocOptions}
- * @returns {object[]}
- * @static
- * @prerequisite Requires node v0.12 or above
+ * @external cache-point
+ * @see https://github.com/75lb/cache-point
  */
-function explainSync (options) {
-  options = new JsdocOptions(options)
-  const ExplainSync = require('./lib/explain-sync')
-  const command = new ExplainSync(options, exports.cache)
-  return command.execute()
-}
+
+/**
+  * The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()` or `.explainSync()`.
+  * @type {external:cache-point}
+  */
+const cache = new Cache({ dir: path.join(os.tmpdir(), 'jsdoc-api') })
 
 /**
  * Returns a promise for the jsdoc explain output.
@@ -28,10 +28,9 @@ function explainSync (options) {
  * @returns {Promise}
  * @static
  */
-function explain (options) {
+async function explain (options) {
   options = new JsdocOptions(options)
-  const Explain = require('./lib/explain')
-  const command = new Explain(options, exports.cache)
+  const command = new Explain(options, cache)
   return command.execute()
 }
 
@@ -46,7 +45,6 @@ function explain (options) {
  */
 function renderSync (options) {
   options = new JsdocOptions(options)
-  const RenderSync = require('./lib/render-sync')
   const command = new RenderSync(options)
   return command.execute()
 }
@@ -58,7 +56,6 @@ function renderSync (options) {
 class JsdocOptions {
   constructor (options) {
     options = options || {}
-    const arrayify = require('array-back')
 
     /**
      * One or more filenames to process. Either this or `source` must be supplied.
@@ -153,16 +150,4 @@ class JsdocOptions {
   }
 }
 
-/**
- * @external cache-point
- * @see https://github.com/75lb/cache-point
- */
-
- exports.explainSync = explainSync
- exports.explain = explain
- exports.renderSync = renderSync
- /**
-  * The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()` or `.explainSync()`.
-  * @type {external:cache-point}
-  */
- exports.cache = new Cache({ dir: path.join(require('os').tmpdir(), 'jsdoc-api') })
+export { explain, renderSync, cache }
