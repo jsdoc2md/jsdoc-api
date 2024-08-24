@@ -2,7 +2,7 @@ const Tom = require('test-runner').Tom
 const jsdoc = require('../')
 const Fixture = require('./lib/fixture')
 const path = require('path')
-const fs = require('fs-then-native')
+const fs = require('fs')
 const a = require('assert')
 
 /* tests need to run sequentially as `jsdoc.cache` is shared between tests */
