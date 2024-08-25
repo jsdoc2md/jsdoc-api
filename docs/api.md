@@ -10,7 +10,7 @@
         * _inner_
             * [~JsdocOptions](#module_jsdoc-api--jsdoc..JsdocOptions)
                 * [.files](#module_jsdoc-api--jsdoc..JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-                * [.source](#module_jsdoc-api--jsdoc..JsdocOptions+source) : <code>string</code>
+                * [.source](#module_jsdoc-api--jsdoc..JsdocOptions+source) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
                 * [.cache](#module_jsdoc-api--jsdoc..JsdocOptions+cache) : <code>boolean</code>
                 * [.access](#module_jsdoc-api--jsdoc..JsdocOptions+access) : <code>string</code>
                 * [.configure](#module_jsdoc-api--jsdoc..JsdocOptions+configure) : <code>string</code>
@@ -67,7 +67,7 @@ The jsdoc options, common for all operations.
 
 * [~JsdocOptions](#module_jsdoc-api--jsdoc..JsdocOptions)
     * [.files](#module_jsdoc-api--jsdoc..JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-    * [.source](#module_jsdoc-api--jsdoc..JsdocOptions+source) : <code>string</code>
+    * [.source](#module_jsdoc-api--jsdoc..JsdocOptions+source) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
     * [.cache](#module_jsdoc-api--jsdoc..JsdocOptions+cache) : <code>boolean</code>
     * [.access](#module_jsdoc-api--jsdoc..JsdocOptions+access) : <code>string</code>
     * [.configure](#module_jsdoc-api--jsdoc..JsdocOptions+configure) : <code>string</code>
@@ -85,13 +85,13 @@ The jsdoc options, common for all operations.
 <a name="module_jsdoc-api--jsdoc..JsdocOptions+files"></a>
 
 ##### options.files : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-One or more filenames to process. Either this or `source` must be supplied.
+One or more filenames to process. Either `files`, `source` or `configure` must be supplied.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api--jsdoc..JsdocOptions)  
 <a name="module_jsdoc-api--jsdoc..JsdocOptions+source"></a>
 
-##### options.source : <code>string</code>
-A string containing source code to process. Either this or `files` must be supplied.
+##### options.source : <code>string</code> \| <code>Array.&lt;string&gt;</code>
+A string or an array of strings containing source code to process. Either `files`, `source` or `configure` must be supplied.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api--jsdoc..JsdocOptions)  
 <a name="module_jsdoc-api--jsdoc..JsdocOptions+cache"></a>
@@ -109,7 +109,7 @@ Only display symbols with the given access: "public", "protected", "private" or 
 <a name="module_jsdoc-api--jsdoc..JsdocOptions+configure"></a>
 
 ##### options.configure : <code>string</code>
-The path to the configuration file. Default: path/to/jsdoc/conf.json.
+The path to the configuration file. Default: path/to/jsdoc/conf.json. Either `files`, `source` or `configure` must be supplied.
 
 **Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api--jsdoc..JsdocOptions)  
 <a name="module_jsdoc-api--jsdoc..JsdocOptions+destination"></a>

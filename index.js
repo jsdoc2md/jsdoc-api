@@ -63,14 +63,14 @@ class JsdocOptions {
     options = options || {}
 
     /**
-     * One or more filenames to process. Either this or `source` must be supplied.
+     * One or more filenames to process. Either `files`, `source` or `configure` must be supplied.
      * @type {string|string[]}
      */
     this.files = arrayify(options.files)
 
     /**
-     * A string containing source code to process. Either this or `files` must be supplied.
-     * @type {string}
+     * A string or an array of strings containing source code to process. Either `files`, `source` or `configure` must be supplied.
+     * @type {string|string[]}
      */
     this.source = options.source
 
@@ -88,7 +88,7 @@ class JsdocOptions {
     this.access = options.access
 
     /**
-     * The path to the configuration file. Default: path/to/jsdoc/conf.json.
+     * The path to the configuration file. Default: path/to/jsdoc/conf.json. Either `files`, `source` or `configure` must be supplied.
      * @type {string}
      */
     this.configure = options.configure
