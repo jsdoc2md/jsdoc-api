@@ -42,7 +42,10 @@ test.set('.explain({ files }): generate a warning', async function () {
 })
 
 test.set('.explain({ files }): files is empty', async function () {
-  return jsdoc.explain({ files: [] })
+  a.rejects(
+    () => jsdoc.explain({ files: [] }),
+    /Must set either .files or .source/
+  )
 })
 
 export { test, only, skip }
