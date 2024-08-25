@@ -15,38 +15,41 @@ import os from 'node:os'
  */
 
 /**
-  * The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()` or `.explainSync()`.
+  * The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()`.
   * @type {external:cache-point}
   */
 const cache = new Cache({ dir: path.join(os.tmpdir(), 'jsdoc-api') })
 
 /**
- * Returns a promise for the jsdoc explain output.
- *
- * @param [options] {module:jsdoc-api~JsdocOptions}
- * @fulfil {object[]} - jsdoc explain output
- * @returns {Promise}
- * @static
+ * @alias module:jsdoc-api
  */
-async function explain (options) {
-  options = new JsdocOptions(options)
-  const command = new Explain(options, cache)
-  return command.execute()
-}
+const jsdoc = {
+  /**
+   * Returns a promise for the jsdoc explain output.
+   *
+   * @param [options] {module:jsdoc-api~JsdocOptions}
+   * @fulfil {object[]} - jsdoc explain output
+   * @returns {Promise}
+   */
+  async explain (options) {
+    options = new JsdocOptions(options)
+    const command = new Explain(options, cache)
+    return command.execute()
+  },
 
-/**
- * Render jsdoc documentation.
- *
- * @param [options] {module:jsdoc-api~JsdocOptions}
- * @prerequisite Requires node v0.12 or above
- * @static
- * @example
- * await jsdoc.render({ files: 'lib/*', destination: 'api-docs' })
- */
-async function render (options) {
-  options = new JsdocOptions(options)
-  const command = new Render(options)
-  return command.execute()
+  /**
+   * Render jsdoc documentation.
+   *
+   * @param [options] {module:jsdoc-api~JsdocOptions}
+   * @prerequisite Requires node v0.12 or above
+   * @example
+   * await jsdoc.render({ files: 'lib/*', destination: 'api-docs' })
+   */
+  async render (options) {
+    options = new JsdocOptions(options)
+    const command = new Render(options)
+    return command.execute()
+  }
 }
 
 /**
@@ -150,5 +153,4 @@ class JsdocOptions {
   }
 }
 
-export default { explain, render, cache }
-export { explain, render, cache }
+export default jsdoc
