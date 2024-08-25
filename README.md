@@ -55,7 +55,7 @@ Typical output (truncated):
 ]
 ```
 
-As an alternative to passing in file names/globs (above), you can pass in a source code string.
+As an alternative to passing in file names/globs (above), you can pass in one or more source code strings.
 
 ```js
 import jsdoc from 'jsdoc-api'
@@ -89,7 +89,7 @@ Output:
 ]
 ```
 
-Finally, use the `render()` method to invocate jsdoc directly, generating your documentation. See the [example folder](https://github.com/jsdoc2md/jsdoc-api/tree/master/example) for code examples.
+Finally, use the `render()` method to invocate jsdoc directly, generating your documentation.
 
 ```js
 import jsdoc from 'jsdoc-api'
@@ -97,7 +97,7 @@ import jsdoc from 'jsdoc-api'
 await jsdoc.render({ files: ['index.js', 'lib/*.js'], destination: 'jsdoc-output' })
 ```
 
-See the [API documentation](https://github.com/jsdoc2md/jsdoc-api/blob/master/docs/api.md) for further details.
+See the [API documentation](https://github.com/jsdoc2md/jsdoc-api/blob/master/docs/api.md) for further details. See the [example folder](https://github.com/jsdoc2md/jsdoc-api/tree/master/example) for code examples.
 
 * * *
 
