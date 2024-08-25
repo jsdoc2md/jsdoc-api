@@ -25,4 +25,34 @@ test.set('.render({ source, destination })', async function () {
   })
 })
 
+test.set('.render({ source[], destination })', async function () {
+  Fixture.createTmpFolder('tmp/renderSource')
+  const sources = [
+    `import Foo from "foo"
+     /**
+      * FooPrime is some child class
+      * @class
+      * @param {Object} - an input
+      * @extends Foo
+      */
+     function FooPrime() {}
+     export default FooPrime
+  `,
+    `import Foo from "foo"
+    /**
+     * FooSecond is some other child class
+     * @class
+     * @param {Object} - an input
+     * @extends Foo
+     */
+    function FooSecond() {}
+    export default FooSecond
+  `]
+  await jsdoc.render({ source: sources, destination: 'tmp/renderSource/out' })
+  a.doesNotThrow(function () {
+    statSync('./tmp/renderSource/out/FooPrime.html')
+    statSync('./tmp/renderSource/out/FooSecond.html')
+  })
+})
+
 export { test, only, skip }
