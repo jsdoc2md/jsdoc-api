@@ -1,3 +1,3 @@
 import jsdoc from 'jsdoc-api'
 
-await jsdoc.render({ files: ['index.js'], destination: 'jsdoc-output' })
+await jsdoc.render({ files: ['.'], destination: 'jsdoc-output' })
