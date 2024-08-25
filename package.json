@@ -22,7 +22,7 @@
     "documentation"
   ],
   "engines": {
-    "node": ">=12.17"
+    "node": ">=20"
   },
   "scripts": {
     "test": "75lb-nature test-runner test/*.js",
