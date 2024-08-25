@@ -44,7 +44,7 @@ test.set('.explain({ files }): generate a warning', async function () {
 test.set('.explain({ files }): files is empty', async function () {
   a.rejects(
     () => jsdoc.explain({ files: [] }),
-    /Must set either .files or .source/
+    /Must set at least one of .files, .source or .configure/
   )
 })
 

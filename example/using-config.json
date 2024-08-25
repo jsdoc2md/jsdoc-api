@@ -1,0 +1,8 @@
+{
+    "source": {
+        "include": [ "example/using-config-input.js" ]
+    },
+    "opts": {
+        "destination": "./config-out/"
+    }
+}
