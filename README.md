@@ -89,7 +89,7 @@ Output:
 ]
 ```
 
-Finally, use the `render()` method to invocate jsdoc directly, generating your documentation.
+Finally, use the `render()` method to invocate jsdoc directly, generating your documentation. See the [example folder](https://github.com/jsdoc2md/jsdoc-api/tree/master/example) for code examples.
 
 ```js
 import jsdoc from 'jsdoc-api'
