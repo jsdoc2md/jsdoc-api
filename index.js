@@ -5,7 +5,7 @@
 import path from 'path'
 import Cache from 'cache-point'
 import Explain from './lib/explain.js'
-import RenderSync from './lib/render-sync.js'
+import Render from './lib/render.js'
 import arrayify from 'array-back'
 import os from 'node:os'
 
@@ -41,11 +41,11 @@ async function explain (options) {
  * @prerequisite Requires node v0.12 or above
  * @static
  * @example
- * jsdoc.renderSync({ files: 'lib/*', destination: 'api-docs' })
+ * await jsdoc.render({ files: 'lib/*', destination: 'api-docs' })
  */
-function renderSync (options) {
+async function render (options) {
   options = new JsdocOptions(options)
-  const command = new RenderSync(options)
+  const command = new Render(options)
   return command.execute()
 }
 
@@ -150,4 +150,4 @@ class JsdocOptions {
   }
 }
 
-export { explain, renderSync, cache }
+export { explain, render, cache }

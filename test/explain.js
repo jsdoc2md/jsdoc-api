@@ -41,4 +41,8 @@ test.set('.explain({ files }): generate a warning', async function () {
   return jsdoc.explain({ files: 'test/fixture/buggy/ignore-with-value.js' })
 })
 
+test.set('.explain({ files }): files is empty', async function () {
+  return jsdoc.explain({ files: [] })
+})
+
 export { test, only, skip }
