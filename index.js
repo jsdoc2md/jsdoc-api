@@ -24,6 +24,8 @@ const cache = new Cache({ dir: path.join(os.tmpdir(), 'jsdoc-api') })
  * @alias module:jsdoc-api
  */
 const jsdoc = {
+  cache,
+
   /**
    * Returns a promise for the jsdoc explain output.
    *

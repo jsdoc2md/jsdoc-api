@@ -54,6 +54,7 @@
   },
   "files": [
     "index.js",
-    "lib"
+    "lib",
+    "dist"
   ]
 }
