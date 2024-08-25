@@ -10,12 +10,12 @@
 A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a few features:
 
 - Asynchronous 'explain' and 'render documentation' methods (the two main jsdoc operations).
-- Input (source code) can supplied as a string or set of file names/globs.
+- Input (source code) can supplied as a string or set of file names and/or globs.
 - Optional caching, dramatically speeding up future invocations with the same input.
 
 ## Synopsis
 
-To output an array of json objects, each representing a doclet, use `.explain()`. Pass in an array of file names and/or glob expressions. The `cache: true` flag tells jsdoc-api to return the same output on future invocations if the input has not changed.
+To output an array of json objects, each representing a doclet, use [.explain()](https://github.com/jsdoc2md/jsdoc-api/blob/master/docs/api.md#module_jsdoc-api--jsdoc.explain). Pass in an array of file names and/or glob expressions. Use the `cache: true` flag for a faster, more efficient invocation (cached output from a prior invocation will be returned if the input has not changed).
 
 ```js
 import jsdoc from 'jsdoc-api'
@@ -96,6 +96,8 @@ import jsdoc from 'jsdoc-api'
 
 await jsdoc.render({ files: ['index.js', 'lib/*.js'], destination: 'jsdoc-output' })
 ```
+
+See the [API documentation](https://github.com/jsdoc2md/jsdoc-api/blob/master/docs/api.md) for further details.
 
 * * *
 
