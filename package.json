@@ -26,6 +26,7 @@
   },
   "scripts": {
     "test": "75lb-nature test-runner test/*.js",
+    "dist": "75lb-nature cjs-build index.js",
     "docs": "75lb-nature jsdoc2md -t jsdoc2md/README.hbs index.js lib/*.js > README.md; echo"
   },
   "dependencies": {
@@ -35,7 +36,6 @@
     "file-set": "^4.0.2",
     "jsdoc": "^4.0.3",
     "object-to-spawn-args": "^2.0.1",
-    "stream-read-all": "^4.0.0",
     "walk-back": "^5.1.1"
   },
   "peerDependencies": {

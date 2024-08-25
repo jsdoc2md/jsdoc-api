@@ -150,4 +150,5 @@ class JsdocOptions {
   }
 }
 
+export default { explain, render, cache }
 export { explain, render, cache }

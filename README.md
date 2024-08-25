@@ -46,7 +46,7 @@ A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a fe
 * [jsdoc-api](#module_jsdoc-api)
     * _static_
         * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
-        * [.renderSync([options])](#module_jsdoc-api.renderSync)
+        * [.render([options])](#module_jsdoc-api.render)
     * _inner_
         * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
             * [.files](#module_jsdoc-api..JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
@@ -78,9 +78,9 @@ Returns a promise for the jsdoc explain output.
 | --- | --- |
 | [options] | [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions) | 
 
-<a name="module_jsdoc-api.renderSync"></a>
+<a name="module_jsdoc-api.render"></a>
 
-### jsdoc.renderSync([options])
+### jsdoc.render([options])
 Render jsdoc documentation.
 
 **Kind**: static method of [<code>jsdoc-api</code>](#module_jsdoc-api)  
@@ -92,7 +92,7 @@ Render jsdoc documentation.
 
 **Example**  
 ```js
-jsdoc.renderSync({ files: 'lib/*', destination: 'api-docs' })
+await jsdoc.render({ files: 'lib/*', destination: 'api-docs' })
 ```
 <a name="module_jsdoc-api..JsdocOptions"></a>
 
