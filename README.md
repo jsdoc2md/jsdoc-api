@@ -5,6 +5,8 @@
 [![Node.js CI](https://github.com/jsdoc2md/jsdoc-api/actions/workflows/node.js.yml/badge.svg)](https://github.com/jsdoc2md/jsdoc-api/actions/workflows/node.js.yml)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
+***Upgraders, please check the [release notes](https://github.com/jsdoc2md/jsdoc-api/releases).***
+
 # jsdoc-api
 
 A programmatic interface for [jsdoc3](https://github.com/jsdoc3/jsdoc) with a few features:
