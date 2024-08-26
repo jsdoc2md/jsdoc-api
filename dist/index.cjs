@@ -1,12 +1,12 @@
 'use strict';
 
 var path$1 = require('path');
-var fs$1 = require('fs');
+var fs = require('fs');
 var os = require('os');
 var crypto = require('crypto');
+var fs$1 = require('node:fs');
 var node_url = require('node:url');
 var path$2 = require('node:path');
-var actualFS = require('node:fs');
 var promises = require('node:fs/promises');
 var node_events = require('node:events');
 var Stream = require('node:stream');
@@ -35,7 +35,7 @@ function _interopNamespaceDefault(e) {
   return Object.freeze(n);
 }
 
-var actualFS__namespace = /*#__PURE__*/_interopNamespaceDefault(actualFS);
+var fs__namespace = /*#__PURE__*/_interopNamespaceDefault(fs$1);
 
 /**
  * Takes any input and guarantees an array back.
@@ -124,7 +124,7 @@ class Cache {
   }
   set dir (val) {
     this._dir = val;
-    fs$1.mkdirSync(this.dir, { recursive: true });
+    fs.mkdirSync(this.dir, { recursive: true });
   }
 
   /**
@@ -135,7 +135,7 @@ class Cache {
    */
   async read (keys) {
     const blobPath = path$1.resolve(this._dir, this.getChecksum(keys));
-    return fs$1.promises.readFile(blobPath).then(JSON.parse)
+    return fs.promises.readFile(blobPath).then(JSON.parse)
   }
 
   /**
@@ -146,7 +146,7 @@ class Cache {
   readSync (keys) {
     const blobPath = path$1.resolve(this._dir, this.getChecksum(keys));
     try {
-      const data = fs$1.readFileSync(blobPath, 'utf8');
+      const data = fs.readFileSync(blobPath, 'utf8');
       return JSON.parse(data)
     } catch (err) {
       return null
@@ -161,7 +161,7 @@ class Cache {
    */
   async write (keys, content) {
     const blobPath = path$1.resolve(this._dir, this.getChecksum(keys));
-    return fs$1.promises.writeFile(blobPath, JSON.stringify(content))
+    return fs.promises.writeFile(blobPath, JSON.stringify(content))
   }
 
   /**
@@ -171,7 +171,7 @@ class Cache {
    */
   writeSync (keys, content) {
     const blobPath = path$1.resolve(this._dir, this.getChecksum(keys));
-    fs$1.writeFileSync(blobPath, JSON.stringify(content));
+    fs.writeFileSync(blobPath, JSON.stringify(content));
   }
 
   /**
@@ -190,8 +190,8 @@ class Cache {
    * @returns {Promise}
    */
   async clear () {
-    const files = await fs$1.promises.readdir(this._dir);
-    const promises = files.map(file => fs$1.promises.unlink(path$1.resolve(this._dir, file)));
+    const files = await fs.promises.readdir(this._dir);
+    const promises = files.map(file => fs.promises.unlink(path$1.resolve(this._dir, file)));
     return Promise.all(promises)
   }
 
@@ -201,14 +201,13 @@ class Cache {
    */
   async remove () {
     await this.clear();
-    return fs$1.promises.rmdir(this._dir)
+    return fs.promises.rmdir(this._dir)
   }
 }
 
 class TempFile {
   constructor (source) {
-    const tempDir = fs$1.mkdtempSync(path$1.join(os.tmpdir(), 'jsdoc-api-'));
-    this.path = path$1.join(tempDir, crypto.randomBytes(6).toString('hex') + '.js');
+    this.path = path$1.join(TempFile.tempFileDir, crypto.randomBytes(6).toString('hex') + '.js');
     fs$1.writeFileSync(this.path, source);
   }
 
@@ -218,6 +217,15 @@ class TempFile {
     } catch (err) {
       // already deleted
     }
+  }
+
+  static tempFileDir = path$1.join(os.homedir(), '.jsdoc-api/temp')
+  static cacheDir = path$1.join(os.homedir(), '.jsdoc-api/cache')
+
+  static createTmpDirs () {
+    /* No longer using os.tmpdir(). See: https://github.com/jsdoc2md/jsdoc-api/issues/19 */
+    fs$1.mkdirSync(TempFile.tempFileDir, { recursive: true });
+    fs$1.mkdirSync(TempFile.cacheDir, { recursive: true });
   }
 }
 
@@ -4822,12 +4830,12 @@ class Minipass extends node_events.EventEmitter {
     }
 }
 
-const realpathSync = fs$1.realpathSync.native;
+const realpathSync = fs.realpathSync.native;
 const defaultFS = {
-    lstatSync: fs$1.lstatSync,
-    readdir: fs$1.readdir,
-    readdirSync: fs$1.readdirSync,
-    readlinkSync: fs$1.readlinkSync,
+    lstatSync: fs.lstatSync,
+    readdir: fs.readdir,
+    readdirSync: fs.readdirSync,
+    readlinkSync: fs.readlinkSync,
     realpathSync,
     promises: {
         lstat: promises.lstat,
@@ -4837,7 +4845,7 @@ const defaultFS = {
     },
 };
 // if they just gave us require('fs') then use our default
-const fsFromOption = (fsOption) => !fsOption || fsOption === defaultFS || fsOption === actualFS__namespace ?
+const fsFromOption = (fsOption) => !fsOption || fsOption === defaultFS || fsOption === fs__namespace ?
     defaultFS
     : {
         ...defaultFS,
@@ -8131,7 +8139,7 @@ class FileSet {
     files = arrayify(files);
     for (const file of files) {
       try {
-        const stat = await actualFS.promises.stat(file);
+        const stat = await fs$1.promises.stat(file);
         if (stat.isFile() && !this.files.includes(file)) {
           this.files.push(file);
         } else if (stat.isDirectory() && !this.dirs.includes(file)) {
@@ -8205,14 +8213,14 @@ class FileSet {
  */
 function walkBack (startAt, lookingFor) {
   startAt = path$1.resolve(startAt);
-  if (fs$1.existsSync(startAt) && fs$1.statSync(startAt).isDirectory()) {
+  if (fs.existsSync(startAt) && fs.statSync(startAt).isDirectory()) {
     const dirs = path$1.resolve(startAt).split(path$1.sep);
     for (let i = 0; i < dirs.length; i++) {
       const basedir = i < dirs.length - 1
         ? dirs.slice(0, dirs.length - i).join(path$1.sep)
         : path$1.sep;
 
-      if (fs$1.existsSync(path$1.join(basedir, lookingFor))) {
+      if (fs.existsSync(path$1.join(basedir, lookingFor))) {
         return path$1.join(basedir, lookingFor)
       }
     }
@@ -8279,6 +8287,7 @@ class JsdocCommand {
     try {
       result = await this.getOutput();
     } finally {
+      /* run even if getOutput fails */
       if (this.tempFiles) {
         for (const tempFile of this.tempFiles) {
           tempFile.delete();
@@ -8349,8 +8358,16 @@ const exec = util.promisify(cp.exec);
 
 class Explain extends JsdocCommand {
   async getOutput () {
-    if (this.options.cache && !this.options.source) {
-      return this.readCache().catch(this._runJsdoc.bind(this))
+    if (this.options.cache && !this.options.source.length) {
+      try {
+        return await this.readCache()
+      } catch (err) {
+        if (err.code === 'ENOENT') {
+          return this._runJsdoc()
+        } else {
+          throw err
+        }
+      }
     } else {
       return this._runJsdoc()
     }
@@ -8363,7 +8380,7 @@ class Explain extends JsdocCommand {
 
     let jsdocOutput = { stdout: '', stderr: '' };
     try {
-      jsdocOutput = await exec(cmd);
+      jsdocOutput = await exec(cmd, { maxBuffer: 1024 * 1024 * 100 }); /* 100MB */
       const explainOutput = JSON.parse(jsdocOutput.stdout);
       if (this.options.cache) {
         await this.cache.write(this.cacheKey, explainOutput);
@@ -8380,7 +8397,12 @@ class Explain extends JsdocCommand {
 
   async readCache () {
     if (this.cache) {
-      const promises = this.inputFileSet.files.map(file => fs.readFile(file, 'utf8'));
+      /* Create the cache key then check the cache for a match, returning pre-generated output if so.
+      The current cache key is a union of the input file names plus their content - this could be expensive when processing a lot of files.
+      */
+      const promises = this.inputFileSet.files.map(file => {
+        return fs$1.promises.readFile(file, 'utf8')
+      });
       const contents = await Promise.all(promises);
       this.cacheKey = contents.concat(this.inputFileSet.files);
       return this.cache.read(this.cacheKey)
@@ -8408,16 +8430,17 @@ class Render extends JsdocCommand {
  * @typicalname jsdoc
  */
 
+TempFile.createTmpDirs();
+
 /**
  * @external cache-point
  * @see https://github.com/75lb/cache-point
  */
-
 /**
   * The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()`.
   * @type {external:cache-point}
   */
-const cache = new Cache({ dir: path$1.join(os$1.tmpdir(), 'jsdoc-api') });
+const cache = new Cache({ dir: TempFile.cacheDir });
 
 /**
  * @alias module:jsdoc-api
@@ -8459,7 +8482,6 @@ const jsdoc = {
  */
 class JsdocOptions {
   constructor (options = {}) {
-
     /**
      * One or more filenames to process. Either `files`, `source` or `configure` must be supplied.
      * @type {string|string[]}

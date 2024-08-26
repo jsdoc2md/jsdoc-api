@@ -1,6 +1,5 @@
 import jsdoc from 'jsdoc-api'
 import Fixture from './lib/fixture.js'
-import { statSync } from 'fs'
 import { strict as a } from 'assert'
 import path from 'path'
 

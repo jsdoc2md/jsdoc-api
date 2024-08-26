@@ -1,9 +1,8 @@
 import jsdoc from 'jsdoc-api'
 import Fixture from './lib/fixture.js'
-import { statSync } from 'fs'
+import { readdirSync, readFileSync } from 'fs'
 import { strict as a } from 'assert'
 import path from 'path'
-import { readdirSync, readFileSync } from 'fs'
 
 /* tests need to run with a maxConcurrency of 1 as `jsdoc.cache` is shared between tests */
 const [test, only, skip] = [new Map(), new Map(), new Map()]

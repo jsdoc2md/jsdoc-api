@@ -8,17 +8,19 @@ import Explain from './lib/explain.js'
 import Render from './lib/render.js'
 import arrayify from 'array-back'
 import os from 'node:os'
+import TempFile from './lib/temp-file.js'
+
+TempFile.createTmpDirs()
 
 /**
  * @external cache-point
  * @see https://github.com/75lb/cache-point
  */
-
 /**
   * The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()`.
   * @type {external:cache-point}
   */
-const cache = new Cache({ dir: path.join(os.tmpdir(), 'jsdoc-api') })
+const cache = new Cache({ dir: TempFile.cacheDir })
 
 /**
  * @alias module:jsdoc-api
@@ -60,7 +62,6 @@ const jsdoc = {
  */
 class JsdocOptions {
   constructor (options = {}) {
-
     /**
      * One or more filenames to process. Either `files`, `source` or `configure` must be supplied.
      * @type {string|string[]}
