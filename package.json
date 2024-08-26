@@ -1,7 +1,7 @@
 {
   "name": "jsdoc-api",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "description": "A programmatic interface for jsdoc",
   "repository": {
     "type": "git",
