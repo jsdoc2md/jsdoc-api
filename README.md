@@ -94,7 +94,7 @@ Finally, use the `render()` method to invocate jsdoc directly, generating your d
 ```js
 import jsdoc from 'jsdoc-api'
 
-await jsdoc.render({ files: ['index.js', 'lib/*.js'], destination: 'jsdoc-output' })
+await jsdoc.render({ files: ['index.js', 'lib/something.js'], destination: 'jsdoc-output' })
 ```
 
 See the [API documentation](https://github.com/jsdoc2md/jsdoc-api/blob/master/docs/api.md) for further details. See the [example folder](https://github.com/jsdoc2md/jsdoc-api/tree/master/example) for code examples.

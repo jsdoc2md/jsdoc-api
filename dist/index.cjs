@@ -5,17 +5,17 @@ var fs$1 = require('fs');
 var os = require('os');
 var crypto = require('crypto');
 var node_url = require('node:url');
-var node_path = require('node:path');
+var path$2 = require('node:path');
 var actualFS = require('node:fs');
 var promises = require('node:fs/promises');
 var node_events = require('node:events');
 var Stream = require('node:stream');
 var node_string_decoder = require('node:string_decoder');
+var os$1 = require('node:os');
 var assert = require('assert');
 var url = require('url');
 var cp = require('child_process');
 var util = require('node:util');
-var os$1 = require('node:os');
 
 var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
 function _interopNamespaceDefault(e) {
@@ -5992,7 +5992,7 @@ class PathWin32 extends PathBase {
      * @internal
      */
     getRootString(path) {
-        return node_path.win32.parse(path).root;
+        return path$2.win32.parse(path).root;
     }
     /**
      * @internal
@@ -6700,7 +6700,7 @@ class PathScurryWin32 extends PathScurryBase {
     sep = '\\';
     constructor(cwd = process.cwd(), opts = {}) {
         const { nocase = true } = opts;
-        super(cwd, node_path.win32, '\\', { ...opts, nocase });
+        super(cwd, path$2.win32, '\\', { ...opts, nocase });
         this.nocase = nocase;
         for (let p = this.cwd; p; p = p.parent) {
             p.nocase = this.nocase;
@@ -6713,7 +6713,7 @@ class PathScurryWin32 extends PathScurryBase {
         // if the path starts with a single separator, it's not a UNC, and we'll
         // just get separator as the root, and driveFromUNC will return \
         // In that case, mount \ on the root from the cwd.
-        return node_path.win32.parse(dir).root.toUpperCase();
+        return path$2.win32.parse(dir).root.toUpperCase();
     }
     /**
      * @internal
@@ -6742,7 +6742,7 @@ class PathScurryPosix extends PathScurryBase {
     sep = '/';
     constructor(cwd = process.cwd(), opts = {}) {
         const { nocase = false } = opts;
-        super(cwd, node_path.posix, '/', { ...opts, nocase });
+        super(cwd, path$2.posix, '/', { ...opts, nocase });
         this.nocase = nocase;
     }
     /**
@@ -8135,15 +8135,18 @@ class FileSet {
         if (stat.isFile() && !this.files.includes(file)) {
           this.files.push(file);
         } else if (stat.isDirectory() && !this.dirs.includes(file)) {
-          this.dirs.push(file.endsWith('/') ? file : `${file}/`);
+          this.dirs.push(file.endsWith(path$2.sep) ? file : `${file}${path$2.sep}`);
         }
       } catch (err) {
         if (err.code === 'ENOENT') {
-          if (glob.hasMagic(file)) {
-            const found = await glob(file, { mark: true });
+          const posixPath = os$1.platform() === 'win32'
+            ? file.replaceAll(path$2.sep, path$2.posix.sep)
+            : file;
+          if (glob.hasMagic(posixPath)) {
+            const found = await glob(posixPath, { mark: true });
             if (found.length) {
               for (const match of found) {
-                if (match.endsWith('/')) {
+                if (match.endsWith(path$2.sep)) {
                   if (!this.dirs.includes(match)) this.dirs.push(match);
                 } else {
                   if (!this.files.includes(match)) this.files.push(match);
@@ -8262,6 +8265,9 @@ class JsdocCommand {
   async execute () {
     this.inputFileSet = new FileSet();
     await this.inputFileSet.add(this.options.files);
+    /* node-glob v9+ (used by file-set) no longer sorts the output by default. We will continue to sort the file list, for now, as it's what the user expected by default. The user's system locale is used. */
+    const collator = new Intl.Collator();
+    this.inputFileSet.files.sort(collator.compare);
 
     if (this.options.source.length) {
       this.tempFiles = this.options.source.map(source => new TempFile(source));
@@ -8351,7 +8357,6 @@ class Explain extends JsdocCommand {
   }
 
   async _runJsdoc () {
-    // console.log('SKDJKLAHS', this.options, this.tempFileSet?.files, this.inputFileSet.files)
     const cmd = this.options.source.length
       ? `node ${this.jsdocPath} ${toSpawnArgs$1(this.jsdocOptions).join(' ')} -X ${this.tempFileSet.files.join(' ')}`
       : `node ${this.jsdocPath} ${toSpawnArgs$1(this.jsdocOptions).join(' ')} -X ${this.inputFileSet.files.join(' ')}`;
@@ -8453,8 +8458,7 @@ const jsdoc = {
  * @typicalname options
  */
 class JsdocOptions {
-  constructor (options) {
-    options = options || {};
+  constructor (options = {}) {
 
     /**
      * One or more filenames to process. Either `files`, `source` or `configure` must be supplied.
@@ -8534,6 +8538,12 @@ class JsdocOptions {
      * @type {string}
      */
     this.readme = options.readme;
+
+    /* Warning to avoid a common mistake where dmd templates are passed in.. a jsdoc template must be a filename. */
+    if (options.template !== undefined && options.template?.split(/\r?\n/)?.length !== 1) {
+      console.warn('Suspicious `options.template` value - the jsdoc `template` option must be a file path.');
+      console.warn(options.template);
+    }
 
     /**
      * The path to the template to use. Default: path/to/jsdoc/templates/default.
