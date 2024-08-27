@@ -99,6 +99,13 @@ import jsdoc from 'jsdoc-api'
 await jsdoc.render({ files: ['index.js', 'lib/something.js'], destination: 'jsdoc-output' })
 ```
 
+If you need to use a specific `jsdoc` version or fork, specify its path via `JSDOC_PATH` and jsdoc-api will use it instead of the default.
+
+```sh
+$ export JSDOC_PATH=./node_modules/.bin/jsdoc # An alternative jsdoc version you installed
+$ node my-jsdoc-api-script.js                 # Run your jsdoc-api app as usual
+```
+
 See the [API documentation](https://github.com/jsdoc2md/jsdoc-api/blob/master/docs/api.md) for further details. See the [example folder](https://github.com/jsdoc2md/jsdoc-api/tree/master/example) for code examples.
 
 * * *
