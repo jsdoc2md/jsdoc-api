@@ -8264,7 +8264,7 @@ class JsdocCommand {
     this.options = options;
     this.jsdocOptions = jsdocOptions;
 
-    this.jsdocPath = walkBack(
+    this.jsdocPath = process.env.JSDOC_PATH || walkBack(
       path$1.join(__dirname$1, '..'),
       path$1.join('node_modules', 'jsdoc', 'jsdoc.js')
     );
