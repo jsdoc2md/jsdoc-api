@@ -22,7 +22,7 @@
     "documentation"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=12.17"
   },
   "scripts": {
     "test": "npm run dist && npm run test:ci",
@@ -34,13 +34,13 @@
     "array-back": "^6.2.2",
     "cache-point": "^3.0.0",
     "current-module-paths": "^1.1.2",
-    "file-set": "^6.0.1",
+    "file-set": "^5.2.0",
     "jsdoc": "^4.0.3",
     "object-to-spawn-args": "^2.0.1",
     "walk-back": "^5.1.1"
   },
   "peerDependencies": {
-    "@75lb/nature": "^0.1.3"
+    "@75lb/nature": "latest"
   },
   "peerDependenciesMeta": {
     "@75lb/nature": {

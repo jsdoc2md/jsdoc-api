@@ -2,12 +2,10 @@
  * @module jsdoc-api
  * @typicalname jsdoc
  */
-import path from 'path'
 import Cache from 'cache-point'
 import Explain from './lib/explain.js'
 import Render from './lib/render.js'
 import arrayify from 'array-back'
-import os from 'node:os'
 import TempFile from './lib/temp-file.js'
 
 TempFile.createTmpDirs()
