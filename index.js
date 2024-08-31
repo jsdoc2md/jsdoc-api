@@ -140,7 +140,7 @@ class JsdocOptions {
     this.readme = options.readme
 
     /* Warning to avoid a common mistake where dmd templates are passed in.. a jsdoc template must be a filename. */
-    if (options.template !== undefined && options.template?.split(/\r?\n/)?.length !== 1) {
+    if (typeof options.template === 'string' && options.template.split(/\r?\n/).length !== 1) {
       console.warn('Suspicious `options.template` value - the jsdoc `template` option must be a file path.')
       console.warn(options.template)
     }

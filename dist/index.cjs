@@ -43,12 +43,12 @@ const { __dirname: __dirname$1 } = currentModulePaths((typeof document === 'unde
 
 class JsdocCommand {
   constructor (options = {}, cache) {
-    assert.ok(
-      options.files?.length || options.source || options.configure,
-      'Must set at least one of .files, .source or .configure'
-    );
     options.files = arrayify(options.files);
     options.source = arrayify(options.source);
+    assert.ok(
+      options.files.length || options.source.length || options.configure,
+      'Must set at least one of .files, .source or .configure'
+    );
 
     this.cache = cache;
     this.tempFiles = [];
@@ -308,7 +308,7 @@ class JsdocOptions {
     this.readme = options.readme;
 
     /* Warning to avoid a common mistake where dmd templates are passed in.. a jsdoc template must be a filename. */
-    if (options.template !== undefined && options.template?.split(/\r?\n/)?.length !== 1) {
+    if (typeof options.template === 'string' && options.template.split(/\r?\n/).length !== 1) {
       console.warn('Suspicious `options.template` value - the jsdoc `template` option must be a file path.');
       console.warn(options.template);
     }

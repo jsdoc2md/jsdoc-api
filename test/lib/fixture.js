@@ -26,7 +26,8 @@ class Fixture {
   static createTmpFolder (folder) {
     try {
       fs.statSync(folder)
-      fs.rmSync(folder, { recursive: true })
+      /* rmdirSync is node v12 friendly */
+      fs.rmdirSync(folder, { recursive: true })
       fs.mkdirSync(folder)
     } catch (err) {
       fs.mkdirSync(folder)
