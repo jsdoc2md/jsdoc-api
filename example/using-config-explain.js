@@ -1,8 +1,17 @@
 import jsdoc from 'jsdoc-api'
-import util from 'node:util'
-util.inspect.defaultOptions.depth = 6
-util.inspect.defaultOptions.breakLength = process.stdout.columns
-util.inspect.defaultOptions.maxArrayLength = Infinity
 
 const data = await jsdoc.explain({ cache: true, configure: './example/using-config.json' })
 console.log(data)
+
+/*
+The `using-config.json` file looks like this:
+
+{
+  "source": {
+    "include": [ "example/using-config-input.js" ]
+  },
+  "opts": {
+    "destination": "./config-out/"
+  }
+}
+ */
