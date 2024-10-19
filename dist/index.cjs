@@ -39,7 +39,7 @@ class TempFile {
   }
 }
 
-const { __dirname: __dirname$1 } = currentModulePaths((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.src || new URL('index.cjs', document.baseURI).href)));
+const { __dirname: __dirname$1 } = currentModulePaths((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('index.cjs', document.baseURI).href)));
 
 class JsdocCommand {
   constructor (options = {}, cache) {
@@ -68,7 +68,7 @@ class JsdocCommand {
 
     this.jsdocPath = process.env.JSDOC_PATH || walkBack(
       path.join(__dirname$1, '..'),
-      path.join('node_modules', 'jsdoc', 'jsdoc.js')
+      path.join('node_modules', '@75lb', 'jsdoc-node23-fix', 'jsdoc.js')
     );
   }
 
