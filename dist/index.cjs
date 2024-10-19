@@ -68,7 +68,7 @@ class JsdocCommand {
 
     this.jsdocPath = process.env.JSDOC_PATH || walkBack(
       path.join(__dirname$1, '..'),
-      path.join('node_modules', '@75lb', 'jsdoc-node23-fix', 'jsdoc.js')
+      path.join('node_modules', 'jsdoc', 'jsdoc.js')
     );
   }
 

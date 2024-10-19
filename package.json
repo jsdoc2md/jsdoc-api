@@ -31,11 +31,11 @@
     "docs": "75lb-nature jsdoc2md index.js lib/*.js > docs/api.md"
   },
   "dependencies": {
-    "@75lb/jsdoc-node23-fix": "^4.0.3",
     "array-back": "^6.2.2",
     "cache-point": "^3.0.0",
     "current-module-paths": "^1.1.2",
     "file-set": "^5.2.2",
+    "jsdoc": "^4.0.4",
     "object-to-spawn-args": "^2.0.1",
     "walk-back": "^5.1.1"
   },
