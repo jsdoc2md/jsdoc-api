@@ -13,7 +13,6 @@ var currentModulePaths = require('current-module-paths');
 var toSpawnArgs = require('object-to-spawn-args');
 var cp = require('child_process');
 var util = require('node:util');
-var streamReadAll = require('stream-read-all');
 
 var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
 class TempFile {
@@ -121,6 +120,53 @@ class Explain extends JsdocCommand {
   }
 
   async _runJsdoc () {
+    const jsdocArgs = [
+      this.jsdocPath,
+      ...toSpawnArgs(this.jsdocOptions),
+      '-X',
+      ...(this.options.source.length ? this.tempFileSet.files : this.inputFileSet.files)
+    ];
+    let jsdocOutput = { stdout: '', stderr: '' };
+
+    const code = await new Promise((resolve, reject) => {
+      const handle = cp.spawn('node', jsdocArgs);
+      handle.stdout.setEncoding('utf8');
+      handle.stderr.setEncoding('utf8');
+      handle.stdout.on('data', chunk => {
+        jsdocOutput.stdout += chunk;
+      });
+      handle.stderr.on('data', chunk => {
+        jsdocOutput.stderr += chunk;
+      });
+      handle.on('exit', (code) => {
+        resolve(code);
+      });
+      handle.on('error', reject);
+    });
+    // console.log(handle.stdout.closed, handle.stdout.isPaused(), handle.stdout.readable, handle.stdout.destroyed, handle.stdout.errorer, handle.stdout.readableEnded)
+    // jsdocOutput.stdout = await streamReadText(handle.stdout)
+    // jsdocOutput.stderr = await streamReadText(handle.stderr)
+    // console.log(jsdocOutput)
+    try {
+      if (code > 0) {
+        throw new Error('jsdoc exited with non-zero code: ' + code)
+      } else {
+        const explainOutput = JSON.parse(jsdocOutput.stdout);
+        if (this.options.cache) {
+          await this.cache.write(this.cacheKey, explainOutput);
+        }
+        return explainOutput
+      }
+    } catch (err) {
+      const firstLineOfStdout = jsdocOutput.stdout.split(/\r?\n/)[0];
+      const jsdocErr = new Error(jsdocOutput.stderr.trim() || firstLineOfStdout || 'Jsdoc failed.');
+      jsdocErr.name = 'JSDOC_ERROR';
+      jsdocErr.cause = err;
+      throw jsdocErr
+    }
+  }
+
+  async _runJsdoc1 () {
     return new Promise((resolve, reject) => {
       const jsdocArgs = [
         this.jsdocPath,
@@ -130,8 +176,8 @@ class Explain extends JsdocCommand {
       ];
       let jsdocOutput = { stdout: '', stderr: '' };
       const handle = cp.spawn('node', jsdocArgs);
-      streamReadAll.streamReadText(handle.stdout).then(stdout => jsdocOutput.stdout = stdout);
-      streamReadAll.streamReadText(handle.stderr).then(stderr => jsdocOutput.stderr = stderr);
+      streamReadText(handle.stdout).then(stdout => jsdocOutput.stdout = stdout);
+      streamReadText(handle.stderr).then(stderr => jsdocOutput.stderr = stderr);
       handle.on('close', (code) => {
         try {
           if (code > 0) {
