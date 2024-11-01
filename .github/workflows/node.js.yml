@@ -4,7 +4,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, next ]
   pull_request:
     branches: [ master ]
 
@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest] # Remove windows as tests fail on `\r\n` style newlines
+        os: [ubuntu-latest, windows-latest]
         node-version: [12, 14, 16, 18, 20, 22, 23]
 
     steps:
@@ -26,5 +26,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
-    - run: npm i -g @75lb/nature
+    - run: npm i -D @75lb/nature
     - run: npm run test:ci
+

@@ -44,6 +44,16 @@ class Fixture {
       }
     })
   }
+
+  static normaliseNewLines (doclets) {
+    const input = JSON.stringify(doclets, null, '  ')
+    /* Normalise all newlines to posix style to avoid differences while testing on Windows */
+    let result = input.replace(/\\r?\\n/gm, '\\n')
+    /* Additional check for naked \r characters created by jsdoc */
+    /* See: https://github.com/jsdoc2md/dmd/issues/102 */
+    result = result.replace(/\\r(?!\\n)/g, '\\n')
+    return JSON.parse(result)
+  }
 }
 
 export default Fixture

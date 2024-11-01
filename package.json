@@ -26,7 +26,7 @@
   },
   "scripts": {
     "test": "npm run dist && npm run test:ci",
-    "test:ci": "75lb-nature test-runner test/*.js",
+    "test:ci": "75lb-nature test-runner test/caching.js test/explain.js test/render.js",
     "dist": "75lb-nature cjs-build index.js",
     "docs": "75lb-nature jsdoc2md index.js lib/*.js > docs/api.md"
   },
