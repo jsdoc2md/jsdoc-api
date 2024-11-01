@@ -20,7 +20,8 @@ only.set('.explain({ files, cache: true  })', async function () {
   const cachedFiles = readdirSync(jsdoc.cache.dir).map(file => path.resolve(jsdoc.cache.dir, file))
   a.equal(cachedFiles.length, 1)
   a.deepEqual(output, f.getExpectedOutput(output))
-  const cachedData = JSON.parse(readFileSync(cachedFiles[0], 'utf8'))
+  let cachedData = JSON.parse(readFileSync(cachedFiles[0], 'utf8'))
+  cachedData = Fixture.normaliseNewLines(cachedData)
   Fixture.removeFileSpecificData(cachedData)
   a.deepEqual(
     cachedData,
