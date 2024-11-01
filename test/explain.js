@@ -49,4 +49,11 @@ test.set('.explain({ files }): files is empty', async function () {
   )
 })
 
+test.set('Spaces in jsdoc command path', async function () {
+  process.env.JSDOC_PATH = 'test/fixture/folder with spaces/jsdoc'
+  const f = new Fixture('class-all')
+  let output = await jsdoc.explain({ files: f.sourcePath })
+  a.ok(/a class with all of the things/.test(JSON.stringify(output)))
+})
+
 export { test, only, skip }
