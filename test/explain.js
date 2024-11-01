@@ -7,13 +7,15 @@ const [test, only, skip] = [new Map(), new Map(), new Map()]
 
 test.set('.explain({ files })', async function () {
   const f = new Fixture('class-all')
-  const output = await jsdoc.explain({ files: f.sourcePath })
+  let output = await jsdoc.explain({ files: f.sourcePath })
+  output = Fixture.normaliseNewLines(output)
   a.deepEqual(output, f.getExpectedOutput(output))
 })
 
 test.set('.explain({ source })', async function () {
   const f = new Fixture('class-all')
-  const output = await jsdoc.explain({ source: f.getSource() })
+  let output = await jsdoc.explain({ source: f.getSource() })
+  output = Fixture.normaliseNewLines(output)
   a.deepEqual(output, f.getExpectedOutput(output))
 })
 
