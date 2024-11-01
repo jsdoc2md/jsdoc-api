@@ -13,6 +13,7 @@ var currentModulePaths = require('current-module-paths');
 var toSpawnArgs = require('object-to-spawn-args');
 var cp = require('child_process');
 var util = require('node:util');
+var streamReadAll = require('stream-read-all');
 
 var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
 class TempFile {
@@ -100,7 +101,7 @@ class JsdocCommand {
   }
 }
 
-const exec = util.promisify(cp.exec);
+util.promisify(cp.exec);
 
 class Explain extends JsdocCommand {
   async getOutput () {
@@ -120,25 +121,38 @@ class Explain extends JsdocCommand {
   }
 
   async _runJsdoc () {
-    const cmd = this.options.source.length
-      ? `node "${this.jsdocPath}" ${toSpawnArgs(this.jsdocOptions).join(' ')} -X ${this.tempFileSet.files.join(' ')}`
-      : `node "${this.jsdocPath}" ${toSpawnArgs(this.jsdocOptions).join(' ')} -X ${this.inputFileSet.files.join(' ')}`;
-
-    let jsdocOutput = { stdout: '', stderr: '' };
-    try {
-      jsdocOutput = await exec(cmd, { maxBuffer: 1024 * 1024 * 100 }); /* 100MB */
-      const explainOutput = JSON.parse(jsdocOutput.stdout);
-      if (this.options.cache) {
-        await this.cache.write(this.cacheKey, explainOutput);
-      }
-      return explainOutput
-    } catch (err) {
-      const firstLineOfStdout = jsdocOutput.stdout.split(/\r?\n/)[0];
-      const jsdocErr = new Error(jsdocOutput.stderr.trim() || firstLineOfStdout || 'Jsdoc failed.');
-      jsdocErr.name = 'JSDOC_ERROR';
-      jsdocErr.cause = err;
-      throw jsdocErr
-    }
+    return new Promise((resolve, reject) => {
+      const jsdocArgs = [
+        this.jsdocPath,
+        ...toSpawnArgs(this.jsdocOptions),
+        '-X',
+        ...(this.options.source.length ? this.tempFileSet.files : this.inputFileSet.files)
+      ];
+      let jsdocOutput = { stdout: '', stderr: '' };
+      const handle = cp.spawn('node', jsdocArgs);
+      streamReadAll.streamReadText(handle.stdout).then(stdout => jsdocOutput.stdout = stdout);
+      streamReadAll.streamReadText(handle.stderr).then(stderr => jsdocOutput.stderr = stderr);
+      handle.on('close', (code) => {
+        try {
+          if (code > 0) {
+            throw new Error('jsdoc exited with non-zero code: ' + code)
+          } else {
+            const explainOutput = JSON.parse(jsdocOutput.stdout);
+            if (this.options.cache) {
+              this.cache.write(this.cacheKey, explainOutput).then(() => resolve(explainOutput));
+            } else {
+              resolve(explainOutput);
+            }
+          }
+        } catch (err) {
+          const firstLineOfStdout = jsdocOutput.stdout.split(/\r?\n/)[0];
+          const jsdocErr = new Error(jsdocOutput.stderr.trim() || firstLineOfStdout || 'Jsdoc failed.');
+          jsdocErr.name = 'JSDOC_ERROR';
+          jsdocErr.cause = err;
+          reject(jsdocErr);
+        }
+      });
+    })
   }
 
   async readCache () {
