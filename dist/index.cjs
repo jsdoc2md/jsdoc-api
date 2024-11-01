@@ -143,10 +143,6 @@ class Explain extends JsdocCommand {
       });
       handle.on('error', reject);
     });
-    // console.log(handle.stdout.closed, handle.stdout.isPaused(), handle.stdout.readable, handle.stdout.destroyed, handle.stdout.errorer, handle.stdout.readableEnded)
-    // jsdocOutput.stdout = await streamReadText(handle.stdout)
-    // jsdocOutput.stderr = await streamReadText(handle.stderr)
-    // console.log(jsdocOutput)
     try {
       if (code > 0) {
         throw new Error('jsdoc exited with non-zero code: ' + code)
@@ -164,41 +160,6 @@ class Explain extends JsdocCommand {
       jsdocErr.cause = err;
       throw jsdocErr
     }
-  }
-
-  async _runJsdoc1 () {
-    return new Promise((resolve, reject) => {
-      const jsdocArgs = [
-        this.jsdocPath,
-        ...toSpawnArgs(this.jsdocOptions),
-        '-X',
-        ...(this.options.source.length ? this.tempFileSet.files : this.inputFileSet.files)
-      ];
-      let jsdocOutput = { stdout: '', stderr: '' };
-      const handle = cp.spawn('node', jsdocArgs);
-      streamReadText(handle.stdout).then(stdout => jsdocOutput.stdout = stdout);
-      streamReadText(handle.stderr).then(stderr => jsdocOutput.stderr = stderr);
-      handle.on('close', (code) => {
-        try {
-          if (code > 0) {
-            throw new Error('jsdoc exited with non-zero code: ' + code)
-          } else {
-            const explainOutput = JSON.parse(jsdocOutput.stdout);
-            if (this.options.cache) {
-              this.cache.write(this.cacheKey, explainOutput).then(() => resolve(explainOutput));
-            } else {
-              resolve(explainOutput);
-            }
-          }
-        } catch (err) {
-          const firstLineOfStdout = jsdocOutput.stdout.split(/\r?\n/)[0];
-          const jsdocErr = new Error(jsdocOutput.stderr.trim() || firstLineOfStdout || 'Jsdoc failed.');
-          jsdocErr.name = 'JSDOC_ERROR';
-          jsdocErr.cause = err;
-          reject(jsdocErr);
-        }
-      });
-    })
   }
 
   async readCache () {
