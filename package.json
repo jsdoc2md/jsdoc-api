@@ -32,9 +32,9 @@
   },
   "dependencies": {
     "array-back": "^6.2.2",
-    "cache-point": "^3.0.0",
+    "cache-point": "^3.0.1",
     "current-module-paths": "^1.1.2",
-    "file-set": "^5.2.2",
+    "file-set": "^5.3.0",
     "jsdoc": "^4.0.4",
     "object-to-spawn-args": "^2.0.1",
     "walk-back": "^5.1.1"
