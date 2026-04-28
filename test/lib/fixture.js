@@ -26,11 +26,19 @@ class Fixture {
   static createTmpFolder (folder) {
     try {
       fs.statSync(folder)
-      /* rmdirSync is node v12 friendly */
-      fs.rmdirSync(folder, { recursive: true })
+      /* rmdirSync supports v12 but was removed in v25.. rmSync is supported in v15 onward. */
+      if (Number(process.versions.node.split('.')[0]) >= 15) {
+        fs.rmSync(folder, { recursive: true, force: true })
+      } else {
+        fs.rmdirSync(folder, { recursive: true })
+      }
       fs.mkdirSync(folder)
     } catch (err) {
-      fs.mkdirSync(folder)
+      if (err.code === 'ENOENT') {
+        fs.mkdirSync(folder)
+      } else {
+        throw err
+      }
     }
   }
 
